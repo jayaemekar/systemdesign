@@ -12,6 +12,8 @@ nav:
     - Redundancy and Replication: RedundancyReplication.md
     - SQL vs. NoSQL: SQLvsNoSQL.md
     - CAP Theorem: CAPTheorem.md
+    - Consistent Hashing: ConsistentHashing.md
+    - Long-Polling vs WebSockets vs Server-Sent Events: Events.md
     - About: about.md
 
 
