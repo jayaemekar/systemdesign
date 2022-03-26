@@ -6,7 +6,22 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://systemdesignbyjayaa.com/Caching/</loc>
+         <lastmod>2022-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://systemdesignbyjayaa.com/DataPartitioning/</loc>
+         <lastmod>2022-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://systemdesignbyjayaa.com/KeyCharDistributedSystem/</loc>
+         <lastmod>2022-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://systemdesignbyjayaa.com/LoadBalancing/</loc>
          <lastmod>2022-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>

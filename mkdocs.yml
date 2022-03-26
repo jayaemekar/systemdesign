@@ -4,6 +4,10 @@ nav:
     - Home: index.md
     - System Design Basic: SystemDesignBasic.md
     - Key Characteristics of Distributed Systems: KeyCharDistributedSystem.md
+    - Load Balancing: LoadBalancing.md
+    - Caching: Caching.md
+    - Data Partitioning: DataPartitioning.md
     - About: about.md
+
 
 theme: readthedocs

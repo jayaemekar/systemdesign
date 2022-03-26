@@ -17,10 +17,10 @@ With horizontal-scaling it is often easier to scale dynamically by adding more m
 
 Good examples of horizontal scaling are Cassandra and MongoDB as they both provide an easy way to scale horizontally by adding more machines to meet growing needs. Similarly, a good example of vertical scaling is MySQL as it allows for an easy way to scale vertically by switching from smaller to bigger machines. However, this process often involves downtime.
 
-
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/VerticalHorizontalSacling.JPG">
   </a>
   </kbd>
 </p>
+
