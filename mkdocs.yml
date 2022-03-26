@@ -10,6 +10,7 @@ nav:
     - Indexes: Indexes.md
     - Proxies: Proxies.md
     - Redundancy and Replication: RedundancyReplication.md
+    - SQL vs. NoSQL: SQLvsNoSQL.md
     - About: about.md
 
 
