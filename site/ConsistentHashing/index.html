@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/Indexes/">
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/ConsistentHashing/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Indexes - My System Design</title>
+  <title>Consistent Hashing - My System Design</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Indexes";
-    var mkdocs_page_input_path = "Indexes.md";
-    var mkdocs_page_url = "/Indexes/";
+    var mkdocs_page_name = "Consistent Hashing";
+    var mkdocs_page_input_path = "ConsistentHashing.md";
+    var mkdocs_page_url = "/ConsistentHashing/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -70,14 +70,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Indexes</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#example-a-library-catalog">Example: A library catalog</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#how-do-indexes-decrease-write-performance">How do Indexes decrease write performance?</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
                     </li>
                 </ul>
                 <ul>
@@ -96,8 +90,14 @@
                     <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Consistent Hashing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-consistent-hashing">What is Consistent Hashing?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-does-it-work">How does it work?</a>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -129,7 +129,7 @@
     
       
     
-    <li>Indexes</li>
+    <li>Consistent Hashing</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -141,24 +141,45 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="indexes">Indexes</h1>
-<p>Indexes are well known when it comes to databases. Sooner or later there comes a time when database performance is no longer satisfactory. One of the very first things you should turn to when that happens is database indexing.</p>
-<p>The goal of creating an index on a particular table in a database is to make it faster to search through the table and find the row or rows that we want. Indexes can be created using one or more columns of a database table, providing the basis for both rapid random lookups and efficient access of ordered records.</p>
-<h2 id="example-a-library-catalog">Example: A library catalog</h2>
-<p>A library catalog is a register that contains the list of books found in a library. The catalog is organized like a database table generally with four columns: book title, writer, subject, and date of publication. There are usually two such catalogs: one sorted by the book title and one sorted by the writer name. That way, you can either think of a writer you want to read and then look through their books or look up a specific book title you know you want to read in case you don’t know the writer’s name. These catalogs are like indexes for the database of books. They provide a sorted list of data that is easily searchable by relevant information.</p>
-<p>Simply saying, an index is a data structure that can be perceived as a table of contents that points us to the location where actual data lives. So when we create an index on a column of a table, we store that column and a pointer to the whole row in the index. Let’s assume a table containing a list of books, the following diagram shows how an index on the ‘Title’ column looks like:</p>
+                <h1 id="consistent-hashing">Consistent Hashing</h1>
+<p>Distributed Hash Table (DHT) is one of the fundamental components used in distributed scalable systems. Hash Tables need a key, a value, and a hash function where hash function maps the key to a location where the value is stored.</p>
+<pre><code>                                index = hash_function(key)
+</code></pre>
+<p>Suppose we are designing a distributed caching system. Given ‘n’ cache servers, an intuitive hash function would be ‘key % n’. It is simple and commonly used. But it has two major drawbacks:</p>
+<ol>
+<li>It is NOT horizontally scalable. Whenever a new cache host is added to the system, all existing mappings are broken. It will be a pain point in maintenance if the caching system contains lots of data. Practically, it becomes difficult to schedule a downtime to update all caching mappings.</li>
+<li>It may NOT be load balanced, especially for non-uniformly distributed data. In practice, it can be easily assumed that the data will not be distributed uniformly. For the caching system, it translates into some caches becoming hot and saturated while the others idle and are almost empty.</li>
+</ol>
+<p>In such situations, consistent hashing is a good way to improve the caching system.</p>
+<h2 id="what-is-consistent-hashing">What is Consistent Hashing?</h2>
+<p>Consistent hashing is a very useful strategy for distributed caching system and DHTs. It allows us to distribute data across a cluster in such a way that will minimize reorganization when nodes are added or removed. Hence, the caching system will be easier to scale up or scale down.</p>
+<p>In Consistent Hashing, when the hash table is resized (e.g. a new cache host is added to the system), only ‘k/n’ keys need to be remapped where ‘k’ is the total number of keys and ‘n’ is the total number of servers. Recall that in a caching system using the ‘mod’ as the hash function, all keys need to be remapped.</p>
+<p>In Consistent Hashing, objects are mapped to the same host if possible. When a host is removed from the system, the objects on that host are shared by other hosts; when a new host is added, it takes its share from a few hosts without touching other’s shares.</p>
+<h2 id="how-does-it-work">How does it work?</h2>
+<p>As a typical hash function, consistent hashing maps a key to an integer. Suppose the output of the hash function is in the range of [0, 256). Imagine that the integers in the range are placed on a ring such that the values are wrapped around.</p>
+<p>Here’s how consistent hashing works:</p>
+<ol>
+<li>Given a list of cache servers, hash them to integers in the range.</li>
+<li>
+<p>To map a key to a server,</p>
+<p>a. Hash it to a single integer.</p>
+<p>b. Move clockwise on the ring until finding the first cache it encounters.</p>
+<p>c. That cache is the one that contains the key. </p>
+</li>
+</ol>
+<p>See below as an example: key1 maps to cache A; key2 maps to cache C.</p>
 <p align="center"> 
   <kbd>
-  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/Indexes.JPG">
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/ConsistentHashing.JPG">
   </a>
   </kbd>
 </p>
 
-<p>Just like a traditional relational data store, we can also apply this concept to larger datasets. The trick with indexes is that we must carefully consider how users will access the data. In the case of data sets that are many terabytes in size, but have very small payloads (e.g., 1 KB), indexes are a necessity for optimizing data access. Finding a small payload in such a large dataset can be a real challenge, since we can’t possibly iterate over that much data in any reasonable time. Furthermore, it is very likely that such a large data set is spread over several physical devices—this means we need some way to find the correct physical location of the desired data. Indexes are the best way to do this.</p>
-<h2 id="how-do-indexes-decrease-write-performance">How do Indexes decrease write performance?</h2>
-<p>An index can dramatically speed up data retrieval but may itself be large due to the additional keys, which slow down data insertion &amp; update.</p>
-<p>When adding rows or making updates to existing rows for a table with an active index, we not only have to write the data but also have to update the index. This will decrease the write performance. This performance degradation applies to all insert, update, and delete operations for the table. For this reason, adding unnecessary indexes on tables should be avoided and indexes that are no longer used should be removed. To reiterate, adding indexes is about improving the performance of search queries. If the goal of the database is to provide a data store that is often written to and rarely read from, in that case, decreasing the performance of the more common operation, which is writing, is probably not worth the increase in performance we get from reading.</p>
-<p>For more details, see <strong><a href="https://en.wikipedia.org/wiki/Database_index">Database Indexes</a></strong></p>
+<p>To add a new server, say D, keys that were originally residing at C will be split. Some of them will be shifted to D, while other keys will not be touched.</p>
+<p>To remove a cache or, if a cache fails, say A, all keys that were originally mapped to A will fall into B, and only those keys need to be moved to B; other keys will not be affected.</p>
+<p>For load balancing, as we discussed in the beginning, the real data is essentially randomly distributed and thus may not be uniform. It may make the keys on caches unbalanced.</p>
+<p>To handle this issue, we add “virtual replicas” for caches. Instead of mapping each cache to a single point on the ring, we map it to multiple points on the ring, i.e. replicas. This way, each cache is associated with multiple portions of the ring.</p>
+<p>If the hash function “mixes well,” as the number of replicas increases, the keys will be more balanced.</p>
               
             </div>
           </div>
@@ -166,10 +187,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../Proxies/" class="btn btn-neutral float-right" title="Proxies">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Events/" class="btn btn-neutral float-right" title="Long-Polling vs WebSockets vs Server-Sent Events">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../DataPartitioning/" class="btn btn-neutral" title="Data Partitioning"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../CAPTheorem/" class="btn btn-neutral" title="CAP Theorem"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -195,10 +216,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../DataPartitioning/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../CAPTheorem/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../Proxies/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Events/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

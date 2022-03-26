@@ -16,7 +16,17 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://systemdesignbyjayaa.com/ConsistentHashing/</loc>
+         <lastmod>2022-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://systemdesignbyjayaa.com/DataPartitioning/</loc>
+         <lastmod>2022-03-26</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://systemdesignbyjayaa.com/Events/</loc>
          <lastmod>2022-03-26</lastmod>
          <changefreq>daily</changefreq>
     </url>
