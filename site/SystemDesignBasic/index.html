@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/about/">
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/SystemDesignBasic/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About - My System Design</title>
+  <title>System Design Basic - My System Design</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About";
-    var mkdocs_page_input_path = "about.md";
-    var mkdocs_page_url = "/about/";
+    var mkdocs_page_name = "System Design Basic";
+    var mkdocs_page_input_path = "SystemDesignBasic.md";
+    var mkdocs_page_url = "/SystemDesignBasic/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -50,16 +50,18 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignBasic/">System Design Basic</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">System Design Basic</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About</a>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
                     </li>
                 </ul>
       </div>
@@ -83,7 +85,7 @@
     
       
     
-    <li>About</li>
+    <li>System Design Basic</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -95,7 +97,15 @@
           <div role="main">
             <div class="section">
               
-                <p>copyright@jayaemekar</p>
+                <h1 id="system-design-basics">System Design Basics</h1>
+<p>Whenever we are designing a large system, we need to consider a few things:</p>
+<pre><code>1. What are the different architectural pieces that can be used?
+2. How do these pieces work with each other?
+3. How can we best utilize these pieces: what are the right tradeoffs?
+</code></pre>
+<p>Investing in scaling before it is needed is generally not a smart business proposition; however, some forethought into the design can save valuable time and resources in the future. In the following chapters, we will try to define some of the core building blocks of scalable systems. Familiarizing these concepts would greatly benefit in understanding distributed system concepts. </p>
+<p>In the next section, we will go through Consistent Hashing, CAP Theorem, Load Balancing, Caching, Data Partitioning, Indexes, Proxies, Queues, Replication, and choosing between SQL vs. NoSQL.</p>
+<p>Let’s start with the Key Characteristics of Distributed Systems.</p>
               
             </div>
           </div>
@@ -103,8 +113,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../KeyCharDistributedSystem/" class="btn btn-neutral float-right" title="Key Characteristics of Distributed Systems">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../KeyCharDistributedSystem/" class="btn btn-neutral" title="Key Characteristics of Distributed Systems"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -130,8 +142,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../KeyCharDistributedSystem/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../KeyCharDistributedSystem/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
