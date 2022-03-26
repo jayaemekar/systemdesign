@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/about/">
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/Proxies/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About - My System Design</title>
+  <title>Proxies - My System Design</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About";
-    var mkdocs_page_input_path = "about.md";
-    var mkdocs_page_url = "/about/";
+    var mkdocs_page_name = "Proxies";
+    var mkdocs_page_input_path = "Proxies.md";
+    var mkdocs_page_url = "/Proxies/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -74,16 +74,26 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Proxies</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#proxy-server-types">Proxy Server Types</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#open-proxy">Open Proxy</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#reverse-proxy">Reverse Proxy</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
                     </li>
                 </ul>
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About</a>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
                     </li>
                 </ul>
       </div>
@@ -107,7 +117,7 @@
     
       
     
-    <li>About</li>
+    <li>Proxies</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -119,7 +129,31 @@
           <div role="main">
             <div class="section">
               
-                <p>copyright@jayaemekar</p>
+                <h1 id="proxies">Proxies</h1>
+<p>A proxy server is an intermediate server between the client and the back-end server. Clients connect to proxy servers to make a request for a service like a web page, file, connection, etc. In short, a proxy server is a piece of software or hardware that acts as an intermediary for requests from clients seeking resources from other servers.</p>
+<p>Typically, proxies are used to filter requests, log requests, or sometimes transform requests (by adding/removing headers, encrypting/decrypting, or compressing a resource). Another advantage of a proxy server is that its cache can serve a lot of requests. If multiple clients access a particular resource, the proxy server can cache it and serve it to all the clients without going to the remote server.</p>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/Proxies.JPG">
+  </a>
+  </kbd>
+</p>
+
+<h2 id="proxy-server-types">Proxy Server Types</h2>
+<p>Proxies can reside on the client’s local server or anywhere between the client and the remote servers. Here are a few famous types of proxy servers:</p>
+<h3 id="open-proxy">Open Proxy</h3>
+<p>An open proxy is a proxy server that is accessible by any Internet user. Generally, a proxy server only allows users within a network group (i.e. a closed proxy) to store and forward Internet services such as DNS or web pages to reduce and control the bandwidth used by the group. With an open proxy, however, any user on the Internet is able to use this forwarding service. There two famous open proxy types:</p>
+<ol>
+<li><strong>Anonymous Proxy -</strong> Thіs proxy reveаls іts іdentіty аs а server but does not dіsclose the іnіtіаl IP аddress. Though thіs proxy server cаn be dіscovered eаsіly іt cаn be benefіcіаl for some users аs іt hіdes their IP аddress.</li>
+<li><strong>Trаnspаrent Proxy –</strong> Thіs proxy server аgаіn іdentіfіes іtself, аnd wіth the support of HTTP heаders, the fіrst IP аddress cаn be vіewed. The mаіn benefіt of usіng thіs sort of server іs іts аbіlіty to cаche the websіtes.</li>
+</ol>
+<h3 id="reverse-proxy">Reverse Proxy</h3>
+<p>A reverse proxy retrieves resources on behalf of a client from one or more servers. These resources are then returned to the client, appearing as if they originated from the proxy server itself</p>
+<p><strong>References</strong></p>
+<ol>
+<li><strong><a href="https://en.wikipedia.org/wiki/Open_proxy">Open Proxy</a></strong></li>
+<li><strong><a href="https://en.wikipedia.org/wiki/Reverse_proxy">Reverse Proxy</a></strong></li>
+</ol>
               
             </div>
           </div>
@@ -127,8 +161,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../RedundancyReplication/" class="btn btn-neutral float-right" title="Redundancy and Replication">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../RedundancyReplication/" class="btn btn-neutral" title="Redundancy and Replication"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../Indexes/" class="btn btn-neutral" title="Indexes"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -154,8 +190,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../RedundancyReplication/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Indexes/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../RedundancyReplication/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/about/">
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/RedundancyReplication/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>About - My System Design</title>
+  <title>Redundancy and Replication - My System Design</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "About";
-    var mkdocs_page_input_path = "about.md";
-    var mkdocs_page_url = "/about/";
+    var mkdocs_page_name = "Redundancy and Replication";
+    var mkdocs_page_input_path = "RedundancyReplication.md";
+    var mkdocs_page_url = "/RedundancyReplication/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -78,12 +78,14 @@
                     <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Redundancy and Replication</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">About</a>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
                     </li>
                 </ul>
       </div>
@@ -107,7 +109,7 @@
     
       
     
-    <li>About</li>
+    <li>Redundancy and Replication</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -119,7 +121,24 @@
           <div role="main">
             <div class="section">
               
-                <p>copyright@jayaemekar</p>
+                <h1 id="redundancy-and-replication">Redundancy and Replication</h1>
+<p>Redundancy is the duplication of critical components or functions of a system with the intention of increasing the reliability of the system, usually in the form of a backup or fail-safe, or to improve actual system performance. For example, if there is only one copy of a file stored on a single server, then losing that server means losing the file. Since losing data is seldom a good thing, we can create duplicate or redundant copies of the file to solve this problem.</p>
+<p>Redundancy plays a key role in removing the single points of failure in the system and provides backups if needed in a crisis. For example, if we have two instances of a service running in production and one fails, the system can failover to the other one.</p>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/RedundancyReplication.JPG">
+  </a>
+  </kbd>
+</p>
+
+<p>Replication means sharing information to ensure consistency between redundant resources, such as software or hardware components, to improve reliability, fault-tolerance, or accessibility.</p>
+<p>Replication is widely used in many database management systems (DBMS), usually with a master-slave relationship between the original and the copies. The master gets all the updates, which then ripple through to the slaves. Each slave outputs a message stating that it has received the update successfully, thus allowing the sending of subsequent updates.</p>
+<p><strong>References</strong></p>
+<ol>
+<li><strong><a href="https://en.wikipedia.org/wiki/Replication_(computing)">Replication</a></strong></li>
+<li><strong><a href="https://en.wikipedia.org/wiki/Redundancy_(engineering)">Redundancy</a></strong></li>
+<li><strong><a href="https://en.wikipedia.org/wiki/Fault_tolerance">Fault Tolerance</a></strong></li>
+</ol>
               
             </div>
           </div>
@@ -127,8 +146,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../about/" class="btn btn-neutral float-right" title="About">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../RedundancyReplication/" class="btn btn-neutral" title="Redundancy and Replication"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href="../Proxies/" class="btn btn-neutral" title="Proxies"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -154,8 +175,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../RedundancyReplication/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../Proxies/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
+    
+      <span><a href="../about/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
