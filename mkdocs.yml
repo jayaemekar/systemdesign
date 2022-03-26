@@ -14,6 +14,7 @@ nav:
     - CAP Theorem: CAPTheorem.md
     - Consistent Hashing: ConsistentHashing.md
     - Long-Polling vs WebSockets vs Server-Sent Events: Events.md
+    - System Design Interviews: SystemDesignInterviews.md
     - About: about.md
 
 
