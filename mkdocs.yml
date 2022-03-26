@@ -1,0 +1,9 @@
+site_name: My System Design
+site_url: https://systemdesignbyjayaa.com/
+nav:
+    - Home: index.md
+    - System Design Basic: SystemDesignBasic.md
+    - Key Characteristics of Distributed Systems: KeyCharDistributedSystem.md
+    - About: about.md
+
+theme: readthedocs
