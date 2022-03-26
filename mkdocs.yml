@@ -7,6 +7,9 @@ nav:
     - Load Balancing: LoadBalancing.md
     - Caching: Caching.md
     - Data Partitioning: DataPartitioning.md
+    - Indexes: Indexes.md
+    - Proxies: Proxies.md
+    - Redundancy and Replication: RedundancyReplication.md
     - About: about.md
 
 
