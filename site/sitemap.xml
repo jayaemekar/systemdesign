@@ -2,82 +2,87 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://systemdesignbyjayaa.com/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/CAPTheorem/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/Caching/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/ConsistentHashing/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/DataPartitioning/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://systemdesignbyjayaa.com/DesigningPastebin/</loc>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/DesigningURLShorteningService/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/Events/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/Indexes/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/KeyCharDistributedSystem/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/LoadBalancing/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/Proxies/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/RedundancyReplication/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/SQLvsNoSQL/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/SystemDesignBasic/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/SystemDesignInterviews/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://systemdesignbyjayaa.com/about/</loc>
-         <lastmod>2022-03-28</lastmod>
+         <lastmod>2022-04-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
