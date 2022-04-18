@@ -1,17 +1,13 @@
-# Welcome to MkDocs
+# System Design Basics
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Whenever we are designing a large system, we need to consider a few things:
 
-## Commands
+    1. What are the different architectural pieces that can be used?
+    2. How do these pieces work with each other?
+    3. How can we best utilize these pieces: what are the right tradeoffs?
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Investing in scaling before it is needed is generally not a smart business proposition; however, some forethought into the design can save valuable time and resources in the future. In the following chapters, we will try to define some of the core building blocks of scalable systems. Familiarizing these concepts would greatly benefit in understanding distributed system concepts. 
 
-## Project layout
+In the next section, we will go through Consistent Hashing, CAP Theorem, Load Balancing, Caching, Data Partitioning, Indexes, Proxies, Queues, Replication, and choosing between SQL vs. NoSQL.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+Let’s start with the Key Characteristics of Distributed Systems.

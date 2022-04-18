@@ -49,10 +49,6 @@
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#commands">Commands</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#project-layout">Project layout</a>
-    </li>
     </ul>
                     </li>
                 </ul>
@@ -117,6 +113,58 @@
                     </li>
                 </ul>
                 <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                </ul>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="about/">About</a>
                     </li>
                 </ul>
@@ -153,21 +201,15 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
-<ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
-</ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+                <h1 id="system-design-basics">System Design Basics</h1>
+<p>Whenever we are designing a large system, we need to consider a few things:</p>
+<pre><code>1. What are the different architectural pieces that can be used?
+2. How do these pieces work with each other?
+3. How can we best utilize these pieces: what are the right tradeoffs?
 </code></pre>
+<p>Investing in scaling before it is needed is generally not a smart business proposition; however, some forethought into the design can save valuable time and resources in the future. In the following chapters, we will try to define some of the core building blocks of scalable systems. Familiarizing these concepts would greatly benefit in understanding distributed system concepts. </p>
+<p>In the next section, we will go through Consistent Hashing, CAP Theorem, Load Balancing, Caching, Data Partitioning, Indexes, Proxies, Queues, Replication, and choosing between SQL vs. NoSQL.</p>
+<p>Let’s start with the Key Characteristics of Distributed Systems.</p>
               
             </div>
           </div>
@@ -222,5 +264,5 @@ docs/
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-04-12 19:50:22.545716+00:00
+Build Date UTC : 2022-04-18 15:38:47.575456+00:00
 -->
