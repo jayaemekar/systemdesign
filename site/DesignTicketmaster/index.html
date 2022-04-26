@@ -225,8 +225,8 @@
               
                 <h1 id="design-ticketmaster-new">Design Ticketmaster (<em>New</em>)</h1>
 <p>Let's design an online ticketing system that sells movie tickets like Ticketmaster or BookMyShow.</p>
-<p>Similar Services: bookmyshow.com, ticketmaster.com
-Difficulty Level: Hard</p>
+<p>Similar Services: bookmyshow.com, ticketmaster.com</p>
+<p>Difficulty Level: Hard</p>
 <h2 id="1-what-is-an-online-movie-ticket-booking-system">1. What is an online movie ticket booking system?</h2>
 <p>A movie ticket booking system provides its customers the ability to purchase theatre seats online. E-ticketing systems allow the customers to browse through movies currently being played and to book seats, anywhere anytime.</p>
 <h2 id="2-requirements-and-goals-of-the-system">2. Requirements and Goals of the System</h2>
@@ -265,20 +265,22 @@ Difficulty Level: Hard</p>
 <p>To store five years of this data, we would need around 3.6TB.</p>
 <h2 id="5-system-apis">5. System APIs</h2>
 <p>We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definition of the APIs to search movie shows and reserve seats.</p>
-<pre><code>    SearchMovies(api_dev_key, keyword, city, lat_long, radius, start_datetime, end_datetime, postal_code, 
+<pre><code>SearchMovies(api_dev_key, keyword, city, lat_long, radius, start_datetime, end_datetime, postal_code, 
     includeSpellcheck, results_per_page, sorting_order)
 </code></pre>
-<p><strong>Parameters:</strong>
-    api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-    keyword (string): Keyword to search on.
-    city (string): City to filter movies by.
-    lat_long (string): Latitude and longitude to filter by. radius (number): Radius of the area in which we want to search for events.
-    start_datetime (string): Filter movies with a starting datetime.
-    end_datetime (string): Filter movies with an ending datetime.
-    postal_code (string): Filter movies by postal code / zipcode.
-    includeSpellcheck (Enum: “yes” or “no”): Yes, to include spell check suggestions in the response.
-    results_per_page (number): Number of results to return per page. Maximum is 30.
-    sorting_order (string): Sorting order of the search result. Some allowable values : ‘name,asc’, ‘name,desc’, ‘date,asc’, ‘date,desc’, ‘distance,asc’, ‘name,date,asc’, ‘name,date,desc’, ‘date,name,asc’, ‘date,name,desc’.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.</li>
+<li><strong>keyword (string):</strong> Keyword to search on.</li>
+<li><strong>city (string):</strong> City to filter movies by.</li>
+<li><strong>lat_long (string):</strong> Latitude and longitude to filter by. radius (number): Radius of the area in which we want to search for events.</li>
+<li><strong>start_datetime (string):</strong> Filter movies with a starting datetime.</li>
+<li><strong>end_datetime (string):</strong> Filter movies with an ending datetime.</li>
+<li><strong>postal_code (string):</strong> Filter movies by postal code / zipcode.</li>
+<li><strong>includeSpellcheck (Enum: “yes” or “no”):</strong> Yes, to include spell check suggestions in the response.</li>
+<li><strong>results_per_page (number):</strong> Number of results to return per page. Maximum is 30.</li>
+<li><strong>sorting_order (string):</strong> Sorting order of the search result. Some allowable values : ‘name,asc’, ‘name,desc’, ‘date,asc’, ‘date,desc’, ‘distance,asc’, ‘name,date,asc’, ‘name,date,desc’, ‘date,name,asc’, ‘date,name,desc’.</li>
+</ul>
 <p><strong>Returns: (JSON)</strong>
 Here is a sample list of movies and their shows:</p>
 <pre><code>    [
@@ -340,11 +342,11 @@ Here is a sample list of movies and their shows:</p>
     ReserveSeats(api_dev_key, session_id, movie_id, show_id, seats_to_reserve[])
 </code></pre>
 <p><strong>Parameters:</strong>
-api_dev_key (string): same as above
-session_id (string): User’s session ID to track this reservation. Once the reservation time expires, user’s reservation on the server will be removed using this ID.
-movie_id (string): Movie to reserve.
-show_id (string): Show to reserve.
-seats_to_reserve (number): An array containing seat IDs to reserve.</p>
+- api_dev_key (string): same as above
+- session_id (string): User’s session ID to track this reservation. Once the reservation time expires, user’s reservation on the server will be removed using this ID.
+- movie_id (string): Movie to reserve.
+- show_id (string): Show to reserve.
+- seats_to_reserve (number): An array containing seat IDs to reserve.</p>
 <p><strong>Returns: (JSON)</strong>
 Returns the status of the reservation, which would be one of the following: 1) “Reservation Successful” 2) “Reservation Failed - Show Full,” 3) “Reservation Failed - Retry, as other users are holding reserved seats”.</p>
 <h2 id="6-database-design">6. Database Design</h2>
@@ -382,14 +384,18 @@ Returns the status of the reservation, which would be one of the following: 1) �
 <li>The user selects the number of seats to be reserved.</li>
 <li>If the required number of seats are available, the user is shown a map of the theater to select seats. If not, the user is taken to ‘step 8’ below.</li>
 <li>Once the user selects the seat, the system will try to reserve those selected seats.</li>
-<li>If seats can’t be reserved, we have the following options:
-    &gt;Show is full; the user is shown the error message.
-    &gt;The seats the user wants to reserve are no longer available, but there are other seats available, so the user is taken back to the theater map to choose different seats.
-    There are no seats available to reserve, but all the seats are not booked yet, as there are some seats that other users are holding in the reservation pool and have not booked yet. The user will be taken to a waiting page where they can wait until the required seats get freed from the reservation pool. This waiting could result in the following options:
-        If the required number of seats become available, the user is taken to the theater map page where they can choose seats.
-        While waiting, if all seats get booked or there are fewer seats in the reservation pool than the user intend to book, the user is shown the error message.
-        User cancels the waiting and is taken back to the movie search page.
-        At maximum, a user can wait one hour, after that user’s session gets expired and the user is taken back to the movie search page.</li>
+<li>If seats can’t be reserved, we have the following options:<ul>
+<li>Show is full; the user is shown the error message.</li>
+<li>The seats the user wants to reserve are no longer available, but there are other seats available, so the user is taken back to the theater map to choose different seats.</li>
+<li>There are no seats available to reserve, but all the seats are not booked yet, as there are some seats that other users are holding in the reservation pool and have not booked yet. The user will be taken to a waiting page where they can wait until the required seats get freed from the reservation pool. This waiting could result in the following options:<ul>
+<li>If the required number of seats become available, the user is taken to the theater map page where they can choose seats.</li>
+<li>While waiting, if all seats get booked or there are fewer seats in the reservation pool than the user intend to book, the user is shown the error message.</li>
+<li>User cancels the waiting and is taken back to the movie search page.</li>
+<li>At maximum, a user can wait one hour, after that user’s session gets expired and the user is taken back to the movie search page.</li>
+</ul>
+</li>
+</ul>
+</li>
 <li>If seats are reserved successfully, the user has five minutes to pay for the reservation. After payment, booking is marked complete. If the user is not able to pay within five minutes, all their reserved seats are freed to become available to other users.</li>
 </ol>
 <p align="center"> 

@@ -266,37 +266,41 @@ Not in scope: Video recommendations, most popular videos, channels, subscription
 <pre><code>    uploadVideo(api_dev_key, video_title, vide_description, tags[], category_id, default_language, 
                             recording_details, video_contents)
 </code></pre>
-<p>Parameters:</p>
-<pre><code>    api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-    video_title (string): Title of the video.
-    vide_description (string): Optional description of the video.
-    tags (string[]): Optional tags for the video.
-    category_id (string): Category of the video, e.g., Film, Song, People, etc.
-    default_language (string): For example English, Mandarin, Hindi, etc.
-    recording_details (string): Location where the video was recorded.
-    video_contents (stream): Video to be uploaded.
-</code></pre>
-<p>Returns: (string)
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.</li>
+<li><strong>video_title (string):</strong> Title of the video.</li>
+<li><strong>vide_description (string):</strong> Optional description of the video.</li>
+<li><strong>tags (string[]):</strong> Optional tags for the video.</li>
+<li><strong>category_id (string):</strong> Category of the video, e.g., Film, Song, People, etc.</li>
+<li><strong>default_language (string):</strong> For example English, Mandarin, Hindi, etc.</li>
+<li><strong>recording_details (string):</strong> Location where the video was recorded.</li>
+<li><strong>video_contents (stream):</strong> Video to be uploaded.</li>
+</ul>
+<p><strong>Returns: (string)</strong>
 A successful upload will return HTTP 202 (request accepted) and once the video encoding is completed the user is notified through email with a link to access the video. We can also expose a queryable API to let users know the current status of their uploaded video.</p>
 <pre><code>    searchVideo(api_dev_key, search_query, user_location, maximum_videos_to_return, page_token)
 </code></pre>
-<p>Parameters:</p>
-<pre><code>    api_dev_key (string): The API developer key of a registered account of our service.
-    search_query (string): A string containing the search terms.
-    user_location (string): Optional location of the user performing the search.
-    maximum_videos_to_return (number): Maximum number of results returned in one request.
-    page_token (string): This token will specify a page in the result set that should be returned.
-</code></pre>
-<p>Returns: (JSON)
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account of our service.</li>
+<li><strong>search_query (string):</strong> A string containing the search terms.</li>
+<li><strong>user_location (string):</strong> Optional location of the user performing the search.</li>
+<li><strong>maximum_videos_to_return (number):</strong> Maximum number of results returned in one request.</li>
+<li><strong>page_token (string):</strong> This token will specify a page in the result set that should be returned.</li>
+</ul>
+<p><strong>Returns: (JSON)</strong>
 A JSON containing information about the list of video resources matching the search query. Each video resource will have a video title, a thumbnail, a video creation date, and a view count.</p>
 <pre><code>        streamVideo(api_dev_key, video_id, offset, codec, resolution)
 </code></pre>
-<p>Parameters:
-    api_dev_key (string): The API developer key of a registered account of our service.
-    video_id (string): A string to identify the video.
-    offset (number): We should be able to stream video from any offset; this offset would be a time in seconds from the beginning of the video. If we support playing/pausing a video from multiple devices, we will need to store the offset on the server. This will enable the users to start watching a video on any device from the same point where they left off.
-    codec (string) &amp; resolution(string): We should send the codec and resolution info in the API from the client to support play/pause from multiple devices. Imagine you are watching a video on your TV’s Netflix app, paused it, and started watching it on your phone’s Netflix app. In this case, you would need codec and resolution, as both these devices have a different resolution and use a different codec.</p>
-<p>Returns: (STREAM)
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account of our service.</li>
+<li><strong>video_id (string):</strong> A string to identify the video.</li>
+<li><strong>offset (number):</strong> We should be able to stream video from any offset; this offset would be a time in seconds from the beginning of the video. If we support playing/pausing a video from multiple devices, we will need to store the offset on the server. This will enable the users to start watching a video on any device from the same point where they left off.</li>
+<li><strong>codec (string) &amp; resolution(string):</strong> We should send the codec and resolution info in the API from the client to support play/pause from multiple devices. Imagine you are watching a video on your TV’s Netflix app, paused it, and started watching it on your phone’s Netflix app. In this case, you would need codec and resolution, as both these devices have a different resolution and use a different codec.</li>
+</ul>
+<p><strong>Returns: (STREAM)</strong>
 A media stream (a video chunk) from the given offset.</p>
 <h2 id="5-high-level-design">5. High Level Design</h2>
 <p>At a high-level we would need the following components:</p>

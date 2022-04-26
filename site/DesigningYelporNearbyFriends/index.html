@@ -245,15 +245,17 @@ Similarly, we can have a separate table to store photos for Places and Reviews.<
 <pre><code>    search(api_dev_key, search_terms, user_location, radius_filter, maximum_results_to_return, 
         category_filter, sort, page_token)
 </code></pre>
-<p><strong>Parameters:</strong>
-api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-search_terms (string): A string containing the search terms.
-user_location (string): Location of the user performing the search.
-radius_filter (number): Optional search radius in meters.
-maximum_results_to_return (number): Number of business results to return.
-category_filter (string): Optional category to filter search results, e.g., Restaurants, Shopping Centers, etc.
-sort (number): Optional sort mode: Best matched (0 - default), Minimum distance (1), Highest rated (2).
-page_token (string): This token will specify a page in the result set that should be returned.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.</li>
+<li><strong>search_terms (string):</strong> A string containing the search terms.</li>
+<li><strong>user_location (string):</strong> Location of the user performing the search.</li>
+<li><strong>radius_filter (number):</strong> Optional search radius in meters.</li>
+<li><strong>maximum_results_to_return (number):</strong> Number of business results to return.</li>
+<li><strong>category_filter (string):</strong> Optional category to filter search results, e.g., Restaurants, Shopping Centers, etc.</li>
+<li><strong>sort (number):</strong> Optional sort mode: Best matched (0 - default), Minimum distance (1), Highest rated (2).</li>
+<li><strong>page_token (string):</strong> This token will specify a page in the result set that should be returned.</li>
+</ul>
 <p><strong>Returns: (JSON)</strong>
 A JSON containing information about a list of businesses matching the search query. Each result entry will have the business name, address, category, rating, and thumbnail.</p>
 <h2 id="6-basic-system-design-and-algorithm">6. Basic System Design and Algorithm</h2>

@@ -229,13 +229,17 @@ Difficulty Level: Hard</p>
 <h2 id="2-requirements-and-goals-of-the-system">2. Requirements and Goals of the System</h2>
 <p>Let’s design a newsfeed for Facebook with the following requirements:</p>
 <p><strong>Functional requirements:</strong></p>
-<p>Newsfeed will be generated based on the posts from the people, pages, and groups that a user follows.
-A user may have many friends and follow a large number of pages/groups.
-Feeds may contain images, videos, or just text.
-Our service should support appending new posts as they arrive to the newsfeed for all active users.</p>
+<ol>
+<li>Newsfeed will be generated based on the posts from the people, pages, and groups that a user follows.</li>
+<li>A user may have many friends and follow a large number of pages/groups.</li>
+<li>Feeds may contain images, videos, or just text.</li>
+<li>Our service should support appending new posts as they arrive to the newsfeed for all active users.</li>
+</ol>
 <p><strong>Non-functional requirements:</strong></p>
-<p>Our system should be able to generate any user’s newsfeed in real-time - maximum latency seen by the end user would be 2s.
-A post shouldn’t take more than 5s to make it to a user’s feed assuming a new newsfeed request comes in.</p>
+<ol>
+<li>Our system should be able to generate any user’s newsfeed in real-time - maximum latency seen by the end user would be 2s.</li>
+<li>A post shouldn’t take more than 5s to make it to a user’s feed assuming a new newsfeed request comes in.</li>
+</ol>
 <h2 id="3-capacity-estimation-and-constraints">3. Capacity Estimation and Constraints</h2>
 <p>Let’s assume on average a user has 300 friends and follows 200 pages.</p>
 <p><strong>Traffic estimates:</strong> Let’s assume 300M daily active users with each user fetching their timeline an average of five times a day. This will result in 1.5B newsfeed requests per day or approximately 17,500 requests per second.</p>
@@ -244,14 +248,16 @@ A post shouldn’t take more than 5s to make it to a user’s feed assuming a ne
 <p>We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definition of the API for getting the newsfeed:</p>
 <pre><code>    getUserFeed(api_dev_key, user_id, since_id, count, max_id, exclude_replies)
 </code></pre>
-<p><strong>Parameters:</strong>
-api_dev_key (string): The API developer key of a registered can be used to, among other things, throttle users based on their allocated quota.
-user_id (number): The ID of the user for whom the system will generate the newsfeed.
-since_id (number): Optional; returns results with an ID higher than (that is, more recent than) the specified ID.
-count (number): Optional; specifies the number of feed items to try and retrieve up to a maximum of 200 per distinct request.
-max_id (number): Optional; returns results with an ID less than (that is, older than) or equal to the specified ID.
-exclude_replies(boolean): Optional; this parameter will prevent replies from appearing in the returned timeline.</p>
-<p>Returns: (JSON) Returns a JSON object containing a list of feed items.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered can be used to, among other things, throttle users based on their allocated quota.</li>
+<li><strong>user_id (number):</strong> The ID of the user for whom the system will generate the newsfeed.</li>
+<li><strong>since_id (number):</strong> Optional; returns results with an ID higher than (that is, more recent than) the specified ID.</li>
+<li><strong>count (number):</strong> Optional; specifies the number of feed items to try and retrieve up to a maximum of 200 per distinct request.</li>
+<li><strong>max_id (number):</strong> Optional; returns results with an ID less than (that is, older than) or equal to the specified ID.</li>
+<li><strong>exclude_replies(boolean):</strong> Optional; this parameter will prevent replies from appearing in the returned timeline.</li>
+</ul>
+<p><strong>Returns: (JSON)</strong> Returns a JSON object containing a list of feed items.</p>
 <h2 id="5-database-design">5. Database Design</h2>
 <p>There are three primary objects: User, Entity (e.g. page, group, etc.), and FeedItem (or Post). Here are some observations about the relationships between these entities:</p>
 <ol>
@@ -276,19 +282,21 @@ exclude_replies(boolean): Optional; this parameter will prevent replies from app
 <li>Retrieve latest, most popular and relevant posts for those IDs. These are the potential posts that we can show in Jane’s newsfeed.</li>
 <li>Rank these posts based on the relevance to Jane. This represents Jane’s current feed.</li>
 <li>Store this feed in the cache and return top posts (say 20) to be rendered on Jane’s feed.</li>
-<li>On the front-end, when Jane reaches the end of her current feed, she can fetch the next 20 posts from the server and so on.
-One thing to notice here is that we generated the feed once and stored it in the cache. What about new incoming posts from people that Jane follows? If Jane is online, we should have a mechanism to rank and add those new posts to her feed. We can periodically (say every five minutes) perform the above steps to rank and add the newer posts to her feed. Jane can then be notified that there are newer items in her feed that she can fetch.</li>
+<li>On the front-end, when Jane reaches the end of her current feed, she can fetch the next 20 posts from the server and so on.</li>
 </ol>
+<p>One thing to notice here is that we generated the feed once and stored it in the cache. What about new incoming posts from people that Jane follows? If Jane is online, we should have a mechanism to rank and add those new posts to her feed. We can periodically (say every five minutes) perform the above steps to rank and add the newer posts to her feed. Jane can then be notified that there are newer items in her feed that she can fetch.</p>
 <p><strong>Feed publishing:</strong> Whenever Jane loads her newsfeed page, she has to request and pull feed items from the server. When she reaches the end of her current feed, she can pull more data from the server. For newer items either the server can notify Jane and then she can pull, or the server can push, these new posts. We will discuss these options in detail later.</p>
 <p>At a high level, we will need following components in our Newsfeed service:</p>
-<p><strong>1. Web servers:</strong> To maintain a connection with the user. This connection will be used to transfer data between the user and the server.
-<strong>2. Application server:</strong> To execute the workflows of storing new posts in the database servers. We will also need some application servers to retrieve and to push the newsfeed to the end user.
-<strong>3. Metadata database and cache:</strong> To store the metadata about Users, Pages, and Groups.
-<strong>4. Posts database and cache:</strong> To store metadata about posts and their contents.
-<strong>5. Video and photo storage, and cache:</strong> Blob storage, to store all the media included in the posts.
-<strong>6. Newsfeed generation service:</strong> To gather and rank all the relevant posts for a user to generate newsfeed and store in the cache. This service will also receive live updates and will add these newer feed items to any user’s timeline.
-<strong>7. Feed notification service:</strong> To notify the user that there are newer items available for their newsfeed.
-Following is the high-level architecture diagram of our system. User B and C are following User A.</p>
+<ul>
+<li><strong>1. Web servers:</strong> To maintain a connection with the user. This connection will be used to transfer data between the user and the server.</li>
+<li><strong>2. Application server:</strong> To execute the workflows of storing new posts in the database servers. We will also need some application servers to retrieve and to push the newsfeed to the end user.</li>
+<li><strong>3. Metadata database and cache:</strong> To store the metadata about Users, Pages, and Groups.</li>
+<li><strong>4. Posts database and cache:</strong> To store metadata about posts and their contents.</li>
+<li><strong>5. Video and photo storage, and cache:</strong> Blob storage, to store all the media included in the posts.</li>
+<li><strong>6. Newsfeed generation service:</strong> To gather and rank all the relevant posts for a user to generate newsfeed and store in the cache. This service will also receive live updates and will add these newer feed items to any user’s timeline.</li>
+<li><strong>7. Feed notification service:</strong> To notify the user that there are newer items available for their newsfeed.
+Following is the high-level architecture diagram of our system. User B and C are following User A.</li>
+</ul>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/fbnewsfeed1.JPG">
@@ -314,8 +322,8 @@ Let’s take the simple case of the newsfeed generation service fetching most re
 <p>Crazy slow for users with a lot of friends/follows as we have to perform sorting/merging/ranking of a huge number of posts.
 We generate the timeline when a user loads their page. This would be quite slow and have a high latency.
 For live updates, each status update will result in feed updates for all followers. This could result in high backlogs in our Newsfeed Generation Service.
-For live updates, the server pushing (or notifying about) newer posts to users could lead to very heavy loads, especially for people or pages that have a lot of followers. To improve the efficiency, we can pre-generate the timeline and store it in a memory.
-<strong>Offline generation for newsfeed:</strong> We can have dedicated servers that are continuously generating users’ newsfeed and storing them in memory. So, whenever a user requests for the new posts for their feed, we can simply serve it from the pre-generated, stored location. Using this scheme, user’s newsfeed is not compiled on load, but rather on a regular basis and returned to users whenever they request for it.</p>
+For live updates, the server pushing (or notifying about) newer posts to users could lead to very heavy loads, especially for people or pages that have a lot of followers. To improve the efficiency, we can pre-generate the timeline and store it in a memory.</p>
+<p><strong>Offline generation for newsfeed:</strong> We can have dedicated servers that are continuously generating users’ newsfeed and storing them in memory. So, whenever a user requests for the new posts for their feed, we can simply serve it from the pre-generated, stored location. Using this scheme, user’s newsfeed is not compiled on load, but rather on a regular basis and returned to users whenever they request for it.</p>
 <p>Whenever these servers need to generate the feed for a user, they will first query to see what was the last time the feed was generated for that user. Then, new feed data would be generated from that time onwards. We can store this data in a hash table where the “key” would be UserID and “value” would be a STRUCT like this:</p>
 <pre><code>        Struct {
             LinkedHashMap&lt;FeedItemID, FeedItem&gt; feedItems;

@@ -380,7 +380,12 @@ Joining two tables in two separate databases can cause performance and consisten
 <p><strong>Which cache replacement policy would best fit our needs?</strong> When the cache is full, and we want to replace a chunk with a newer/hotter chunk, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently used chunk first. Load Similarly, we can have a cache for Metadata DB.</p>
 <h2 id="11-load-balancer-lb">11. Load Balancer (LB)</h2>
 <h1 id="_4"></h1>
-<p>We can add the Load balancing layer at two places in our system: 1) Between Clients and Block servers and 2) Between Clients and Metadata servers. Initially, a simple Round Robin approach can be adopted that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is if a server is dead, LB will take it out of the rotation and will stop sending any traffic to it. A problem with Round Robin LB is, it won’t take server load into consideration. If a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries backend server about their load and adjusts traffic based on that.</p>
+<p>We can add the Load balancing layer at two places in our system: </p>
+<ul>
+<li>1) Between Clients and Block servers and </li>
+<li>2) Between Clients and Metadata servers. </li>
+</ul>
+<p>Initially, a simple Round Robin approach can be adopted that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is if a server is dead, LB will take it out of the rotation and will stop sending any traffic to it. A problem with Round Robin LB is, it won’t take server load into consideration. If a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries backend server about their load and adjusts traffic based on that.</p>
 <h2 id="12-security-permissions-and-file-sharing">12. Security, Permissions and File Sharing</h2>
 <h1 id="_5"></h1>
 <p>One of the primary concerns users will have while storing their files in the cloud is the privacy and security of their data, especially since in our system users can share their files with other users or even make them public to share it with everyone. To handle this, we will be storing the permissions of each file in our metadata DB to reflect what files are visible or modifiable by any user</p>

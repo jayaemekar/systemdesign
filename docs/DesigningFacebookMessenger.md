@@ -22,13 +22,13 @@ Our Messenger should meet the following requirements:
 
 **Extended Requirements:**
 
-Group Chats: Messenger should support multiple people talking to each other in a group.
-Push notifications: Messenger should be able to notify users of new messages when they are offline.
+1. Group Chats: Messenger should support multiple people talking to each other in a group.
+2. Push notifications: Messenger should be able to notify users of new messages when they are offline.
 
 ## 3. Capacity Estimation and Constraints
 Let’s assume that we have 500 million daily active users and on average each user sends 40 messages daily; this gives us 20 billion messages per day.
 
-Storage Estimation: Let’s assume that on average a message is 100 bytes, so to store all the messages for one day we would need 2TB of storage.
+**Storage Estimation:** Let’s assume that on average a message is 100 bytes, so to store all the messages for one day we would need 2TB of storage.
 
                             20 billion messages * 100 bytes => 2 TB/day
 To store five years of chat history, we would need 3.6 petabytes of storage.
@@ -79,8 +79,10 @@ Let’s talk about these scenarios one by one:
 **a. Messages Handling**
 **How would we efficiently send/receive messages?** To send messages, a user needs to connect to the server and post messages for the other users. To get a message from the server, the user has two options:
 
-**Pull model:** Users can periodically ask the server if there are any new messages for them.
-**Push model:** Users can keep a connection open with the server and can depend upon the server to notify them whenever there are new messages.
+- **Pull model:** Users can periodically ask the server if there are any new messages for them.
+
+- **Push model:** Users can keep a connection open with the server and can depend upon the server to notify them whenever there are new messages.
+
 If we go with our first approach, then the server needs to keep track of messages that are still waiting to be delivered, and as soon as the receiving user connects to the server to ask for any new message, the server can return all the pending messages. To minimize latency for the user, they have to check the server quite frequently, and most of the time they will be getting an empty response if there are no pending message. This will waste a lot of resources and does not look like an efficient solution.
 
 If we go with our second approach, where all the active users keep a connection open with the server, then as soon as the server receives a message it can immediately pass the message to the intended user. This way, the server does not need to keep track of the pending messages, and we will have minimum latency, as the messages are delivered instantly on the opened connection.
@@ -95,7 +97,11 @@ If we go with our second approach, where all the active users keep a connection 
 
 **How do we know which server holds the connection to which user?** We can introduce a software load balancer in front of our chat servers; that can map each UserID to a server to redirect the request.
 
-**How should the server process a ‘deliver message’ request?** The server needs to do the following things upon receiving a new message: 1) Store the message in the database 2) Send the message to the receiver and 3) Send an acknowledgment to the sender.
+**How should the server process a ‘deliver message’ request?** The server needs to do the following things upon receiving a new message: 
+
+- 1) Store the message in the database 
+- 2) Send the message to the receiver and 
+- 3) Send an acknowledgment to the sender.
 
 The chat server will first find the server that holds the connection for the receiver and pass the message to that server to send it to the receiver. The chat server can then send the acknowledgment to the sender; we don’t need to wait for storing the message in the database (this can happen in the background). Storing the message is discussed in the next section.
 
@@ -106,6 +112,7 @@ The chat server will first find the server that holds the connection for the rec
 3. Meanwhile, User-2 sends a message M2 to the server for User-1.
 4. The server receives the message M2 at T2, such that T2 > T1.
 5. The server sends message M1 to User-2 and M2 to User-1.
+
 So User-1 will see M1 first and then M2, whereas User-2 will see M2 first and then M1.
 
 To resolve this, we need to keep a sequence number with every message for each client. This sequence number will determine the exact ordering of messages for EACH user. With this solution, both clients will see a different view of the message sequence, but this view will be consistent for them on all devices.
@@ -131,7 +138,7 @@ Both of our requirements can be easily met with a wide-column database solution 
 
 **How should clients efficiently fetch data from the server?** Clients should paginate while fetching data from the server. Page size could be different for different clients, e.g., cell phones have smaller screens, so we need a fewer number of message/conversations in the viewport.
 
-## c. Managing user’s status
+**c. Managing user’s status**
 We need to keep track of user’s online/offline status and notify all the relevant users whenever a status change happens. Since we are maintaining a connection object on the server for all active users, we can easily figure out the user’s current status from this. With 500M active users at any time, if we have to broadcast each status change to all the relevant active users, it will consume a lot of resources. We can do the following optimization around this:
 
 1. Whenever a client starts the app, it can pull the current status of all users in their friends’ list.
@@ -178,7 +185,7 @@ We can have separate group-chat objects in our system that can be stored on the 
 
 In databases, we can store all the group chats in a separate table partitioned based on GroupChatID.
 
-**b. Push notifications**s
+**b. Push notifications**
 In our current design, users can only send messages to active users and if the receiving user is offline, we send a failure to the sending user. Push notifications will enable our system to send messages to offline users.
 
 For Push notifications, each user can opt-in from their device (or a web browser) to get notifications whenever there is a new message or event. Each manufacturer maintains a set of servers that handles pushing these notifications to the user.
