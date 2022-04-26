@@ -2,6 +2,7 @@
 Let's design an online ticketing system that sells movie tickets like Ticketmaster or BookMyShow.
 
 Similar Services: bookmyshow.com, ticketmaster.com
+
 Difficulty Level: Hard
 
 ## 1. What is an online movie ticket booking system?
@@ -47,19 +48,20 @@ To store five years of this data, we would need around 3.6TB.
 ## 5. System APIs
 We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definition of the APIs to search movie shows and reserve seats.
 
-        SearchMovies(api_dev_key, keyword, city, lat_long, radius, start_datetime, end_datetime, postal_code, 
+    SearchMovies(api_dev_key, keyword, city, lat_long, radius, start_datetime, end_datetime, postal_code, 
         includeSpellcheck, results_per_page, sorting_order)
 **Parameters:**
-    api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-    keyword (string): Keyword to search on.
-    city (string): City to filter movies by.
-    lat_long (string): Latitude and longitude to filter by. radius (number): Radius of the area in which we want to search for events.
-    start_datetime (string): Filter movies with a starting datetime.
-    end_datetime (string): Filter movies with an ending datetime.
-    postal_code (string): Filter movies by postal code / zipcode.
-    includeSpellcheck (Enum: “yes” or “no”): Yes, to include spell check suggestions in the response.
-    results_per_page (number): Number of results to return per page. Maximum is 30.
-    sorting_order (string): Sorting order of the search result. Some allowable values : ‘name,asc’, ‘name,desc’, ‘date,asc’, ‘date,desc’, ‘distance,asc’, ‘name,date,asc’, ‘name,date,desc’, ‘date,name,asc’, ‘date,name,desc’.
+
+- **api_dev_key (string):** The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+- **keyword (string):** Keyword to search on.
+- **city (string):** City to filter movies by.
+- **lat_long (string):** Latitude and longitude to filter by. radius (number): Radius of the area in which we want to search for events.
+- **start_datetime (string):** Filter movies with a starting datetime.
+- **end_datetime (string):** Filter movies with an ending datetime.
+- **postal_code (string):** Filter movies by postal code / zipcode.
+- **includeSpellcheck (Enum: “yes” or “no”):** Yes, to include spell check suggestions in the response.
+- **results_per_page (number):** Number of results to return per page. Maximum is 30.
+- **sorting_order (string):** Sorting order of the search result. Some allowable values : ‘name,asc’, ‘name,desc’, ‘date,asc’, ‘date,desc’, ‘distance,asc’, ‘name,date,asc’, ‘name,date,desc’, ‘date,name,asc’, ‘date,name,desc’.
 
 **Returns: (JSON)**
 Here is a sample list of movies and their shows:
@@ -122,11 +124,11 @@ Here is a sample list of movies and their shows:
 
         ReserveSeats(api_dev_key, session_id, movie_id, show_id, seats_to_reserve[])
 **Parameters:**
-api_dev_key (string): same as above
-session_id (string): User’s session ID to track this reservation. Once the reservation time expires, user’s reservation on the server will be removed using this ID.
-movie_id (string): Movie to reserve.
-show_id (string): Show to reserve.
-seats_to_reserve (number): An array containing seat IDs to reserve.
+- api_dev_key (string): same as above
+- session_id (string): User’s session ID to track this reservation. Once the reservation time expires, user’s reservation on the server will be removed using this ID.
+- movie_id (string): Movie to reserve.
+- show_id (string): Show to reserve.
+- seats_to_reserve (number): An array containing seat IDs to reserve.
 
 **Returns: (JSON)**
 Returns the status of the reservation, which would be one of the following: 1) “Reservation Successful” 2) “Reservation Failed - Show Full,” 3) “Reservation Failed - Retry, as other users are holding reserved seats”.
