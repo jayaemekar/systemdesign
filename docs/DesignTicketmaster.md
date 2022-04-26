@@ -169,13 +169,13 @@ Ticket Booking Workflow: The following would be a typical ticket booking workflo
 6. If the required number of seats are available, the user is shown a map of the theater to select seats. If not, the user is taken to ‘step 8’ below.
 7. Once the user selects the seat, the system will try to reserve those selected seats.
 8. If seats can’t be reserved, we have the following options:
-    Show is full; the user is shown the error message.
-    The seats the user wants to reserve are no longer available, but there are other seats available, so the user is taken back to the theater map to choose different seats.
-    There are no seats available to reserve, but all the seats are not booked yet, as there are some seats that other users are holding in the reservation pool and have not booked yet. The user will be taken to a waiting page where they can wait until the required seats get freed from the reservation pool. This waiting could result in the following options:
-        If the required number of seats become available, the user is taken to the theater map page where they can choose seats.
-        While waiting, if all seats get booked or there are fewer seats in the reservation pool than the user intend to book, the user is shown the error message.
-        User cancels the waiting and is taken back to the movie search page.
-        At maximum, a user can wait one hour, after that user’s session gets expired and the user is taken back to the movie search page.
+    - Show is full; the user is shown the error message.
+    - The seats the user wants to reserve are no longer available, but there are other seats available, so the user is taken back to the theater map to choose different seats.
+    - There are no seats available to reserve, but all the seats are not booked yet, as there are some seats that other users are holding in the reservation pool and have not booked yet. The user will be taken to a waiting page where they can wait until the required seats get freed from the reservation pool. This waiting could result in the following options:
+        - If the required number of seats become available, the user is taken to the theater map page where they can choose seats.
+        - While waiting, if all seats get booked or there are fewer seats in the reservation pool than the user intend to book, the user is shown the error message.
+        - User cancels the waiting and is taken back to the movie search page.
+        - At maximum, a user can wait one hour, after that user’s session gets expired and the user is taken back to the movie search page.
 9. If seats are reserved successfully, the user has five minutes to pay for the reservation. After payment, booking is marked complete. If the user is not able to pay within five minutes, all their reserved seats are freed to become available to other users.
 
 <p align="center"> 
