@@ -1,6 +1,8 @@
 # Key Characteristics of Distributed Systems
 
-Key characteristics of a distributed system include Scalability, Reliability, Availability, Efficiency, and Manageability. Let’s briefly review them:
+Key characteristics of a distributed system include Scalability, Reliability, Availability, Efficiency, and Manageability. 
+
+Let’s briefly review them:
 
 ## Scalability
 Scalability is the capability of a system, process, or a network to grow and manage increased demand. Any distributed system that can continuously evolve in order to support the growing amount of work is considered to be scalable.

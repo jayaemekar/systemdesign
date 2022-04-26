@@ -2,7 +2,7 @@ site_name: My System Design
 site_url: https://systemdesignbyjayaa.com/
 nav:
     - Home: index.md
-    - System Design Basic: SystemDesignBasic.md
+    #- System Design Basic: SystemDesignBasic.md
     - Key Characteristics of Distributed Systems: KeyCharDistributedSystem.md
     - Load Balancing: LoadBalancing.md
     - Caching: Caching.md
@@ -30,6 +30,7 @@ nav:
     - Designing Yelp or Nearby Friends: DesigningYelporNearbyFriends.md
     - Designing Uber backend: DesigningUberBackend.md
     - Design Ticketmaster: DesignTicketmaster.md
+    - Pratice Design Problems: PraticeDesignProblems.md
     - About: about.md
 
 
