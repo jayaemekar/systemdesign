@@ -14,15 +14,16 @@ Let’s design a newsfeed for Facebook with the following requirements:
 
 **Functional requirements:**
 
-Newsfeed will be generated based on the posts from the people, pages, and groups that a user follows.
-A user may have many friends and follow a large number of pages/groups.
-Feeds may contain images, videos, or just text.
-Our service should support appending new posts as they arrive to the newsfeed for all active users.
+1. Newsfeed will be generated based on the posts from the people, pages, and groups that a user follows.
+2. A user may have many friends and follow a large number of pages/groups.
+3. Feeds may contain images, videos, or just text.
+4. Our service should support appending new posts as they arrive to the newsfeed for all active users.
 
 **Non-functional requirements:**
 
-Our system should be able to generate any user’s newsfeed in real-time - maximum latency seen by the end user would be 2s.
-A post shouldn’t take more than 5s to make it to a user’s feed assuming a new newsfeed request comes in.
+1. Our system should be able to generate any user’s newsfeed in real-time - maximum latency seen by the end user would be 2s.
+2. A post shouldn’t take more than 5s to make it to a user’s feed assuming a new newsfeed request comes in.
+
 ## 3. Capacity Estimation and Constraints
 Let’s assume on average a user has 300 friends and follows 200 pages.
 
@@ -36,14 +37,15 @@ We can have SOAP or REST APIs to expose the functionality of our service. The fo
 
         getUserFeed(api_dev_key, user_id, since_id, count, max_id, exclude_replies)
 **Parameters:**
-api_dev_key (string): The API developer key of a registered can be used to, among other things, throttle users based on their allocated quota.
-user_id (number): The ID of the user for whom the system will generate the newsfeed.
-since_id (number): Optional; returns results with an ID higher than (that is, more recent than) the specified ID.
-count (number): Optional; specifies the number of feed items to try and retrieve up to a maximum of 200 per distinct request.
-max_id (number): Optional; returns results with an ID less than (that is, older than) or equal to the specified ID.
-exclude_replies(boolean): Optional; this parameter will prevent replies from appearing in the returned timeline.
 
-Returns: (JSON) Returns a JSON object containing a list of feed items.
+- **api_dev_key (string):** The API developer key of a registered can be used to, among other things, throttle users based on their allocated quota.
+- **user_id (number):** The ID of the user for whom the system will generate the newsfeed.
+- **since_id (number):** Optional; returns results with an ID higher than (that is, more recent than) the specified ID.
+- **count (number):** Optional; specifies the number of feed items to try and retrieve up to a maximum of 200 per distinct request.
+- **max_id (number):** Optional; returns results with an ID less than (that is, older than) or equal to the specified ID.
+- **exclude_replies(boolean):** Optional; this parameter will prevent replies from appearing in the returned timeline.
+
+**Returns: (JSON)** Returns a JSON object containing a list of feed items.
 
 ## 5. Database Design
 There are three primary objects: User, Entity (e.g. page, group, etc.), and FeedItem (or Post). Here are some observations about the relationships between these entities:
@@ -72,19 +74,20 @@ At a high level this problem can be divided into two parts:
 3. Rank these posts based on the relevance to Jane. This represents Jane’s current feed.
 4. Store this feed in the cache and return top posts (say 20) to be rendered on Jane’s feed.
 5. On the front-end, when Jane reaches the end of her current feed, she can fetch the next 20 posts from the server and so on.
+
 One thing to notice here is that we generated the feed once and stored it in the cache. What about new incoming posts from people that Jane follows? If Jane is online, we should have a mechanism to rank and add those new posts to her feed. We can periodically (say every five minutes) perform the above steps to rank and add the newer posts to her feed. Jane can then be notified that there are newer items in her feed that she can fetch.
 
 **Feed publishing:** Whenever Jane loads her newsfeed page, she has to request and pull feed items from the server. When she reaches the end of her current feed, she can pull more data from the server. For newer items either the server can notify Jane and then she can pull, or the server can push, these new posts. We will discuss these options in detail later.
 
 At a high level, we will need following components in our Newsfeed service:
 
-**1. Web servers:** To maintain a connection with the user. This connection will be used to transfer data between the user and the server.
-**2. Application server:** To execute the workflows of storing new posts in the database servers. We will also need some application servers to retrieve and to push the newsfeed to the end user.
-**3. Metadata database and cache:** To store the metadata about Users, Pages, and Groups.
-**4. Posts database and cache:** To store metadata about posts and their contents.
-**5. Video and photo storage, and cache:** Blob storage, to store all the media included in the posts.
-**6. Newsfeed generation service:** To gather and rank all the relevant posts for a user to generate newsfeed and store in the cache. This service will also receive live updates and will add these newer feed items to any user’s timeline.
-**7. Feed notification service:** To notify the user that there are newer items available for their newsfeed.
+- **1. Web servers:** To maintain a connection with the user. This connection will be used to transfer data between the user and the server.
+- **2. Application server:** To execute the workflows of storing new posts in the database servers. We will also need some application servers to retrieve and to push the newsfeed to the end user.
+- **3. Metadata database and cache:** To store the metadata about Users, Pages, and Groups.
+- **4. Posts database and cache:** To store metadata about posts and their contents.
+- **5. Video and photo storage, and cache:** Blob storage, to store all the media included in the posts.
+- **6. Newsfeed generation service:** To gather and rank all the relevant posts for a user to generate newsfeed and store in the cache. This service will also receive live updates and will add these newer feed items to any user’s timeline.
+- **7. Feed notification service:** To notify the user that there are newer items available for their newsfeed.
 Following is the high-level architecture diagram of our system. User B and C are following User A.
 
 
@@ -116,6 +119,7 @@ Crazy slow for users with a lot of friends/follows as we have to perform sorting
 We generate the timeline when a user loads their page. This would be quite slow and have a high latency.
 For live updates, each status update will result in feed updates for all followers. This could result in high backlogs in our Newsfeed Generation Service.
 For live updates, the server pushing (or notifying about) newer posts to users could lead to very heavy loads, especially for people or pages that have a lot of followers. To improve the efficiency, we can pre-generate the timeline and store it in a memory.
+
 **Offline generation for newsfeed:** We can have dedicated servers that are continuously generating users’ newsfeed and storing them in memory. So, whenever a user requests for the new posts for their feed, we can simply serve it from the pre-generated, stored location. Using this scheme, user’s newsfeed is not compiled on load, but rather on a regular basis and returned to users whenever they request for it.
 
 Whenever these servers need to generate the feed for a user, they will first query to see what was the last time the feed was generated for that user. Then, new feed data would be generated from that time onwards. We can store this data in a hash table where the “key” would be UserID and “value” would be a STRUCT like this:
@@ -151,6 +155,7 @@ The most straightforward way to rank posts in a newsfeed is by the creation time
 More specifically, we can select features that are relevant to the importance of any feed item, e.g., number of likes, comments, shares, time of the update, whether the post has images/videos, etc., and then, a score can be calculated using these features. This is generally enough for a simple ranking system. A better ranking system can significantly improve itself by constantly evaluating if we are making progress in user stickiness, retention, ads revenue, etc.
 
 ## 9. Data Partitioning
+
 **a. Sharding posts and metadata**
 Since we have a huge number of new posts every day and our read load is extremely high too, we need to distribute our data onto multiple machines such that we can read/write it efficiently. For sharding our databases that are storing posts and their metadata, we can have a similar design as discussed under Designing Twitter.
 

@@ -16,12 +16,23 @@ Rate Limiting helps to protect services against abusive behaviors targeting the 
 
 Rate limiting is also used to prevent revenue loss, to reduce infrastructure costs, to stop spam, and to stop online harassment. Following is a list of scenarios that can benefit from Rate limiting by making a service (or API) more reliable:
 
-**Misbehaving clients/scripts:** Either intentionally or unintentionally, some entities can overwhelm a service by sending a large number of requests. Another scenario could be when a user is sending a lot of lower-priority requests and we want to make sure that it doesn’t affect the high-priority traffic. For example, users sending a high volume of requests for analytics data should not be allowed to hamper critical transactions for other users.
-**Security:** By limiting the number of the second-factor attempts (in 2-factor auth) that the users are allowed to perform, for example, the number of times they’re allowed to try with a wrong password.
-**To prevent abusive behavior and bad design practices:** Without API limits, developers of client applications would use sloppy development tactics, for example, requesting the same information over and over again.
-**To keep costs and resource usage under control:** Services are generally designed for normal input behavior, for example, a user writing a single post in a minute. Computers could easily push thousands/second through an API. Rate limiter enables controls on service APIs.
-**Revenue:** Certain services might want to limit operations based on the tier of their customer’s service and thus create a revenue model based on rate limiting. There could be default limits for all the APIs a service offers. To go beyond that, the user has to buy higher limits
+**Misbehaving clients/scripts:**
+ Either intentionally or unintentionally, some entities can overwhelm a service by sending a large number of requests. Another scenario could be when a user is sending a lot of lower-priority requests and we want to make sure that it doesn’t affect the high-priority traffic. For example, users sending a high volume of requests for analytics data should not be allowed to hamper critical transactions for other users.
+
+**Security:**
+ By limiting the number of the second-factor attempts (in 2-factor auth) that the users are allowed to perform, for example, the number of times they’re allowed to try with a wrong password.
+
+**To prevent abusive behavior and bad design practices:**
+ Without API limits, developers of client applications would use sloppy development tactics, for example, requesting the same information over and over again.
+
+**To keep costs and resource usage under control:**
+ Services are generally designed for normal input behavior, for example, a user writing a single post in a minute. Computers could easily push thousands/second through an API. Rate limiter enables controls on service APIs.
+
+**Revenue:**
+ Certain services might want to limit operations based on the tier of their customer’s service and thus create a revenue model based on rate limiting. There could be default limits for all the APIs a service offers. To go beyond that, the user has to buy higher limits
+
 To eliminate spikiness in traffic: Make sure the service stays up for everyone else.
+
 ## 3. Requirements and Goals of the System
 Our Rate Limiter should meet the following requirements:
 
@@ -34,6 +45,7 @@ The APIs are accessible through a cluster, so the rate limit should be considere
 
 The system should be highly available. The rate limiter should always work since it protects our service from external attacks.
 Our rate limiter should not introduce substantial latencies affecting the user experience.
+
 ## 4. How to do Rate Limiting?
 Rate Limiting is a process that is used to define the rate and speed at which consumers can access APIs. Throttling is the process of controlling the usage of the APIs by customers during a given period. Throttling can be defined at the application level and/or API level. When a throttle limit is crossed, the server returns HTTP status “429 - Too many requests".
 
