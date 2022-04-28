@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/Caching/">
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/DesignURLShorteningService/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Caching - My System Design</title>
+  <title>Question-Design a URL Shortening service - My System Design</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Caching";
-    var mkdocs_page_input_path = "Caching.md";
-    var mkdocs_page_url = "/Caching/";
+    var mkdocs_page_name = "Question-Design a URL Shortening service";
+    var mkdocs_page_input_path = "DesignURLShorteningService.md";
+    var mkdocs_page_url = "/DesignURLShorteningService/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js" defer></script>
@@ -58,26 +58,8 @@
                     <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Caching</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#application-server-cache">Application server cache</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#content-distribution-network-cdn">Content Distribution Network (CDN)</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#cache-invalidation">Cache Invalidation</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#write-through-cache">Write-through cache:</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#write-around-cache">Write-around cache:</a>
-    </li>
-    <li class="toctree-l3"><a class="reference internal" href="#write-back-cache">Write-back cache:</a>
-    </li>
-        </ul>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#cache-eviction-policies">Cache eviction policies</a>
-    </li>
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
                     </li>
                 </ul>
                 <ul>
@@ -116,8 +98,10 @@
                     <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Question-Design a URL Shortening service</a>
+    <ul class="current">
+    </ul>
                     </li>
                 </ul>
                 <ul>
@@ -209,7 +193,7 @@
     
       
     
-    <li>Caching</li>
+    <li>Question-Design a URL Shortening service</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -221,39 +205,39 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="caching">Caching</h1>
-<p>Load balancing helps you scale horizontally across an ever-increasing number of servers, but caching will enable you to make vastly better use of the resources you already have as well as making otherwise unattainable product requirements feasible. Caches take advantage of the locality of reference principle: recently requested data is likely to be requested again. They are used in almost every layer of computing: hardware, operating systems, web browsers, web applications, and more. A cache is like short-term memory: it has a limited amount of space, but is typically faster than the original data source and contains the most recently accessed items. Caches can exist at all levels in architecture, but are often found at the level nearest to the front end where they are implemented to return data quickly without taxing downstream levels</p>
-<h2 id="application-server-cache">Application server cache</h2>
-<p>Placing a cache directly on a request layer node enables the local storage of response data. Each time a request is made to the service, the node will quickly return local cached data if it exists. If it is not in the cache, the requesting node will query the data from disk. The cache on one request layer node could also be located both in memory (which is very fast) and on the node’s local disk (faster than going to network storage).</p>
-<p>What happens when you expand this to many nodes? If the request layer is expanded to multiple nodes, it’s still quite possible to have each node host its own cache. However, if your load balancer randomly distributes requests across the nodes, the same request will go to different nodes, thus increasing cache misses. Two choices for overcoming this hurdle are global caches and distributed caches.</p>
-<h2 id="content-distribution-network-cdn">Content Distribution Network (CDN)</h2>
-<p>CDNs are a kind of cache that comes into play for sites serving large amounts of static media. In a typical CDN setup, a request will first ask the CDN for a piece of static media; the CDN will serve that content if it has it locally available. If it isn’t available, the CDN will query the back-end servers for the file, cache it locally, and serve it to the requesting user.</p>
-<p>If the system we are building isn’t yet large enough to have its own CDN, we can ease a future transition by serving the static media off a separate subdomain (e.g. static.yourservice.com) using a lightweight HTTP server like Nginx, and cut-over the DNS from your servers to a CDN later.</p>
-<h2 id="cache-invalidation">Cache Invalidation</h2>
-<p>While caching is fantastic, it does require some maintenance for keeping cache coherent with the source of truth (e.g., database). If the data is modified in the database, it should be invalidated in the cache; if not, this can cause inconsistent application behavior.</p>
-<p>Solving this problem is known as cache invalidation; there are three main schemes that are used:</p>
-<h3 id="write-through-cache">Write-through cache:</h3>
-<p>Under this scheme, data is written into the cache and the corresponding database at the same time. The cached data allows for fast retrieval and, since the same data gets written in the permanent storage, we will have complete data consistency between the cache and the storage. Also, this scheme ensures that nothing will get lost in case of a crash, power failure, or other system disruptions.</p>
-<p>Although, write through minimizes the risk of data loss, since every write operation must be done twice before returning success to the client, this scheme has the disadvantage of higher latency for write operations.</p>
-<h3 id="write-around-cache">Write-around cache:</h3>
-<p>This technique is similar to write through cache, but data is written directly to permanent storage, bypassing the cache. This can reduce the cache being flooded with write operations that will not subsequently be re-read, but has the disadvantage that a read request for recently written data will create a “cache miss” and must be read from slower back-end storage and experience higher latency.</p>
-<h3 id="write-back-cache">Write-back cache:</h3>
-<p>Under this scheme, data is written to cache alone and completion is immediately confirmed to the client. The write to the permanent storage is done after specified intervals or under certain conditions. This results in low latency and high throughput for write-intensive applications, however, this speed comes with the risk of data loss in case of a crash or other adverse event because the only copy of the written data is in the cache.</p>
-<h2 id="cache-eviction-policies">Cache eviction policies</h2>
-<p>Following are some of the most common cache eviction policies:</p>
-<ol>
-<li>First In First Out (FIFO): The cache evicts the first block accessed first without any regard to how often or how many times it was accessed before.</li>
-<li>Last In First Out (LIFO): The cache evicts the block accessed most recently first without any regard to how often or how many times it was accessed before.</li>
-<li>Least Recently Used (LRU): Discards the least recently used items first.</li>
-<li>Most Recently Used (MRU): Discards, in contrast to LRU, the most recently used items first.</li>
-<li>Least Frequently Used (LFU): Counts how often an item is needed. Those that are used least often are discarded first.</li>
-<li>Random Replacement (RR): Randomly selects a candidate item and discards it to make space when necessary.</li>
-</ol>
-<p>Following links have some good discussion about caching:</p>
-<ol>
-<li><strong><a href="https://en.wikipedia.org/wiki/Cache_(computing)">Cache</a></strong></li>
-<li><strong><a href="https://lethain.com/introduction-to-architecting-systems-for-scale/">Introduction to architecting systems</a></strong></li>
-</ol>
+                <h1 id="question-designing-a-url-shortening-service-like-tinyurl">Question: Designing a URL Shortening service like TinyURL</h1>
+<p>Design a URL shortening service like TinyURL. This service will provide short aliases redirecting to long URLs.</p>
+<p><strong>Similar services:</strong> bit.ly, goo.gl, qlink.me, etc.
+<strong>Difficulty Level:</strong> Easy</p>
+<!DOCTYPE html>
+<p><html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head></p>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+    <iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+
+    <h1>Hints to solve the problem</h1>
+
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Think about functional Non functional Requirements. </a>
+    <br>
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Capacity Estimation and Constraints like traffic, bandwidth and stroage estimates. </a>
+    <br>
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#system-apis" target="_blank">3. Think about System API's. </a>
+    <br>
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#database-design" target="_blank">4. What about database system design </a>
+    <br>
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about Data Partitioning and Replication </a>
+    <br>
+    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#cache" target="_blank">6. Think about Cache  and Load Balancer </a>
+
+</body>
+<p></html></p>
               
             </div>
           </div>
@@ -261,10 +245,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../DataPartitioning/" class="btn btn-neutral float-right" title="Data Partitioning">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../DesigningURLShorteningService/" class="btn btn-neutral float-right" title="Designing a URL Shortening service">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../LoadBalancing/" class="btn btn-neutral" title="Load Balancing"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../SystemDesignInterviews/" class="btn btn-neutral" title="System Design Interviews"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -290,10 +274,10 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../LoadBalancing/" style="color: #fcfcfc">&laquo; Previous</a></span>
+      <span><a href="../SystemDesignInterviews/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../DataPartitioning/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../DesigningURLShorteningService/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

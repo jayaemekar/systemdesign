@@ -15,6 +15,7 @@ nav:
     - Consistent Hashing: ConsistentHashing.md
     - Long-Polling vs WebSockets vs Server-Sent Events: Events.md
     - System Design Interviews: SystemDesignInterviews.md
+    - Question-Design a URL Shortening service: DesignURLShorteningService.md
     - Designing a URL Shortening service: DesigningURLShorteningService.md
     - Designing Pastebin: DesigningPastebin.md
     - Designing Instagram: DesigningInstagram.md

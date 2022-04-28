@@ -21,7 +21,7 @@ Good examples of horizontal scaling are Cassandra and MongoDB as they both provi
 
 <p align="center"> 
   <kbd>
-  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/VerticalHorizontalSacling.JPG">
+  <a href="https://github.com/jayaemekar/systemdesign"><img src="../docs/images/VerticalHorizontalSacling.JPG">
   </a>
   </kbd>
 </p>
