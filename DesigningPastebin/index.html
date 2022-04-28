@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://systemdesignbyjayaa.com/DesigningPastebin/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Designing Pastebin - My System Design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Designing Pastebin";
+    var mkdocs_page_input_path = "DesigningPastebin.md";
+    var mkdocs_page_url = "/DesigningPastebin/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> My System Design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Designing Pastebin</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-what-is-pastebin">1. What is Pastebin?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-requirements-and-goals-of-the-system">2. Requirements and Goals of the System</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#functional-requirements">Functional Requirements:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#non-functional-requirements">Non-Functional Requirements:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#extended-requirements">Extended Requirements:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-some-design-considerations">3. Some Design Considerations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#traffic-estimates">Traffic estimates</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#storage-estimates">Storage estimates:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#bandwidth-estimates">Bandwidth estimates:</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#memory-estimates">Memory estimates:</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-system-apis">5. System APIs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-database-design">6. Database Design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-high-level-design">7. High Level Design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-component-design">8. Component Design</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#a-application-layer">a. Application layer</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#b-datastore-layer">b. Datastore layer</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-purging-or-db-cleanup">9. Purging or DB Cleanup</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-data-partitioning-and-replication">10. Data Partitioning and Replication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#11-cache-and-load-balancer">11. Cache and Load Balancer</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#12-security-and-permissions">12. Security and Permissions</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">My System Design</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Designing Pastebin</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="designing-pastebin">Designing Pastebin</h1>
+<p>Let's design a Pastebin like web service, where users can store plain text. Users of the service will enter a piece of text and get a randomly generated URL to access it.</p>
+<p>Similar Services: pastebin.com, pasted.co, chopapp.com
+Difficulty Level: Easy</p>
+<h2 id="1-what-is-pastebin">1. What is Pastebin?</h2>
+<p>Pastebin like services enable users to store plain text or images over the network (typically the Internet) and generate unique URLs to access the uploaded data. Such services are also used to share data over the network quickly, as users would just need to pass the URL to let other users see it.</p>
+<p>If you haven’t used pastebin.com before, please try creating a new ‘Paste’ there and spend some time going through the different options their service offers. This will help you a lot in understanding this chapter.</p>
+<h2 id="2-requirements-and-goals-of-the-system">2. Requirements and Goals of the System</h2>
+<p>Our Pastebin service should meet the following requirements:</p>
+<h3 id="functional-requirements">Functional Requirements:</h3>
+<ol>
+<li>Users should be able to upload or “paste” their data and get a unique URL to access it.</li>
+<li>Users will only be able to upload text.</li>
+<li>Data and links will expire after a specific timespan automatically; users should also be able to specify 4. expiration time.</li>
+<li>Users should optionally be able to pick a custom alias for their paste.</li>
+</ol>
+<h3 id="non-functional-requirements">Non-Functional Requirements:</h3>
+<ol>
+<li>The system should be highly reliable, any data uploaded should not be lost.</li>
+<li>The system should be highly available. This is required because if our service is down, users will not be able to access their Pastes.</li>
+<li>Users should be able to access their Pastes in real-time with minimum latency.</li>
+<li>Paste links should not be guessable (not predictable).</li>
+</ol>
+<h3 id="extended-requirements">Extended Requirements:</h3>
+<ol>
+<li>Analytics, e.g., how many times a paste was accessed?</li>
+<li>Our service should also be accessible through REST APIs by other services.</li>
+</ol>
+<h2 id="3-some-design-considerations">3. Some Design Considerations</h2>
+<p>Pastebin shares some requirements with URL Shortening service, but there are some additional design considerations we should keep in mind.</p>
+<p>What should be the limit on the amount of text user can paste at a time? We can limit users not to have Pastes bigger than 10MB to stop the abuse of the service.</p>
+<p>Should we impose size limits on custom URLs? Since our service supports custom URLs, users can pick any URL that they like, but providing a custom URL is not mandatory. However, it is reasonable (and often desirable) to impose a size limit on custom URLs, so that we have a consistent URL database.</p>
+<p>Our services will be read-heavy; there will be more read requests compared to new Pastes creation. We can assume a 5:1 ratio between read and write.</p>
+<h4 id="traffic-estimates">Traffic estimates</h4>
+<p>Pastebin services are not expected to have traffic similar to Twitter or Facebook, let’s assume here that we get one million new pastes added to our system every day. This leaves us with five million reads per day.</p>
+<p>New Pastes per second:</p>
+<pre><code>                1M / (24 hours * 3600 seconds) ~= 12 pastes/sec
+</code></pre>
+<p>Paste reads per second:</p>
+<pre><code>                5M / (24 hours * 3600 seconds) ~= 58 reads/sec
+</code></pre>
+<h4 id="storage-estimates">Storage estimates:</h4>
+<p>Users can upload maximum 10MB of data; commonly Pastebin like services are used to share source code, configs or logs. Such texts are not huge, so let’s assume that each paste on average contains 10KB.</p>
+<p>At this rate, we will be storing 10GB of data per day.</p>
+<pre><code>                1M * 10KB =&gt; 10 GB/day
+</code></pre>
+<p>If we want to store this data for ten years we would need the total storage capacity of 36TB.</p>
+<p>With 1M pastes every day we will have 3.6 billion Pastes in 10 years. We need to generate and store keys to uniquely identify these pastes. If we use base64 encoding ([A-Z, a-z, 0-9, ., -]) we would need six letters strings:</p>
+<pre><code>                64^6 ~= 68.7 billion unique strings
+</code></pre>
+<p>If it takes one byte to store one character, total size required to store 3.6B keys would be:</p>
+<pre><code>                3.6B * 6 =&gt; 22 GB
+</code></pre>
+<p>22GB is negligible compared to 36TB. To keep some margin, we will assume a 70% capacity model (meaning we don’t want to use more than 70% of our total storage capacity at any point), which raises our storage needs to 51.4TB.</p>
+<h4 id="bandwidth-estimates">Bandwidth estimates:</h4>
+<p>For write requests, we expect 12 new pastes per second, resulting in 120KB of ingress per second.</p>
+<pre><code>                12 * 10KB =&gt; 120 KB/s
+</code></pre>
+<p>As for the read request, we expect 58 requests per second. Therefore, total data egress (sent to users) will be 0.6 MB/s.</p>
+<pre><code>                58 * 10KB =&gt; 0.6 MB/s
+</code></pre>
+<p>Although total ingress and egress are not big, we should keep these numbers in mind while designing our service.</p>
+<h4 id="memory-estimates">Memory estimates:</h4>
+<p>We can cache some of the hot pastes that are frequently accessed. Following the 80-20 rule, meaning 20% of hot pastes generate 80% of traffic, we would like to cache these 20% pastes</p>
+<p>Since we have 5M read requests per day, to cache 20% of these requests, we would need:</p>
+<pre><code>                0.2 * 5M * 10KB ~= 10 GB
+</code></pre>
+<h2 id="5-system-apis">5. System APIs</h2>
+<p>We can have SOAP or REST APIs to expose the functionality of our service. Following could be the definitions of the APIs to create/retrieve/delete Pastes:</p>
+<pre><code>        addPaste(api_dev_key, paste_data, custom_url=None user_name=None, paste_name=None, expire_date=None)
+</code></pre>
+<p><strong>Parameters:</strong>
+1. api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+2. paste_data (string): Textual data of the paste.
+3. custom_url (string): Optional custom URL.
+4. user_name (string): Optional user name to be used to generate URL.
+5. paste_name (string): Optional name of the paste
+6. expire_date (string): Optional expiration date for the paste.</p>
+<p><strong>Returns: (string)</strong>
+A successful insertion returns the URL through which the paste can be accessed, otherwise, it will return an error code.</p>
+<p>Similarly, we can have retrieve and delete Paste APIs:</p>
+<pre><code>            getPaste(api_dev_key, api_paste_key)
+</code></pre>
+<p>Where “api_paste_key” is a string representing the Paste Key of the paste to be retrieved. This API will return the textual data of the paste.</p>
+<pre><code>            deletePaste(api_dev_key, api_paste_key)
+</code></pre>
+<p>A successful deletion returns ‘true’, otherwise returns ‘false’.</p>
+<h2 id="6-database-design">6. Database Design</h2>
+<p>A few observations about the nature of the data we are storing:</p>
+<ol>
+<li>We need to store billions of records.</li>
+<li>Each metadata object we are storing would be small (less than 1KB).</li>
+<li>Each paste object we are storing can be of medium size (it can be a few MB).</li>
+<li>There are no relationships between records, except if we want to store which user created what Paste.</li>
+<li>Our service is read-heavy.</li>
+</ol>
+<p><strong>Database Schema:</strong>
+We would need two tables, one for storing information about the Pastes and the other for users’ data.</p>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/pastebin.JPG">
+  </a>
+  </kbd>
+</p>
+
+<p>Here, ‘URlHash’ is the URL equivalent of the TinyURL and ‘ContentKey’ is a reference to an external object storing the contents of the paste; we’ll discuss the external storage of the paste contents later in the chapter.</p>
+<h2 id="7-high-level-design">7. High Level Design</h2>
+<p>At a high level, we need an application layer that will serve all the read and write requests. Application layer will talk to a storage layer to store and retrieve data. We can segregate our storage layer with one database storing metadata related to each paste, users, etc., while the other storing the paste contents in some object storage (like Amazon S3). This division of data will also allow us to scale them individually.</p>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/pastebin1.JPG">
+  </a>
+  </kbd>
+</p>
+
+<h2 id="8-component-design">8. Component Design</h2>
+<h4 id="a-application-layer">a. Application layer</h4>
+<p>Our application layer will process all incoming and outgoing requests. The application servers will be talking to the backend data store components to serve the requests.</p>
+<p><strong>How to handle a write request?</strong> Upon receiving a write request, our application server will generate a six-letter random string, which would serve as the key of the paste (if the user has not provided a custom key). The application server will then store the contents of the paste and the generated key in the database. After the successful insertion, the server can return the key to the user. One possible problem here could be that the insertion fails because of a duplicate key. Since we are generating a random key, there is a possibility that the newly generated key could match an existing one. In that case, we should regenerate a new key and try again. We should keep retrying until we don’t see failure due to the duplicate key. We should return an error to the user if the custom key they have provided is already present in our database.</p>
+<p>Another solution of the above problem could be to run a standalone Key Generation Service (KGS) that generates random six letters strings beforehand and stores them in a database (let’s call it key-DB). Whenever we want to store a new paste, we will just take one of the already generated keys and use it. This approach will make things quite simple and fast since we will not be worrying about duplications or collisions. KGS will make sure all the keys inserted in key-DB are unique. KGS can use two tables to store keys, one for keys that are not used yet and one for all the used keys. As soon as KGS gives some keys to an application server, it can move these to the used keys table. KGS can always keep some keys in memory so that whenever a server needs them, it can quickly provide them. As soon as KGS loads some keys in memory, it can move them to the used keys table, this way we can make sure each server gets unique keys. If KGS dies before using all the keys loaded in memory, we will be wasting those keys. We can ignore these keys given that we have a huge number of them.</p>
+<p><strong>Isn’t KGS a single point of failure?</strong> Yes, it is. To solve this, we can have a standby replica of KGS and whenever the primary server dies it can take over to generate and provide keys.</p>
+<p><strong>Can each app server cache some keys from key-DB?</strong> Yes, this can surely speed things up. Although in this case, if the application server dies before consuming all the keys, we will end up losing those keys. This could be acceptable since we have 68B unique six letters keys, which are a lot more than we require.</p>
+<p><strong>How does it handle a paste read request?</strong> Upon receiving a read paste request, the application service layer contacts the datastore. The datastore searches for the key, and if it is found, returns the paste’s contents. Otherwise, an error code is returned.</p>
+<h4 id="b-datastore-layer">b. Datastore layer</h4>
+<p>We can divide our datastore layer into two:</p>
+<ol>
+<li><strong>Metadata database:</strong> We can use a relational database like MySQL or a Distributed Key-Value store like Dynamo or Cassandra.</li>
+<li><strong>Object storage:</strong> We can store our contents in an Object Storage like Amazon’s S3. Whenever we feel like hitting our full capacity on content storage, we can easily increase it by adding more servers.</li>
+</ol>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/pastebin2.JPG">
+  </a>
+  </kbd>
+</p>
+
+<h2 id="9-purging-or-db-cleanup">9. Purging or DB Cleanup</h2>
+<p>Please see Designing a URL Shortening service.</p>
+<h2 id="10-data-partitioning-and-replication">10. Data Partitioning and Replication</h2>
+<p>Please see Designing a URL Shortening service.</p>
+<h2 id="11-cache-and-load-balancer">11. Cache and Load Balancer</h2>
+<p>Please see Designing a URL Shortening service.</p>
+<h2 id="12-security-and-permissions">12. Security and Permissions</h2>
+<p>Please see Designing a URL Shortening service.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../DesigningInstagram/" class="btn btn-neutral float-right" title="Designing Instagram">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../DesigningURLShorteningService/" class="btn btn-neutral" title="Designing a URL Shortening service"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../DesigningURLShorteningService/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../DesigningInstagram/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
