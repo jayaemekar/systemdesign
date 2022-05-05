@@ -72,20 +72,67 @@
     </li>
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Level2</span></p>
+                <p class="caption"><span class="caption-text">Level3</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignCache/">Design Cache</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
                     </li>
                 </ul>
                 <ul>
@@ -129,38 +176,38 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="basic-terminologies">Basic Terminologies</h1>
-<p>We try to explain some of the terminologies in simple words. Lookup wiki for a more formal definition.</p>
+                <h1 id="terminologies-fundamentals">Terminologies Fundamentals</h1>
+<p>We've attempted to explain some of the terms in plain English. For a more formal definition, go to wiki.</p>
 <h2 id="reliability">Reliability</h2>
 <ul>
-<li>Reliability is the probability a system will fail in a given period.</li>
-<li>A distributed system is considered reliable if it keeps delivering its services even when one or several of its software or hardware components fail</li>
+<li>The probability of a system failing in a given period is known as reliability.</li>
+<li>A distributed system is considered reliable if it continues to provide services despite the failure of one or more of its software or hardware components.</li>
 </ul>
 <h2 id="replication">Replication</h2>
 <ul>
-<li>Replication refers to frequently copying the data across multiple machines. </li>
-<li>Post replication, multiple copies of the data exists across machines. This might help in case one or more of the machines die due to some failure.</li>
+<li>Replication is the process of copying data across numerous devices on a regular basis. </li>
+<li>Multiple copies of the data exist among devices after replication. This could be useful if one or more of the machines dies due to a malfunction.</li>
 </ul>
 <h2 id="consistency">Consistency</h2>
 <ul>
-<li>Assuming you have a storage system which has more than one machine, consistency implies that the data is same across the cluster, so you can read or write to/from any node and get the same data.</li>
-<li><strong>Eventual consistency</strong>:
-Exactly what the name suggests. In a cluster, if multiple machines store the same data, an eventual consistent model implies that all machines will have the same data eventually. </li>
-<li>Its possible that at a given instance, those machines have different versions of the same data ( temporarily inconsistent ) but they will eventually reach a state where they have the same data.</li>
+<li>Assuming you have a storage system with multiple machines, consistency means the data is consistent throughout the cluster, so you can read or write to/from any node and get the same results.</li>
+<li><strong>Eventual consistency : Consistency in the long run</strong>
+Exactly as the name implies. If numerous machines in a cluster store the same data, an eventual consistent model implies that all machines will eventually have the same data.</li>
+<li>It's possible that those machines have various copies of the same data at any given time (temporarily inconsistent), but they'll eventually all have the same data.</li>
 </ul>
 <h2 id="availability">Availability</h2>
 <ul>
-<li>It is a simple measure of the percentage of time that a system, service, or a machine remains operational under normal conditions. </li>
-<li>In the context of a database cluster, Availability refers to the ability to always respond to queries ( read or write ) irrespective of nodes going down.</li>
-<li><strong>Reliability Vs. Availability</strong>
-If a system is reliable, it is available. However, if it is available, it is not necessarily reliable. </li>
+<li>It's a basic metric that shows how long a system, service, or machine has been operational under typical conditions.</li>
+<li>Availability in the context of a database cluster refers to the ability to always respond to queries (read or write) regardless of node failure.</li>
+<li><strong>The Difference Between Reliability and Availability</strong>
+A system is available if it is reliable. However, just because something is available does not mean it is trustworthy.</li>
 </ul>
 <h2 id="partition-tolerance">Partition Tolerance</h2>
-<p>In the context of a database cluster, cluster continues to function even if there is a “partition” (communications break) between two nodes (both nodes are up, but can’t communicate).</p>
+<p>In the context of a database cluster, Even if there is a "partition" (communications break) between two nodes in a database cluster, the cluster continues to function (both nodes are up, but can't communicate).</p>
 <h2 id="scaling">Scaling</h2>
-<p>Scalability is the capability of a system, process, or a network to grow and manage increased demand.
-There are two types of scaling, Horizontal and Vertical Scaling 
-In simple terms, to scale horizontally is adding more servers. To scale vertically is to increase the resources of the server ( RAM, CPU, storage, etc. ). </p>
+<p>Scalability refers to a system's, process's, or network's ability to grow and manage rising demand.
+Horizontal and vertical scaling are the two types of scaling.
+To put it another way, scaling horizontally means adding more servers. To scale vertically, the server's resources must be increased ( RAM, CPU, storage, etc. ).</p>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/Scaling.png">
@@ -169,8 +216,8 @@ In simple terms, to scale horizontally is adding more servers. To scale vertical
 </p>
 
 <h2 id="sharding">Sharding</h2>
-<p>Sharding is a method for distributing data across multiple machines.
-With most huge systems, data does not fit on a single machine. In such cases, sharding refers to splitting the very large database into smaller, faster and more manageable parts called data shards.</p>
+<p>Sharding is a data distribution strategy that uses many machines to distribute data.
+Data does not fit on a single machine in most large systems. In these circumstances, sharding refers to the division of a huge database into smaller, quicker, and more manageable data shards.</p>
               
             </div>
           </div>
@@ -178,7 +225,7 @@ With most huge systems, data does not fit on a single machine. In such cases, sh
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../CAPTheorem/" class="btn btn-neutral float-right" title="CAP Theorem">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../StepsToApproachAProblem/" class="btn btn-neutral float-right" title="Steps To Approach A Problem">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../PreRequisites/" class="btn btn-neutral" title="Pre Requisites"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -210,7 +257,7 @@ With most huge systems, data does not fit on a single machine. In such cases, sh
       <span><a href="../PreRequisites/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../CAPTheorem/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../StepsToApproachAProblem/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

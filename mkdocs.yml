@@ -20,9 +20,11 @@ nav:
         - Consistent Hashing: ConsistentHashing.md
         - Long-Polling vs WebSockets vs Server-Sent Events: Events.md
     - Level3:
-        - Designing a URL Shortening service: DesigningURLShorteningService.md
-        - Designing Pastebin: DesigningPastebin.md
-        - Designing Instagram: DesigningInstagram.md
+        - EASY:
+            - Designing a URL Shortening service: DesigningURLShorteningService.md
+            - Designing Pastebin: DesigningPastebin.md
+        - MEDIUM:    
+            - Designing Instagram: DesigningInstagram.md
         - Designing Dropbox: DesigningDropbox.md
         - Designing Facebook Messenger: DesigningFacebookMessenger.md
         - Designing Twitter: DesigningTwitter.md

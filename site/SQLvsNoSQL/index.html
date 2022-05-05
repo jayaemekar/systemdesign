@@ -1,199 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>SQL vs. NoSQL - My System Design</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://system_design.com/SQLvsNoSQL/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>SQL vs. NoSQL - system_design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-<meta name="generator" content="mkdocs-1.2.3, mkdocs-gitbook-1.0.7">
-
-<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-<meta name="HandheldFriendly" content="true"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta rel="next" href="" />
-<link href="../css/style.min.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "SQL vs. NoSQL";
+    var mkdocs_page_input_path = "SQLvsNoSQL.md";
+    var mkdocs_page_url = "/SQLvsNoSQL/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
-<body>
-<div class="book">
-<div class="book-summary">
-<div id="book-search-input" role="search">
-<input type="text" placeholder="Type to search" />
-</div> <!-- end of book-search-input -->
+<body class="wy-body-for-nav" role="document">
 
-<nav role="navigation">
-<ul class="summary">
-<li>
-<a href=".." target="_blank" class="custom-link">My System Design</a>
-</li>
-<li class="divider"></li>
-<li class="chapter" data-path="">
-<a href="..">Home</a>
-<li class="chapter" data-path="KeyCharDistributedSystem/">
-<a href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
-<li class="chapter" data-path="LoadBalancing/">
-<a href="../LoadBalancing/">Load Balancing</a>
-<li class="chapter" data-path="Caching/">
-<a href="../Caching/">Caching</a>
-<li class="chapter" data-path="DataPartitioning/">
-<a href="../DataPartitioning/">Data Partitioning</a>
-<li class="chapter" data-path="Indexes/">
-<a href="../Indexes/">Indexes</a>
-<li class="chapter" data-path="Proxies/">
-<a href="../Proxies/">Proxies</a>
-<li class="chapter" data-path="RedundancyReplication/">
-<a href="../RedundancyReplication/">Redundancy and Replication</a>
-<li class="chapter active" data-path="SQLvsNoSQL/">
-<a href="./">SQL vs. NoSQL</a>
-<li class="chapter" data-path="CAPTheorem/">
-<a href="../CAPTheorem/">CAP Theorem</a>
-<li class="chapter" data-path="ConsistentHashing/">
-<a href="../ConsistentHashing/">Consistent Hashing</a>
-<li class="chapter" data-path="Events/">
-<a href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
-<li class="chapter" data-path="SystemDesignInterviews/">
-<a href="../SystemDesignInterviews/">System Design Interviews</a>
-<li class="chapter" data-path="DesignURLShorteningService/">
-<a href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
-<li class="chapter" data-path="DesigningURLShorteningService/">
-<a href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
-<li class="chapter" data-path="DesigningPastebin/">
-<a href="../DesigningPastebin/">Designing Pastebin</a>
-<li class="chapter" data-path="DesigningInstagram/">
-<a href="../DesigningInstagram/">Designing Instagram</a>
-<li class="chapter" data-path="DesigningDropbox/">
-<a href="../DesigningDropbox/">Designing Dropbox</a>
-<li class="chapter" data-path="DesigningFacebookMessenger/">
-<a href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
-<li class="chapter" data-path="DesigningTwitter/">
-<a href="../DesigningTwitter/">Designing Twitter</a>
-<li class="chapter" data-path="DesigningYoutubeorNetflix/">
-<a href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
-<li class="chapter" data-path="DesigningTypeaheadSuggestion/">
-<a href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
-<li class="chapter" data-path="DesigningAPIRateLimiter/">
-<a href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
-<li class="chapter" data-path="DesigningTwitterSearch/">
-<a href="../DesigningTwitterSearch/">Designing Twitter Search</a>
-<li class="chapter" data-path="DesigningWebCrawler/">
-<a href="../DesigningWebCrawler/">Designing a Web Crawler</a>
-<li class="chapter" data-path="DesigningFacebookNewsfeed/">
-<a href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
-<li class="chapter" data-path="DesigningYelporNearbyFriends/">
-<a href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
-<li class="chapter" data-path="DesigningUberBackend/">
-<a href="../DesigningUberBackend/">Designing Uber backend</a>
-<li class="chapter" data-path="DesignTicketmaster/">
-<a href="../DesignTicketmaster/">Design Ticketmaster</a>
-<li class="chapter" data-path="PraticeDesignProblems/">
-<a href="../PraticeDesignProblems/">Pratice Design Problems</a>
-<li class="chapter" data-path="about/">
-<a href="../about/">About</a>
-<li class="divider"></li>
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> system_design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
 
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level1</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">SQL vs. NoSQL</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#sql">SQL</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nosql">NoSQL</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#differences-in-sql-vs-nosql-on-a-high-level">Differences in SQL vs NoSQL on a high level</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sql-vs-nosql-which-is-better">SQL vs. NoSQL: Which is Better?</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#benefits-of-using-a-sql-database">Benefits of Using a SQL Database</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#benefits-of-using-a-nosql-database">Benefits of Using a NoSQL Database</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level3</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
 
-<li><a href="http://www.mkdocs.org">
-Published with MkDocs
-</a></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-<li><a href="https://github.com/GitbookIO/theme-default">
-Theme by GitBook
-</a></li>
-</ul>
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">system_design</a>
+      </nav>
 
-</nav>
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Level2 &raquo;</li>
+        
+      
+    
+    <li>SQL vs. NoSQL</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
 
-</div> <!-- end of book-summary -->
-
-<div class="book-body">
-<div class="body-inner">
-<div class="book-header" role="navigation">
-
-<!-- Title -->
-<h1>
-<i class="fa fa-circle-o-notch fa-spin"></i>
-<a href="." ></a>
-</h1>
-
-</div> <!-- end of book-header -->
-
-<div class="page-wrapper" tabindex="-1" role="main">
-<div class="page-inner">
-<div id="book-search-results">
-<div class="search-noresults">
-
-<section class="normal markdown-section">
-
-
-
-<h1 id="sql-vs-nosql">SQL vs. NoSQL</h1>
-<p>In the world of databases, there are two main types of solutions: SQL and NoSQL (or relational databases and non-relational databases). Both of them differ in the way they were built, the kind of information they store, and the storage method they use.</p>
-<p>Relational databases are structured and have predefined schemas like phone books that store phone numbers and addresses. Non-relational databases are unstructured, distributed, and have a dynamic schema like file folders that hold everything from a person’s address and phone number to their Facebook ‘likes’ and online shopping preferences.</p>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="sql-vs-nosql">SQL vs. NoSQL</h1>
+<p>There are two sorts of database solutions in the world: SQL and NoSQL (or relational databases and non-relational databases). The manner they were designed, the type of information they hold, and the storage mechanism they use are all different.</p>
+<p>Relational databases, like phone books that record phone numbers and addresses, are structured and have predetermined schemas. Non-relational databases, like file folders, are unstructured, distributed, and feature a dynamic schema that stores everything from a person's address and phone number to their Facebook "likes" and online shopping preferences.</p>
 <h2 id="sql">SQL</h2>
-<p>Relational databases store data in rows and columns. Each row contains all the information about one entity and each column contains all the separate data points. Some of the most popular relational databases are MySQL, Oracle, MS SQL Server, SQLite, Postgres, and MariaDB.</p>
+<p>Data is stored in rows and columns in relational databases. Each row holds all of the data for a single entity, whereas each column has all of the individual data points. MySQL, Oracle, MS SQL Server, SQLite, Postgres, and MariaDB are some of the most popular relational databases.</p>
 <h2 id="nosql">NoSQL</h2>
-<p>Following are the most common types of NoSQL:</p>
-<p><strong>Key-Value Stores:</strong> Data is stored in an array of key-value pairs. The ‘key’ is an attribute name which is linked to a ‘value’. Well-known key-value stores include Redis, Voldemort, and Dynamo.</p>
-<p><strong>Document Databases:</strong> In these databases, data is stored in documents (instead of rows and columns in a table) and these documents are grouped together in collections. Each document can have an entirely different structure. Document databases include the CouchDB and MongoDB.</p>
-<p><strong>Wide-Column Databases:</strong> Instead of ‘tables,’ in columnar databases we have column families, which are containers for rows. Unlike relational databases, we don’t need to know all the columns up front and each row doesn’t have to have the same number of columns. Columnar databases are best suited for analyzing large datasets - big names include Cassandra and HBase.</p>
-<p><strong>Graph Databases:</strong> These databases are used to store data whose relations are best represented in a graph. Data is saved in graph structures with nodes (entities), properties (information about the entities), and lines (connections between the entities). Examples of graph database include Neo4J and InfiniteGraph.</p>
-<h2 id="high-level-differences-between-sql-and-nosql">High level differences between SQL and NoSQL</h2>
-<p><strong>Storage:</strong> SQL stores data in tables where each row represents an entity and each column represents a data point about that entity; for example, if we are storing a car entity in a table, different columns could be ‘Color’, ‘Make’, ‘Model’, and so on.</p>
-<p>NoSQL databases have different data storage models. The main ones are key-value, document, graph, and columnar. We will discuss differences between these databases below.</p>
-<p><strong>Schema:</strong> In SQL, each record conforms to a fixed schema, meaning the columns must be decided and chosen before data entry and each row must have data for each column. The schema can be altered later, but it involves modifying the whole database and going offline.</p>
-<p>In NoSQL, schemas are dynamic. Columns can be added on the fly and each ‘row’ (or equivalent) doesn’t have to contain data for each ‘column.’</p>
-<p><strong>Querying:</strong> SQL databases use SQL (structured query language) for defining and manipulating the data, which is very powerful. In a NoSQL database, queries are focused on a collection of documents. Sometimes it is also called UnQL (Unstructured Query Language). Different databases have different syntax for using UnQL.</p>
-<p><strong>Scalability:</strong> In most common situations, SQL databases are vertically scalable, i.e., by increasing the horsepower (higher Memory, CPU, etc.) of the hardware, which can get very expensive. It is possible to scale a relational database across multiple servers, but this is a challenging and time-consuming process.</p>
-<p>On the other hand, NoSQL databases are horizontally scalable, meaning we can add more servers easily in our NoSQL database infrastructure to handle a lot of traffic. Any cheap commodity hardware or cloud instances can host NoSQL databases, thus making it a lot more cost-effective than vertical scaling. A lot of NoSQL technologies also distribute data across servers automatically.</p>
-<p><strong>Reliability or ACID Compliancy (Atomicity, Consistency, Isolation, Durability):</strong> The vast majority of relational databases are ACID compliant. So, when it comes to data reliability and safe guarantee of performing transactions, SQL databases are still the better bet.</p>
-<p>Most of the NoSQL solutions sacrifice ACID compliance for performance and scalability.</p>
-<h2 id="sql-vs-nosql-which-one-to-use">SQL VS. NoSQL - Which one to use?</h2>
-<p>When it comes to database technology, there’s no one-size-fits-all solution. That’s why many businesses rely on both relational and non-relational databases for different needs. Even as NoSQL databases are gaining popularity for their speed and scalability, there are still situations where a highly structured SQL database may perform better; choosing the right technology hinges on the use case.</p>
-<h3 id="reasons-to-use-sql-database">Reasons to use SQL database</h3>
-<p>Here are a few reasons to choose a SQL database:</p>
+<p>The most prevalent forms of NoSQL are as follows:</p>
+<p><strong>Key-Value Stores:</strong> Data is kept as a key-value pair array. A 'key' is a term for an attribute that is associated to a 'value.' Redis, Voldemort, and Dynamo are examples of well-known key-value stores.</p>
+<p><strong>Document Databases:</strong> Data is kept in documents (rather than rows and columns in a table) in these databases, and these documents are grouped together in collections. The structure of any document can be completely different. CouchDB and MongoDB are two document databases.</p>
+<p><strong>Wide-Column Databases:</strong> Column families, rather than 'tables,' are containers for rows in columnar databases. We don't need to know all the columns up front, and each row doesn't have to have the same number of columns as a relational database. Columnar databases, such as Cassandra and HBase, are ideally suited for analyzing massive datasets.</p>
+<p><strong>Graph Databases:</strong> These databases are used to hold information that can best be represented as a graph. Nodes (entities), attributes (information about the entities), and lines are used to store data in graph topologies (connections between the entities). Neo4J and Infinite Graph are two examples of graph databases.</p>
+<h2 id="differences-in-sql-vs-nosql-on-a-high-level">Differences in SQL vs NoSQL on a high level</h2>
+<p><strong>Storage:</strong> SQL saves data in tables, with each row representing an entity and each column representing a data point about that entity; for example, if we're keeping a car entity in a table, distinct columns might be 'Color, Make, Model,' and so on.</p>
+<p>The data storage models used by NoSQL databases vary. Key-value, document, graph, and columnar are the most common types. Below, we'll compare and contrast these two databases.</p>
+<p><strong>Schema:</strong> Each record in SQL must adhere to a fixed schema, which means that the columns must be determined and chosen prior to data entry, and each row must have data for each field. Later, the schema can be changed, but it will require updating the entire database and going offline.</p>
+<p>Schemas in NoSQL are dynamic. Columns can be added at any time, and each 'row' (or equivalent) does not need to include data for each 'column.'</p>
+<p><strong>Querying:</strong> SQL (structured query language) is a powerful language for defining and manipulating data in SQL databases. Queries in a NoSQL database are focused on a set of documents. UnQL is another name for it (Unstructured Query Language). The syntax for using UnQL varies depending on the database.</p>
+<p><strong>Scalability:</strong> In most cases, SQL databases are vertically scalable, meaning that they may be scaled up by increasing the hardware's horsepower (memory, CPU, etc.), which can be quite costly. A relational database can be scaled across numerous servers, but it is a difficult and time-consuming operation.</p>
+<p>NoSQL databases, on the other hand, are horizontally scalable, which means we can quickly add more servers to our NoSQL database infrastructure to manage a large amount of traffic. NoSQL databases may be hosted on any cheap commodity hardware or cloud instances, making it much more cost-effective than vertical scaling. Many NoSQL technologies also automatically spread data across servers.</p>
+<p><strong>Atomicity, Consistency, Isolation, and Durability (ACID) Compliance:</strong> ACID compliance is seen in the vast majority of relational databases. So, when it comes to data consistency and transaction security, SQL databases are still the preferable option.</p>
+<p>For performance and scalability, most NoSQL solutions forgo ACID compliance.</p>
+<h2 id="sql-vs-nosql-which-is-better">SQL vs. NoSQL: Which is Better?</h2>
+<p>There is no such thing as a one-size-fits-all solution when it comes to database technology. As a result, many firms use both relational and non-relational databases for various purposes. Despite the fact that NoSQL databases are becoming more popular due to their speed and scalability, there are still occasions where a highly organized SQL database may outperform; the proper technology depends on the use case.</p>
+<h3 id="benefits-of-using-a-sql-database">Benefits of Using a SQL Database</h3>
+<p>Here are some of the benefits of using a SQL database:</p>
 <ol>
-<li>We need to ensure ACID compliance. ACID compliance reduces anomalies and protects the integrity of your database by prescribing exactly how transactions interact with the database. Generally, NoSQL databases sacrifice ACID compliance for scalability and processing speed, but for many e-commerce and financial applications, an ACID-compliant database remains the preferred option.</li>
-<li>Your data is structured and unchanging. If your business is not experiencing massive growth that would require more servers and if you’re only working with data that is consistent, then there may be no reason to use a system designed to support a variety of data types and high traffic volume.</li>
+<li>We must ensure that ACID compliance is met. By specifying exactly how transactions interact with the database, ACID compliance lowers anomalies and maintains the integrity of your database. In general, NoSQL databases forego ACID compliance in favor of scalability and processing speed, yet an ACID-compliant database remains the preferred solution for many e-commerce and financial applications.</li>
+<li>Your data is well-organized and stable. There may be no reason to employ a system built to support a range of data kinds and large traffic volume if your firm is not seeing enormous expansion that would necessitate more servers and if you're simply working with data that is consistent.</li>
 </ol>
-<h3 id="reasons-to-use-nosql-database">Reasons to use NoSQL database</h3>
-<p>When all the other components of our application are fast and seamless, NoSQL databases prevent data from being the bottleneck. Big data is contributing to a large success for NoSQL databases, mainly because it handles data differently than the traditional relational databases. A few popular examples of NoSQL databases are MongoDB, CouchDB, Cassandra, and HBase.</p>
+<h3 id="benefits-of-using-a-nosql-database">Benefits of Using a NoSQL Database</h3>
+<p>When all of our application's other components are running smoothly, NoSQL databases keep data from becoming a bottleneck. Big data is helping NoSQL databases achieve great success, owing to the fact that it processes data differently than traditional relational databases. MongoDB, CouchDB, Cassandra, and HBase are some examples of NoSQL databases.</p>
 <ol>
-<li>Storing large volumes of data that often have little to no structure. A NoSQL database sets no limits on the types of data we can store together and allows us to add new types as the need changes. With document-based databases, you can store data in one place without having to define what “types” of data those are in advance.</li>
-<li>Making the most of cloud computing and storage. Cloud-based storage is an excellent cost-saving solution but requires data to be easily spread across multiple servers to scale up. Using commodity (affordable, smaller) hardware on-site or in the cloud saves you the hassle of additional software and NoSQL databases like Cassandra are designed to be scaled across multiple data centers out of the box, without a lot of headaches.</li>
-<li>Rapid development. NoSQL is extremely useful for rapid development as it doesn’t need to be prepped ahead of time. If you’re working on quick iterations of your system which require making frequent updates to the data structure without a lot of downtime between versions, a relational database will slow you down.</li>
+<li>Managing enormous amounts of data with little to no organization. A NoSQL database has no restrictions on the types of data that can be stored together and allows us to add new types as our needs evolve. You can store data in one place with document-based databases without needing to describe what "kind" of data you're storing in advance.</li>
+<li>Using cloud computing and storage to its full potential. Cloud storage is a great way to save money, but it requires data to be easily transferred over several servers in order to scale up. Using commodity (cheap, smaller) hardware on-site or in the cloud eliminates the need for additional software, and NoSQL databases like Cassandra are built to scale across numerous data centers without causing a lot of headaches out of the box.</li>
+<li>Rapid progress. Because NoSQL does not require any prior preparation, it is ideal for quick development. A relational database will slow you down if you're working on quick iterations of your system that require frequent adjustments to the data structure with little downtime between versions.</li>
 </ol>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../CAPTheorem/" class="btn btn-neutral float-right" title="CAP Theorem">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../RedundancyReplication/" class="btn btn-neutral" title="Redundancy and Replication"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
 
-</section>
-</div> <!-- end of search-noresults -->
-<div class="search-results">
-<div class="has-results">
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
 
-<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-<ul class="search-results-list"></ul>
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
 
-</div> <!-- end of has-results -->
-<div class="no-results">
+    </section>
 
-<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+  </div>
 
-</div> <!-- end of no-results -->
-</div> <!-- end of search-results -->
-</div> <!-- end of book-search-results -->
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../RedundancyReplication/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../CAPTheorem/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
-</div> <!-- end of page-inner -->
-</div> <!-- end of page-wrapper -->
-
-</div> <!-- end of body-inner -->
-
-</div> <!-- end of book-body -->
-<script src="../js/main.js"></script>
-<script src="../search/main.js"></script>
-<script src="../js/gitbook.min.js"></script>
-<script src="../js/theme.min.js"></script>
 </body>
 </html>

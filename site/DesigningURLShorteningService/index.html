@@ -1,185 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>Designing a URL Shortening service - My System Design</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://system_design.com/DesigningURLShorteningService/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Designing a URL Shortening service - system_design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-<meta name="generator" content="mkdocs-1.2.3, mkdocs-gitbook-1.0.7">
-
-<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-<meta name="HandheldFriendly" content="true"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta rel="next" href="" />
-<link href="../css/style.min.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Designing a URL Shortening service";
+    var mkdocs_page_input_path = "DesigningURLShorteningService.md";
+    var mkdocs_page_url = "/DesigningURLShorteningService/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
-<body>
-<div class="book">
-<div class="book-summary">
-<div id="book-search-input" role="search">
-<input type="text" placeholder="Type to search" />
-</div> <!-- end of book-search-input -->
+<body class="wy-body-for-nav" role="document">
 
-<nav role="navigation">
-<ul class="summary">
-<li>
-<a href=".." target="_blank" class="custom-link">My System Design</a>
-</li>
-<li class="divider"></li>
-<li class="chapter" data-path="">
-<a href="..">Home</a>
-<li class="chapter" data-path="KeyCharDistributedSystem/">
-<a href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
-<li class="chapter" data-path="LoadBalancing/">
-<a href="../LoadBalancing/">Load Balancing</a>
-<li class="chapter" data-path="Caching/">
-<a href="../Caching/">Caching</a>
-<li class="chapter" data-path="DataPartitioning/">
-<a href="../DataPartitioning/">Data Partitioning</a>
-<li class="chapter" data-path="Indexes/">
-<a href="../Indexes/">Indexes</a>
-<li class="chapter" data-path="Proxies/">
-<a href="../Proxies/">Proxies</a>
-<li class="chapter" data-path="RedundancyReplication/">
-<a href="../RedundancyReplication/">Redundancy and Replication</a>
-<li class="chapter" data-path="SQLvsNoSQL/">
-<a href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
-<li class="chapter" data-path="CAPTheorem/">
-<a href="../CAPTheorem/">CAP Theorem</a>
-<li class="chapter" data-path="ConsistentHashing/">
-<a href="../ConsistentHashing/">Consistent Hashing</a>
-<li class="chapter" data-path="Events/">
-<a href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
-<li class="chapter" data-path="SystemDesignInterviews/">
-<a href="../SystemDesignInterviews/">System Design Interviews</a>
-<li class="chapter" data-path="DesignURLShorteningService/">
-<a href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
-<li class="chapter active" data-path="DesigningURLShorteningService/">
-<a href="./">Designing a URL Shortening service</a>
-<li class="chapter" data-path="DesigningPastebin/">
-<a href="../DesigningPastebin/">Designing Pastebin</a>
-<li class="chapter" data-path="DesigningInstagram/">
-<a href="../DesigningInstagram/">Designing Instagram</a>
-<li class="chapter" data-path="DesigningDropbox/">
-<a href="../DesigningDropbox/">Designing Dropbox</a>
-<li class="chapter" data-path="DesigningFacebookMessenger/">
-<a href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
-<li class="chapter" data-path="DesigningTwitter/">
-<a href="../DesigningTwitter/">Designing Twitter</a>
-<li class="chapter" data-path="DesigningYoutubeorNetflix/">
-<a href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
-<li class="chapter" data-path="DesigningTypeaheadSuggestion/">
-<a href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
-<li class="chapter" data-path="DesigningAPIRateLimiter/">
-<a href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
-<li class="chapter" data-path="DesigningTwitterSearch/">
-<a href="../DesigningTwitterSearch/">Designing Twitter Search</a>
-<li class="chapter" data-path="DesigningWebCrawler/">
-<a href="../DesigningWebCrawler/">Designing a Web Crawler</a>
-<li class="chapter" data-path="DesigningFacebookNewsfeed/">
-<a href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
-<li class="chapter" data-path="DesigningYelporNearbyFriends/">
-<a href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
-<li class="chapter" data-path="DesigningUberBackend/">
-<a href="../DesigningUberBackend/">Designing Uber backend</a>
-<li class="chapter" data-path="DesignTicketmaster/">
-<a href="../DesignTicketmaster/">Design Ticketmaster</a>
-<li class="chapter" data-path="PraticeDesignProblems/">
-<a href="../PraticeDesignProblems/">Pratice Design Problems</a>
-<li class="chapter" data-path="about/">
-<a href="../about/">About</a>
-<li class="divider"></li>
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> system_design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
 
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level1</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level3</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Designing a URL Shortening service</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#pratice-problem">Pratice Problem</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#solution">Solution</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#requirements-and-goals-of-the-system">Requirements and Goals of the System</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#capacity-estimation-and-constraints">Capacity Estimation and Constraints</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#system-apis">System APIs</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#database-design">Database Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#algorithms-and-basic-system-design">Algorithms and Basic System Design</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#encoding-actual-url">Encoding actual URL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#generating-keys-offline">Generating keys offline</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#data-partitioning-and-replication">Data Partitioning and Replication</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cache">Cache</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#load-balancer-lb">Load Balancer (LB)</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#database-cleansing-or-purging">Database cleansing or purging</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#telemetry">Telemetry</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#security-and-permissions">Security and Permissions</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
 
-<li><a href="http://www.mkdocs.org">
-Published with MkDocs
-</a></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-<li><a href="https://github.com/GitbookIO/theme-default">
-Theme by GitBook
-</a></li>
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">system_design</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Level3 &raquo;</li>
+        
+      
+    
+    <li>Designing a URL Shortening service</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="creating-a-tinyurl-style-url-shortening-service">Creating a TinyURL-style URL shortening service</h1>
+<p>Let's make a TinyURL-style URL shortening service. Short aliases for long URLs will be provided by this service.</p>
+<ul>
+<li>Bit.ly, goo.gl, qlink.me, and other similar services</li>
+<li>Level of Difficulty: Easy</li>
 </ul>
-
-</nav>
-
-</div> <!-- end of book-summary -->
-
-<div class="book-body">
-<div class="body-inner">
-<div class="book-header" role="navigation">
-
-<!-- Title -->
-<h1>
-<i class="fa fa-circle-o-notch fa-spin"></i>
-<a href="." ></a>
-</h1>
-
-</div> <!-- end of book-header -->
-
-<div class="page-wrapper" tabindex="-1" role="main">
-<div class="page-inner">
-<div id="book-search-results">
-<div class="search-noresults">
-
-<section class="normal markdown-section">
-
-
-
-<h1 id="designing-a-url-shortening-service-like-tinyurl">Designing a URL Shortening service like TinyURL</h1>
-<p>Let's design a URL shortening service like TinyURL. This service will provide short aliases redirecting to long URLs.</p>
-<p>Similar services: bit.ly, goo.gl, qlink.me, etc.
-Difficulty Level: Easy</p>
-<h2 id="why-do-we-need-url-shortening">Why do we need URL shortening?</h2>
-<p>URL shortening is used to create shorter aliases for long URLs. We call these shortened aliases “short links.” Users are redirected to the original URL when they hit these short links. Short links save a lot of space when displayed, printed, messaged, or tweeted. Additionally, users are less likely to mistype shorter URLs.</p>
-<p>For example, if we shorten this page through TinyURL:</p>
-<pre><code>https://www.educative.io/collection/page/5668639101419520/5649050225344512/5668600916475904/
+<p><strong><em>What is the purpose of URL shortening?</em></strong></p>
+<p>For long URLs, URL shortening is utilized to create shorter aliases. These shortened aliases are referred to as "short links." When users click on these short links, they are forwarded to the original URL. When displayed, printed, messaged, or tweeted, short links save a lot of space. Shorter URLs are also less likely to be mistyped by users.</p>
+<p>For example, if we use TinyURL to shorten this page:</p>
+<pre><code>    https://www.jayaaemekar.io/collection/page/5668639101419520/
 </code></pre>
 <p>We would get:</p>
-<pre><code>http://tinyurl.com/jlg8zpc
+<pre><code>    http://tinyurl.com/jlg8zpc
 </code></pre>
-<p>The shortened URL is nearly one-third the size of the actual URL.</p>
-<p>The shortened URL is nearly one-third the size of the actual URL.</p>
-<p>URL shortening is used for optimizing links across devices, tracking individual links to analyze audience and campaign performance, and hiding affiliated original URLs.</p>
-<p>If you haven’t used tinyurl.com before, please try creating a new shortened URL and spend some time going through the various options their service offers. This will help you a lot in understanding this chapter.</p>
-<h2 id="requirements-and-goals-of-the-system">Requirements and Goals of the System</h2>
-<p>💡 You should always clarify requirements at the beginning of the interview. Be sure to ask questions to find the exact scope of the system that the interviewer has in mind.</p>
-<p>Our URL shortening system should meet the following requirements:</p>
+<p>The abbreviated URL is almost one-third the length of the original.</p>
+<p>The abbreviated URL is almost one-third the length of the original.</p>
+<p>URL shortening is used for a variety of purposes, including optimizing links across devices, tracking individual links to gauge audience and campaign performance, and concealing connected original URLs.</p>
+<h2 id="pratice-problem">Pratice Problem</h2>
+<p><strong><em>Let's get started on the system design solution.</em></strong></p>
+<p><strong>If you run into any problems, please see the solution below.</strong></p>
+<!DOCTYPE html>
+<p><html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head></p>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+    <iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+</body>
+<p></html></p>
+<h2 id="solution">Solution</h2>
+<h3 id="requirements-and-goals-of-the-system">Requirements and Goals of the System</h3>
+<p>💡 <strong>At the start of the interview, you should always outline criteria. Ask questions to figure out the exact extent of the system that the interviewer is thinking of.</strong></p>
+<p>The following requirements should be met by our URL shortening system:</p>
 <p><strong>Functional Requirements:</strong></p>
 <ol>
-<li>Given a URL, our service should generate a shorter and unique alias of it. This is called a short link. This link should be short enough to be easily copied and pasted into applications.</li>
-<li>When users access a short link, our service should redirect them to the original link.</li>
-<li>Users should optionally be able to pick a custom short link for their URL.</li>
-<li>Links will expire after a standard default timespan. Users should be able to specify the expiration time.</li>
+<li>Given a URL, our service should create a unique and shorter alias for it. This is referred to as a short link. This URL should be short enough to be copied and pasted into programs without difficulty.</li>
+<li>Our service should redirect visitors to the original site when they click on a short link.</li>
+<li>Users should be allowed to choose a custom short link for their URL as an option.</li>
+<li>Links will expire after a set amount of time. The expiration time should be configurable by the user.</li>
 </ol>
 <p><strong>Non-Functional Requirements:</strong></p>
 <ol>
-<li>The system should be highly available. This is required because, if our service is down, all the URL redirections will start failing.</li>
-<li>URL redirection should happen in real-time with minimal latency.</li>
-<li>Shortened links should not be guessable (not predictable).</li>
+<li>The system should have a high level of availability. This is necessary because if our service is unavailable, all URL redirections would fail.</li>
+<li>URL redirection should take place in real time with the least amount of latency possible.</li>
+<li>It should not be possible to guess the length of shortened connections (not predictable).</li>
 </ol>
-<p><strong>Extended Requirements:</strong>
-1. Analytics; e.g., how many times a redirection happened?
-2. Our service should also be accessible through REST APIs by other services.</p>
-<h2 id="capacity-estimation-and-constraints">Capacity Estimation and Constraints</h2>
-<p>Our system will be read-heavy. There will be lots of redirection requests compared to new URL shortenings. Let’s assume a 100:1 ratio between read and write.</p>
-<p><strong>Traffic estimates:</strong> Assuming, we will have 500M new URL shortenings per month, with 100:1 read/write ratio, we can expect 50B redirections during the same period:</p>
+<p><strong>Extended Requirements:</strong></p>
+<ol>
+<li>Analytical data; for example, how many times has a redirection occurred?</li>
+<li>Our service should also be accessible through REST APIs by other services.</li>
+</ol>
+<h3 id="capacity-estimation-and-constraints">Capacity Estimation and Constraints</h3>
+<p>Our system will rely heavily on reading. In comparison to new URL shortenings, there will be a lot of redirection requests. Assume that read and write have a 100:1 ratio.</p>
+<p><strong>Traffic estimates:</strong>  If we assume 500 million new URL shortenings every month and a 100:1 read/write ratio, we can expect 50 billion redirections in the same time period:</p>
 <pre><code>    100 * 500M =&gt; 50B
 </code></pre>
-<p>What would be Queries Per Second (QPS) for our system? New URLs shortenings per second:</p>
+<p>What would our system's Queries Per Second (QPS) be? Per second, new URL shortenings:</p>
 <pre><code>    500 million / (30 days * 24 hours * 3600 seconds) = ~200 URLs/s
 </code></pre>
 <p>Considering 100:1 read/write ratio, URLs redirections per second will be:</p>
 <pre><code>    100 * 200 URLs/s = 20K/
 </code></pre>
-<p><strong>Storage estimates:</strong> Let’s assume we store every URL shortening request (and associated shortened link) for 5 years. Since we expect to have 500M new URLs every month, the total number of objects we expect to store will be 30 billion:</p>
+<p><strong>Storage estimates:</strong> Let's say we keep track of every URL shortening request (and the abbreviated link that goes with it) for five years. With 500 million new URLs expected per month, the total number of objects we expect to store is 30 billion:</p>
 <pre><code>    500 million * 5 years * 12 months = 30 billion
 </code></pre>
-<p>Let’s assume that each stored object will be approximately 500 bytes (just a ballpark estimate–we will dig into it later). We will need 15TB of total storage:</p>
+<p>Let's assume that each stored object is 500 bytes in size (this is just a guess–we'll look at it later). We'll need a total of 15TB of storage:</p>
 <pre><code>    30 billion * 500 bytes = 15 TB
 </code></pre>
 <p align="center"> 
@@ -195,15 +279,15 @@ Difficulty Level: Easy</p>
 <p>For read requests, since every second we expect ~20K URLs redirections, total outgoing data for our service would be 10MB per second:</p>
 <pre><code>    20K * 500 bytes = ~10 MB/s
 </code></pre>
-<p>Memory estimates: If we want to cache some of the hot URLs that are frequently accessed, how much memory will we need to store them? If we follow the 80-20 rule, meaning 20% of URLs generate 80% of traffic, we would like to cache these 20% hot URLs.</p>
-<p>Since we have 20K requests per second, we will be getting 1.7 billion requests per day:</p>
+<p><strong>Memory estimates:</strong> How much RAM will we need to keep some of the most often visited URLs if we wish to cache them? We'd like to cache this 20% of hot URLs if we follow the 80-20 rule, which states that 20% of URLs produce 80% of traffic.</p>
+<p>We'll get 1.7 billion requests each day if we have 20K requests per second:</p>
 <pre><code>    20K * 3600 seconds * 24 hours = ~1.7 billion
 </code></pre>
 <p>To cache 20% of these requests, we will need 170GB of memory.</p>
 <pre><code>    0.2 * 1.7 billion * 500 bytes = ~170GB
 </code></pre>
-<p>One thing to note here is that since there will be a lot of duplicate requests (of the same URL), therefore, our actual memory usage will be less than 170GB.</p>
-<p>High level estimates: Assuming 500 million new URLs per month and 100:1 read:write ratio, following is the summary of the high level estimates for our service:</p>
+<p>One thing to keep in mind is that because there will be a lot of duplicate requests (for the same URL), our actual memory consumption will be less than 170GB.</p>
+<p><strong>Estimates at a high level:</strong> The following is a summary of our high-level estimations for our service, assuming 500 million new URLs each month and a 100:1 read:write ratio:</p>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/URLShorting1.JPG">
@@ -211,32 +295,41 @@ Difficulty Level: Easy</p>
   </kbd>
 </p>
 
-<h2 id="system-apis">System APIs</h2>
-<p>💡      Once we've finalized the requirements, it's always a good idea to define the system APIs. This should explicitly state what is expected from the system.
-We can have SOAP or REST APIs to expose the functionality of our service. Following could be the definitions of the APIs for creating and deleting URLs:</p>
-<pre><code>    createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)
-</code></pre>
-<p><strong>Parameters:</strong>
-api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-original_url (string): Original URL to be shortened.
-custom_alias (string): Optional custom key for the URL.
-user_name (string): Optional user name to be used in the encoding.
-expire_date (string): Optional expiration date for the shortened URL.</p>
+<h3 id="system-apis">System APIs</h3>
+<p>💡 <strong>It's always a good idea to establish the system APIs after we've finalized the requirements. This should express clearly what the system is intended to do.</strong>
+To expose the functionality of our service, we can use SOAP or REST APIs. The following are possible API specifications for creating and removing URLs:</p>
+<ul>
+<li>createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)</li>
+</ul>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>api_dev_key (string):</strong> The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.</li>
+<li><strong>original_url (string):</strong> Original URL to be shortened.</li>
+<li><strong>custom_alias (string):</strong> Optional custom key for the URL.</li>
+<li><strong>user_name (string):</strong> Optional user name to be used in the encoding.</li>
+<li><strong>expire_date (string):</strong> Optional expiration date for the shortened URL.</li>
+</ul>
 <p><strong>Returns:</strong> (string)
 A successful insertion returns the shortened URL; otherwise, it returns an error code.</p>
-<pre><code>    deleteURL(api_dev_key, url_key)
-</code></pre>
-<p>Where “url_key” is a string representing the shortened URL to be retrieved. A successful deletion returns ‘URL Removed’.</p>
-<p><strong>How do we detect and prevent abuse?</strong> A malicious user can put us out of business by consuming all URL keys in the current design. To prevent abuse, we can limit users via their api_dev_key. Each api_dev_key can be limited to a certain number of URL creations and redirections per some time period (which may be set to a different duration per developer key).</p>
-<h2 id="database-design">Database Design</h2>
-<p>💡 Defining the DB schema in the early stages of the interview would help to understand the data flow among various components and later would guide towards data partitioning.
-A few observations about the nature of the data we will store:
-1. We need to store billions of records.
-2. Each object we store is small (less than 1K).
-3. There are no relationships between records—other than storing which user created a URL.
-4. Our service is read-heavy.</p>
+<ul>
+<li><strong>deleteURL(api_dev_key, url_key)</strong> Where “url_key” is a string representing the shortened URL to be retrieved. A successful deletion returns ‘URL Removed’.</li>
+</ul>
+<p><strong>How do we detect and prevent abuse?</strong></p>
+<ul>
+<li>By consuming all URL keys in the existing design, a hostile person can put us out of business. We can restrict users based on their api_dev_key to prevent abuse. </li>
+<li>A specific amount of URL creations and redirections each time period can be configured for each api_dev_key (which may be set to a different duration per developer key). </li>
+</ul>
+<h3 id="database-design">Database Design</h3>
+<p>💡 <strong>Defining the database schema early in the interview will aid in understanding the data flow between various components and will eventually lead to data segmentation.</strong></p>
+<p>A few points to consider regarding the data we'll be storing:</p>
+<ol>
+<li>We'll need billions of records to store.</li>
+<li>Each item we keep is little (less than 1K).</li>
+<li>Except for storing which user created a URL, there are no linkages between records.</li>
+<li>Our service requires a lot of reading.</li>
+</ol>
 <p><strong>Database Schema:</strong>
-We would need two tables: one for storing information about the URL mappings, and one for the user’s data who created the short link.</p>
+We'd need two tables: one to store information about URL mappings, and another to store data about the user who created the short link.</p>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/URLShorting2.JPG">
@@ -245,25 +338,38 @@ We would need two tables: one for storing information about the URL mappings, an
 </p>
 
 <p><strong>What kind of database should we use?</strong>
- Since we anticipate storing billions of rows, and we don’t need to use relationships between objects – a NoSQL store like DynamoDB, Cassandra or Riak is a better choice. A NoSQL choice would also be easier to scale. Please see SQL vs NoSQL for more details.</p>
-<h2 id="basic-system-design-and-algorithm">Basic System Design and Algorithm</h2>
-<p>The problem we are solving here is, how to generate a short and unique key for a given URL.</p>
-<p>In the TinyURL example in Section 1, the shortened URL is “http://tinyurl.com/jlg8zpc”. The last seven characters of this URL is the short key we want to generate. We’ll explore two solutions here:</p>
+A NoSQL store like DynamoDB, Cassandra, or Riak is a preferable choice because we expect to store billions of rows and don't need to employ associations between items. It would also be easy to scale a NoSQL database. </p>
+<h3 id="algorithms-and-basic-system-design">Algorithms and Basic System Design</h3>
+<p>We're trying to figure out how to make a short and unique key for a given URL.</p>
+<p>The abbreviated URL in the TinyURL example in Section 1 is "http://tinyurl.com/jlg8zpc." The short key we want to produce is the final seven characters of this URL. Here, we'll look at two options:</p>
 <h3 id="encoding-actual-url">Encoding actual URL</h3>
-<p>We can compute a unique hash (e.g., MD5 or SHA256, etc.) of the given URL. The hash can then be encoded for displaying. This encoding could be base36 ([a-z ,0-9]) or base62 ([A-Z, a-z, 0-9]) and if we add ‘+’ and ‘/’ we can use Base64 encoding. A reasonable question would be, what should be the length of the short key? 6, 8, or 10 characters?</p>
-<p>Using base64 encoding, a 6 letters long key would result in 64^6 = ~68.7 billion possible strings
-Using base64 encoding, an 8 letters long key would result in 64^8 = ~281 trillion possible strings</p>
+<ul>
+<li>We can generate a unique hash of the supplied URL (e.g., MD5 or SHA256, etc.). </li>
+<li>After that, the hash can be decoded for display. This encoding might be base36 ([a-z,0-9]) or base62 ([A-Z, a-z, 0-9]), and we can use Base64 encoding by adding '+' and '/'. </li>
+<li>What should the length of the short key be, is a legitimate question. Is it better to have six, eight, or ten characters?<pre><code>Using base64 encoding, a 6 letters long key would result in 64^6 = ~68.7 billion possible strings
+Using base64 encoding, an 8 letters long key would result in 64^8 = ~281 trillion possible strings
+</code></pre>
+</li>
+</ul>
 <p>With 68.7B unique strings, let’s assume six letter keys would suffice for our system.</p>
-<p>If we use the MD5 algorithm as our hash function, it’ll produce a 128-bit hash value. After base64 encoding, we’ll get a string having more than 21 characters (since each base64 character encodes 6 bits of the hash value). Now we only have space for 8 characters per short key, how will we choose our key then? We can take the first 6 (or 8) letters for the key. This could result in key duplication, to resolve that, we can choose some other characters out of the encoding string or swap some characters.</p>
-<p><strong>What are the different issues with our solution?</strong>
- We have the following couple of problems with our encoding scheme:</p>
+<ul>
+<li>The MD5 algorithm produces a 128-bit hash value when used as a hash function. </li>
+<li>We'll get a string with more than 21 characters after base64 encoding (since each base64 character encodes 6 bits of the hash value). How will we choose our key now that we only have space for 8 characters per short key? For the key, we can use the first six (or eight) letters. </li>
+<li>This could lead to key duplication; to avoid this, we can exchange certain characters or choose other characters from the encoding string.</li>
+</ul>
+<p><strong>What are the different issues with our solution?</strong></p>
+<p>The following are a couple of issues with our encoding scheme:</p>
 <ol>
-<li>If multiple users enter the same URL, they can get the same shortened URL, which is not acceptable.</li>
-<li>What if parts of the URL are URL-encoded? e.g., http://www.educative.io/distributed.php?id=design, and http://www.educative.io/distributed.php%3Fid%3Ddesign are identical except for the URL encoding.</li>
+<li>If numerous users enter the same URL, the abbreviated URL will be the same, which is unacceptable.</li>
+<li>What if parts of the URL are URL-encoded? e.g., http://www.jayaaemekar.io/distributed.php?id=design, and http://www.jayaaemekar.io/distributed.php%3Fid%3Ddesign are identical except for the URL encoding.</li>
 </ol>
-<p><strong>Workaround for the issues:</strong>
- We can append an increasing sequence number to each input URL to make it unique, and then generate a hash of it. We don’t need to store this sequence number in the databases, though. Possible problems with this approach could be an ever-increasing sequence number. Can it overflow? Appending an increasing sequence number will also impact the performance of the service.</p>
-<p>Another solution could be to append user id (which should be unique) to the input URL. However, if the user has not signed in, we would have to ask the user to choose a uniqueness key. Even after this, if we have a conflict, we have to keep generating a key until we get a unique one.</p>
+<p><strong>Alternative to the problems:</strong></p>
+<ul>
+<li>To make each input URL unique, we can append an ascending sequence number to it and then construct a hash of it. However, we do not need to save this sequence number in the databases. </li>
+<li>An ever-increasing sequence number could be a concern with this method. </li>
+<li>Is it possible for it to overflow? Increasing the sequence number will have an effect on the service's performance.</li>
+<li>Another option is to include a user id to the input URL (which should be unique). If the user hasn't signed in yet, we'll have to prompt them to select a uniqueness key. If there is still a disagreement, we must keep creating keys until we find one that is unique.</li>
+</ul>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/URLShorting3.JPG">
@@ -272,24 +378,36 @@ Using base64 encoding, an 8 letters long key would result in 64^8 = ~281 trillio
 </p>
 
 <h3 id="generating-keys-offline">Generating keys offline</h3>
-<p>We can have a standalone <strong>Key Generation Service (KGS)</strong> that generates random six-letter strings beforehand and stores them in a database (let’s call it key-DB). Whenever we want to shorten a URL, we will just take one of the already-generated keys and use it. This approach will make things quite simple and fast. Not only are we not encoding the URL, but we won’t have to worry about duplications or collisions. KGS will make sure all the keys inserted into key-DB are unique</p>
-<p><strong>Can concurrency cause problems?</strong> 
-As soon as a key is used, it should be marked in the database to ensure it doesn’t get reuse. If there are multiple servers reading keys concurrently, we might get a scenario where two or more servers try to read the same key from the database. How can we solve this concurrency problem?</p>
-<p>Servers can use KGS to read/mark keys in the database. KGS can use two tables to store keys: one for keys that are not used yet, and one for all the used keys. As soon as KGS gives keys to one of the servers, it can move them to the used keys table. KGS can always keep some keys in memory so that it can quickly provide them whenever a server needs them.</p>
-<p>For simplicity, as soon as KGS loads some keys in memory, it can move them to the used keys table. This ensures each server gets unique keys. If KGS dies before assigning all the loaded keys to some server, we will be wasting those keys–which could be acceptable, given the huge number of keys we have.</p>
-<p>KGS also has to make sure not to give the same key to multiple servers. For that, it must synchronize (or get a lock on) the data structure holding the keys before removing keys from it and giving them to a server.</p>
-<p><strong>What would be the key-DB size?</strong> 
-With base64 encoding, we can generate 68.7B unique six letters keys. If we need one byte to store one alpha-numeric character, we can store all these keys in:</p>
+<ul>
+<li>We could create a separate <strong>Key Generation Service (KGS)</strong> that produces random six-letter strings and saves them in a database (let's call it key-DB). </li>
+<li>We'll just utilize one of the already-generated keys to abbreviate a URL whenever we need to. This method simplifies and expedites the process. </li>
+<li>We won't have to worry about duplications or collisions because the URL won't be encoded. KGS will ensure that all keys placed into key-DB are one-of-a-kind.</li>
+</ul>
+<p><strong>Can concurrency lead to issues?</strong></p>
+<ul>
+<li>Once a key has been used, it should be marked in the database to prevent it from being reused. </li>
+<li>If many servers are reading keys at the same time, we may see a situation where two or more servers attempt to read the same key from the database. </li>
+<li>What are our options for dealing with this concurrent issue?</li>
+<li>KGS allows servers to read and mark database keys. To store keys, KGS can employ two tables: one for keys that haven't been used yet, and another for all keys that have been used. </li>
+<li>KGS can move keys into the used keys table as soon as they are given to one of the servers. </li>
+<li>KGS can maintain some keys in memory at all times so that they can be rapidly provided to a server when it is needed.</li>
+<li>For simplicity, KGS can move keys to the used keys table as soon as they are loaded into memory. This guarantees that each server has its own set of keys. </li>
+<li>We will be squandering those keys if KGS dies before allocating all of the loaded keys to some server–which may be acceptable given the large amount of keys we have.</li>
+<li>KGS must also ensure that the same key is not used by several servers. </li>
+<li>Before removing keys from the data structure and delivering them to a server, it must synchronize (or gain a lock on) the data structure holding the keys.</li>
+</ul>
+<p><strong>How big should the key-DB be?</strong>
+We can construct 68.7 billion unique six-letter keys using base64 encoding. If each alpha-numeric character requires one byte, we can store all of these keys in:</p>
 <pre><code>    6 (characters per key) * 68.7B (unique keys) = 412 GB.
 </code></pre>
-<p><strong>Isn’t KGS a single point of failure?</strong> 
-Yes, it is. To solve this, we can have a standby replica of KGS. Whenever the primary server dies, the standby server can take over to generate and provide keys.</p>
-<p><strong>Can each app server cache some keys from key-DB?</strong> 
-Yes, this can surely speed things up. Although in this case, if the application server dies before consuming all the keys, we will end up losing those keys. This can be acceptable since we have 68B unique six-letter keys.</p>
-<p><strong>How would we perform a key lookup?</strong> 
-We can look up the key in our database to get the full URL. If it’s present in the DB, issue an “HTTP 302 Redirect” status back to the browser, passing the stored URL in the “Location” field of the request. If that key is not present in our system, issue an “HTTP 404 Not Found” status or redirect the user back to the homepage.</p>
-<p><strong>Should we impose size limits on custom aliases?</strong> 
-Our service supports custom aliases. Users can pick any ‘key’ they like, but providing a custom alias is not mandatory. However, it is reasonable (and often desirable) to impose a size limit on a custom alias to ensure we have a consistent URL database. Let’s assume users can specify a maximum of 16 characters per customer key (as reflected in the above database schema).</p>
+<p><strong>Doesn't KGS represent a single point of failure?</strong></p>
+<p>Yes, it is correct. We can solve this by having a backup copy of KGS. When the primary server fails, the standby server can generate and distribute keys in its place.</p>
+<p><strong>Is it possible for each app server to cache some keys from the key-DB?</strong></p>
+<p>Yes, this will undoubtedly expedite things. However, if the application server dies before all of the keys have been consumed, we will lose those keys. Because we have 68B distinct six-letter keys, this may be okay.</p>
+<p><strong>How would we go about doing a key lookup?</strong></p>
+<p>To acquire the whole URL, we may look up the key in our database. If it's in the database, send a "HTTP 302 Redirect" status to the browser, including the stored URL in the "Location" field. If the key isn't in our system, return the user to the homepage or deliver a "HTTP 404 Not Found" status.</p>
+<p><strong>Should custom aliases be limited in size?</strong></p>
+<p>Custom aliases are supported by our service. Users can choose any 'key' they like, but a custom alias is not required. However, imposing a size restriction on a custom alias is understandable (and frequently desirable) in order to maintain a consistent URL database. Assume that each customer key can have a maximum of 16 characters (as reflected in the above database schema).</p>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/URLShorting4.JPG">
@@ -297,24 +415,41 @@ Our service supports custom aliases. Users can pick any ‘key’ they like, but
   </kbd>
 </p>
 
-<h2 id="data-partitioning-and-replication">Data Partitioning and Replication</h2>
-<p>To scale out our DB, we need to partition it so that it can store information about billions of URLs. We need to come up with a partitioning scheme that would divide and store our data into different DB servers.</p>
-<h3 id="range-based-partitioning">Range Based Partitioning:</h3>
-<p>We can store URLs in separate partitions based on the first letter of the hash key. Hence we save all the URLs starting with letter ‘A’ (and ‘a’) in one partition, save those that start with letter ‘B’ in another partition and so on. This approach is called range-based partitioning. We can even combine certain less frequently occurring letters into one database partition. We should come up with a static partitioning scheme so that we can always store/find a URL in a predictable manner.</p>
-<p>The main problem with this approach is that it can lead to unbalanced DB servers. For example, we decide to put all URLs starting with letter ‘E’ into a DB partition, but later we realize that we have too many URLs that start with the letter ‘E’.</p>
-<h3 id="hash-based-partitioning">Hash-Based Partitioning:</h3>
-<p>In this scheme, we take a hash of the object we are storing. We then calculate which partition to use based upon the hash. In our case, we can take the hash of the ‘key’ or the short link to determine the partition in which we store the data object.</p>
-<p>Our hashing function will randomly distribute URLs into different partitions (e.g., our hashing function can always map any ‘key’ to a number between [1…256]), and this number would represent the partition in which we store our object.</p>
-<p>This approach can still lead to overloaded partitions, which can be solved by using Consistent Hashing.</p>
-<h2 id="cache">Cache</h2>
-<p>We can cache URLs that are frequently accessed. We can use some off-the-shelf solution like Memcached, which can store full URLs with their respective hashes. The application servers, before hitting backend storage, can quickly check if the cache has the desired URL.</p>
-<p><strong>How much cache memory should we have?</strong>
-We can start with 20% of daily traffic and, based on clients’ usage pattern, we can adjust how many cache servers we need. As estimated above, we need 170GB memory to cache 20% of daily traffic. Since a modern-day server can have 256GB memory, we can easily fit all the cache into one machine. Alternatively, we can use a couple of smaller servers to store all these hot URLs.</p>
-<p><strong>Which cache eviction policy would best fit our needs?</strong>
-When the cache is full, and we want to replace a link with a newer/hotter URL, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently used URL first. We can use a Linked Hash Map or a similar data structure to store our URLs and Hashes, which will also keep track of the URLs that have been accessed recently.</p>
-<p>To further increase the efficiency, we can replicate our caching servers to distribute the load between them.</p>
-<p><strong>How can each cache replica be updated?</strong> 
-Whenever there is a cache miss, our servers would be hitting a backend database. Whenever this happens, we can update the cache and pass the new entry to all the cache replicas. Each replica can update its cache by adding the new entry. If a replica already has that entry, it can simply ignore it.</p>
+<h3 id="data-partitioning-and-replication">Data Partitioning and Replication</h3>
+<p>We need to split our database such that it can hold information about billions of URLs in order to scale it out. We need to devise a partitioning strategy that will divide and store our data across multiple DB servers.</p>
+<p><strong>Range Based Partitioning:</strong></p>
+<ul>
+<li>Based on the initial letter of the hash key, we can store URLs in different partitions. As a result, we save all URLs that begin with the letter 'A' (and 'a') in one partition, those that begin with the letter 'B' in another, and so on. </li>
+<li>Range-based partitioning is the name for this method. </li>
+<li>We can even merge a few characters that aren't used very often into a single database segment. </li>
+<li>We should devise a static partitioning scheme to ensure that we can always store and retrieve URLs in a consistent manner.</li>
+<li>The biggest issue with this method is that it can result in unbalanced database servers. For example, suppose we decide to put all URLs beginning with the letter 'E' into a database partition, only to discover later that we have far too many URLs beginning with the letter 'E.'</li>
+</ul>
+<p><strong>Partitioning based on hashes:</strong></p>
+<ul>
+<li>We take a hash of the object we're storing in this scheme. The hash is then used to determine which partition to use. </li>
+<li>In our situation, the hash of the 'key' or the short link can be used to determine the partition in which the data object is stored.</li>
+<li>Our hashing function will distribute URLs into different divisions at random (e.g., any 'key' can be mapped to a number between [1...256]), and this number will represent the partition in which we will put our object.</li>
+</ul>
+<p>This method can still result in overloaded partitions, which can be remedied by employing Consistent Hashing.</p>
+<h3 id="cache">Cache</h3>
+<p>URLs that are often visited can be cached. We can utilize a commercially available solution like Memcached, which can store complete URLs along with their hashes. Before contacting backend storage, application servers can rapidly check if the needed URL is in the cache.</p>
+<p><strong>Should we have a lot of cache memory?</strong></p>
+<ul>
+<li>We can start with 20% of daily traffic and change the number of cache servers needed based on client usage patterns. To cache 20% of daily traffic, we'll require 170GB of memory, as previously calculated. </li>
+<li>We can easily fit all of the cache into one machine because a modern-day server can have 256GB of memory. Alternatively, we can store all of these popular URLs on a couple of smaller servers.</li>
+</ul>
+<p><strong>Which cache eviction policy would be most appropriate for our requirements?</strong></p>
+<ul>
+<li>What would we do if the cache was full and we needed to change a link with a newer/hotter URL? For our system, LRU (Least Recently Used) can be a suitable policy. </li>
+<li>We start with the URL that has been used the least lately. To store our URLs and Hashes, we can use a Linked Hash Map or a similar data structure, which will also keep track of the URLs that have been accessed recently.</li>
+</ul>
+<p>We may replicate our cache servers to divide the load between them to boost efficiency even more.</p>
+<p><strong>How do I refresh each cache replica?</strong></p>
+<ul>
+<li>Our servers would hit a backend database whenever a cache miss occurred. We may update the cache and pass the new entry to all cache replicas once this happens. </li>
+<li>By adding the new entry, each copy can update its cache. If the entry already exists in a replica, it can be ignored.</li>
+</ul>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/URLShorting5.JPG">
@@ -322,24 +457,24 @@ Whenever there is a cache miss, our servers would be hitting a backend database.
   </kbd>
 </p>
 
-<h2 id="load-balancer-lb">Load Balancer (LB)</h2>
-<p>We can add a Load balancing layer at three places in our system:</p>
+<h3 id="load-balancer-lb">Load Balancer (LB)</h3>
+<p>We may add a load balancing layer to our system in three places:</p>
 <ol>
-<li>Between Clients and Application servers</li>
-<li>Between Application Servers and database servers</li>
-<li>Between Application Servers and Cache servers</li>
+<li>Between the application servers and the clients</li>
+<li>The Relationship Between Application and Database Servers</li>
+<li>The Relationship Between Application and Cache Servers</li>
 </ol>
-<p>Initially, we could use a simple Round Robin approach that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is that if a server is dead, LB will take it out of the rotation and will stop sending any traffic to it.</p>
-<p>A problem with Round Robin LB is that we don’t take the server load into consideration. If a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries the backend server about its load and adjusts traffic based on that.</p>
-<h2 id="purging-or-db-cleanup">Purging or DB cleanup</h2>
-<p>Should entries stick around forever or should they be purged? If a user-specified expiration time is reached, what should happen to the link?</p>
-<p>If we chose to actively search for expired links to remove them, it would put a lot of pressure on our database. Instead, we can slowly remove expired links and do a lazy cleanup. Our service will make sure that only expired links will be deleted, although some expired links can live longer but will never be returned to users.</p>
+<p>We might start with a simple Round Robin strategy, which evenly distributes incoming requests among backend servers. This LB is easy to set up and doesn't add any more overhead. Another advantage of this method is that if a server goes down, LB removes it from the rotation and stops transmitting traffic to it.</p>
+<p>We don't take the server load into account with Round Robin LB, which is a concern. The LB will not cease delivering new requests to a server that is overloaded or slow. To deal with this, a more intelligent LB solution can be implemented, which queries the backend server about its load on a regular basis and adjusts traffic accordingly.</p>
+<h3 id="database-cleansing-or-purging">Database cleansing or purging</h3>
+<p>Should entries be saved indefinitely or should they be deleted? What should happen to the link if it reaches the user-specified expiration time?</p>
+<p>It would put a lot of strain on our database if we decided to actively look for outdated links and remove them. Instead, we can execute a lazy cleanup and gently remove expired links. Only expired links will be erased by our service, while some expired links may exist longer but will never be returned to users.</p>
 <ol>
-<li>Whenever a user tries to access an expired link, we can delete the link and return an error to the user.</li>
-<li>A separate Cleanup service can run periodically to remove expired links from our storage and cache. This service should be very lightweight and can be scheduled to run only when the user traffic is expected to be low.</li>
-<li>We can have a default expiration time for each link (e.g., two years).</li>
-<li>After removing an expired link, we can put the key back in the key-DB to be reused.</li>
-<li>Should we remove links that haven’t been visited in some length of time, say six months? This could be tricky. Since storage is getting cheap, we can decide to keep links forever.</li>
+<li>If a user attempts to access an expired link, we can erase the link and provide the user an error message.</li>
+<li>A separate Cleanup service can run on a regular basis to clear out expired links from our cache and storage. This service should be extremely light, and it should only be used when user traffic is predicted to be low.</li>
+<li>Each link can have a default expiration time (e.g.,two years).</li>
+<li>After removing an expired link, we may re-use the key by putting it back in the key-DB.</li>
+<li>Should links that haven't been seen in a certain amount of time, say six months, be removed? This could be challenging. Because storage is becoming more affordable, we can chose to store links indefinitely.</li>
 </ol>
 <p align="center"> 
   <kbd>
@@ -348,40 +483,73 @@ Whenever there is a cache miss, our servers would be hitting a backend database.
   </kbd>
 </p>
 
-<h2 id="telemetry">Telemetry</h2>
-<p>How many times a short URL has been used, what were user locations, etc.? How would we store these statistics? If it is part of a DB row that gets updated on each view, what will happen when a popular URL is slammed with a large number of concurrent requests?</p>
-<p>Some statistics worth tracking: country of the visitor, date and time of access, web page that refers the click, browser, or platform from where the page was accessed.</p>
-<h2 id="security-and-permissions">Security and Permissions</h2>
-<p>Can users create private URLs or allow a particular set of users to access a URL?</p>
-<p>We can store the permission level (public/private) with each URL in the database. We can also create a separate table to store UserIDs that have permission to see a specific URL. If a user does not have permission and tries to access a URL, we can send an error (HTTP 401) back. Given that we are storing our data in a NoSQL wide-column database like Cassandra, the key for the table storing permissions would be the ‘Hash’ (or the KGS generated ‘key’). The columns will store the UserIDs of those users that have the permission to see the URL.</p>
+<h3 id="telemetry">Telemetry</h3>
+<ul>
+<li>What were the user locations, how many times a short URL was used, etc.? </li>
+<li>How would we keep track of these figures? What happens when a popular URL is bombarded with a huge number of concurrent requests if it's part of a DB row that gets updated on each view?</li>
+<li>The visitor's nation, date and time of access, web page that relates to the click, browser, or platform from which the page was visited are all statistics worth keeping track of.</li>
+</ul>
+<h3 id="security-and-permissions">Security and Permissions</h3>
+<p>Can users build private URLs or restrict access to a URL to a specific group of users?</p>
+<ul>
+<li>In the database, we can store the permission level (public/private) for each URL. </li>
+<li>We can also construct a separate table to keep track of UserIDs with access to a given URL. </li>
+<li>We can return an error (HTTP 401) if a user does not have permission and attempts to access a URL. </li>
+<li>Given that we're using a NoSQL wide-column database like Cassandra to store our data, the 'Hash' (or the KGS produced 'key') would be the key for the table containing permissions. </li>
+<li>The UserIDs of those users who have authorization to see the URL will be stored in the columns.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../DesigningPastebin/" class="btn btn-neutral float-right" title="Designing Pastebin">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../Events/" class="btn btn-neutral" title="Long-Polling vs WebSockets vs Server-Sent Events"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
 
-</section>
-</div> <!-- end of search-noresults -->
-<div class="search-results">
-<div class="has-results">
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
 
-<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-<ul class="search-results-list"></ul>
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
 
-</div> <!-- end of has-results -->
-<div class="no-results">
+    </section>
 
-<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+  </div>
 
-</div> <!-- end of no-results -->
-</div> <!-- end of search-results -->
-</div> <!-- end of book-search-results -->
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../Events/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../DesigningPastebin/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
-</div> <!-- end of page-inner -->
-</div> <!-- end of page-wrapper -->
-
-</div> <!-- end of body-inner -->
-
-</div> <!-- end of book-body -->
-<script src="../js/main.js"></script>
-<script src="../search/main.js"></script>
-<script src="../js/gitbook.min.js"></script>
-<script src="../js/theme.min.js"></script>
 </body>
 </html>

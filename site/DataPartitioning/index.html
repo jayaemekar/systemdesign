@@ -51,13 +51,18 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Level1</span></p>
-                <ul class="current">
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
@@ -70,12 +75,54 @@
     </li>
     </ul>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Level2</span></p>
+                <p class="caption"><span class="caption-text">Level3</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignCache/">Design Cache</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
                     </li>
                 </ul>
                 <ul>
@@ -103,7 +150,7 @@
     
       
         
-          <li>Level1 &raquo;</li>
+          <li>Level2 &raquo;</li>
         
       
     
@@ -121,25 +168,25 @@
               
                 <h1 id="data-partitioning">Data Partitioning</h1>
 <ul>
-<li>Data partitioning is a technique to break up a big database (DB) into many smaller parts. </li>
-<li>It is the process of splitting up a DB/table across multiple machines to improve the manageability, performance, availability, and load balancing of an application. </li>
-<li>The justification for data partitioning is that, after a certain scale point, it is cheaper and more feasible to scale horizontally by adding more machines than to grow it vertically by adding beefier servers.</li>
+<li>Data partitioning is a method of dividing a large database (DB) into multiple smaller sections. </li>
+<li>It is the process of dividing a database/table among numerous machines in order to increase an application's manageability, performance, availability, and load balancing.</li>
+<li>The reason for data partitioning is that after a certain scalability point, scaling horizontally by adding more machines is cheaper and more viable than scaling vertically by adding beefier servers.</li>
 </ul>
 <h2 id="partitioning-methods">Partitioning Methods</h2>
-<p>There are many different schemes one could use to decide how to break up an application database into multiple smaller DBs. Below are three of the most popular schemes used by various large scale applications.</p>
-<p><strong>Horizontal partitioning</strong> (often called sharding). In this strategy, each partition is a separate data store, but all partitions have the same schema. Each partition is known as a shard and holds a specific subset of the data, such as all the orders for a specific set of customers.</p>
-<p><strong>Vertical Partitioning</strong> In this strategy, each partition holds a subset of the fields for items in the data store. The fields are divided according to their pattern of use. For example, frequently accessed fields might be placed in one vertical partition and less frequently accessed fields in another.</p>
-<p><strong>Functional partitioning</strong> In this strategy, data is aggregated according to how it is used by each bounded context in the system. For example, an e-commerce system might store invoice data in one partition and product inventory data in another.</p>
-<p><strong>Directory Based Partitioning</strong> A loosely coupled approach to work around issues mentioned in the above schemes is to create a lookup service which knows your current partitioning scheme and abstracts it away from the DB access code. So, to find out where a particular data entity resides, we query the directory server that holds the mapping between each tuple key to its DB server. This loosely coupled approach means we can perform tasks like adding servers to the DB pool or changing our partitioning scheme without having an impact on the application.</p>
+<p>There are a variety of approaches that can be used to divide an application database into many smaller databases. Three of the most common methods employed by various large-scale applications are listed below.</p>
+<p><strong>Horizontal partitioning</strong> is a technique for dividing a space horizontally (often called sharding). Each partition is a separate data store in this strategy, although they all share the same schema. A shard is a partition that holds a specific subset of data, for as all orders for a certain set of clients.</p>
+<p><strong>Vertical Partitioning</strong> is a term that refers to the division of space vertically. Each partition in this strategy stores a subset of the fields for objects in the data store. The fields are separated into groups based on how they are used. For example, frequently accessible fields could be grouped together in one vertical division while less frequently visited fields are grouped together in another.</p>
+<p><strong>Functional partitioning</strong> Data is aggregated in this technique based on how each bounded context in the system uses it. An e-commerce system, for example, might keep invoice data in one partition and product inventory data in the other.</p>
+<p><strong>Directory Based Partitioning</strong> Creating a lookup service that knows your current partitioning scheme and abstracts it away from the DB access code is a loosely connected solution to work around concerns highlighted in the above schemes. To determine the location of a specific data entity, we query the directory server that stores the mapping between each tuple key and its DB server. Because of this loose coupling, we can conduct operations such as adding servers to the DB pool or modifying our partitioning scheme without affecting the application.</p>
 <h2 id="partitioning-criteria">Partitioning Criteria</h2>
 <p><strong>a. Key or Hash-based partitioning:</strong>
-  we apply a hash function to some key attributes of the entity we are storing; that yields the partition number. </p>
+We use a hash function on some key features of the item we're storing to generate a partition number.</p>
 <p><strong>b. List partitioning:</strong>
-Each partition is assigned a list of values, so whenever we want to insert a new record, we will see which partition contains our key and then store it there. For example, we can decide all users living in Iceland, Norway, Sweden, Finland, or Denmark will be stored in a partition for the Nordic countries.</p>
+Each partition has a set of values allocated to it, so if we want to add a new record, we'll look to see which partition holds our key and save it there. For example, we could specify that all users from Iceland, Norway, Sweden, Finland, or Denmark should be stored in a Nordic division.</p>
 <p><strong>c. Round-robin partitioning:</strong>
- This is a very simple strategy that ensures uniform data distribution. With ‘n’ partitions, the ‘i’ tuple is assigned to partition (i mod n).</p>
+This is a straightforward approach for ensuring data distribution consistency. The I tuple is assigned to partition with 'n' partitions (i mod n).</p>
 <p><strong>d. Composite partitioning:</strong>
- Under this scheme, we combine any of the above partitioning schemes to devise a new scheme. For example, first applying a list partitioning scheme and then a hash based partitioning. Consistent hashing could be considered a composite of hash and list partitioning where the hash reduces the key space to a size that can be listed.</p>
+We combine any of the aforementioned partitioning schemes to create a new scheme in this scheme. For instance, apply a list partitioning strategy first, then a hash-based partitioning method. Consistent hashing is a hybrid of hash and list partitioning, in which the hash shrinks the key space to a size that can be listed.</p>
               
             </div>
           </div>
@@ -147,7 +194,7 @@ Each partition is assigned a list of values, so whenever we want to insert a new
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../StepsToApproachAProblem/" class="btn btn-neutral float-right" title="Steps To Approach A Problem">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../Indexes/" class="btn btn-neutral float-right" title="Indexes">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
         <a href="../Caching/" class="btn btn-neutral" title="Caching"><span class="icon icon-circle-arrow-left"></span> Previous</a>
@@ -179,7 +226,7 @@ Each partition is assigned a list of values, so whenever we want to insert a new
       <span><a href="../Caching/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
-      <span><a href="../StepsToApproachAProblem/" style="color: #fcfcfc">Next &raquo;</a></span>
+      <span><a href="../Indexes/" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>

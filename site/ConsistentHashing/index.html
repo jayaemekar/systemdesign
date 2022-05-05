@@ -1,162 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>Consistent Hashing - My System Design</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://system_design.com/ConsistentHashing/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Consistent Hashing - system_design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-<meta name="generator" content="mkdocs-1.2.3, mkdocs-gitbook-1.0.7">
-
-<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-<meta name="HandheldFriendly" content="true"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta rel="next" href="" />
-<link href="../css/style.min.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Consistent Hashing";
+    var mkdocs_page_input_path = "ConsistentHashing.md";
+    var mkdocs_page_url = "/ConsistentHashing/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
-<body>
-<div class="book">
-<div class="book-summary">
-<div id="book-search-input" role="search">
-<input type="text" placeholder="Type to search" />
-</div> <!-- end of book-search-input -->
+<body class="wy-body-for-nav" role="document">
 
-<nav role="navigation">
-<ul class="summary">
-<li>
-<a href=".." target="_blank" class="custom-link">My System Design</a>
-</li>
-<li class="divider"></li>
-<li class="chapter" data-path="">
-<a href="..">Home</a>
-<li class="chapter" data-path="KeyCharDistributedSystem/">
-<a href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
-<li class="chapter" data-path="LoadBalancing/">
-<a href="../LoadBalancing/">Load Balancing</a>
-<li class="chapter" data-path="Caching/">
-<a href="../Caching/">Caching</a>
-<li class="chapter" data-path="DataPartitioning/">
-<a href="../DataPartitioning/">Data Partitioning</a>
-<li class="chapter" data-path="Indexes/">
-<a href="../Indexes/">Indexes</a>
-<li class="chapter" data-path="Proxies/">
-<a href="../Proxies/">Proxies</a>
-<li class="chapter" data-path="RedundancyReplication/">
-<a href="../RedundancyReplication/">Redundancy and Replication</a>
-<li class="chapter" data-path="SQLvsNoSQL/">
-<a href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
-<li class="chapter" data-path="CAPTheorem/">
-<a href="../CAPTheorem/">CAP Theorem</a>
-<li class="chapter active" data-path="ConsistentHashing/">
-<a href="./">Consistent Hashing</a>
-<li class="chapter" data-path="Events/">
-<a href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
-<li class="chapter" data-path="SystemDesignInterviews/">
-<a href="../SystemDesignInterviews/">System Design Interviews</a>
-<li class="chapter" data-path="DesignURLShorteningService/">
-<a href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
-<li class="chapter" data-path="DesigningURLShorteningService/">
-<a href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
-<li class="chapter" data-path="DesigningPastebin/">
-<a href="../DesigningPastebin/">Designing Pastebin</a>
-<li class="chapter" data-path="DesigningInstagram/">
-<a href="../DesigningInstagram/">Designing Instagram</a>
-<li class="chapter" data-path="DesigningDropbox/">
-<a href="../DesigningDropbox/">Designing Dropbox</a>
-<li class="chapter" data-path="DesigningFacebookMessenger/">
-<a href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
-<li class="chapter" data-path="DesigningTwitter/">
-<a href="../DesigningTwitter/">Designing Twitter</a>
-<li class="chapter" data-path="DesigningYoutubeorNetflix/">
-<a href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
-<li class="chapter" data-path="DesigningTypeaheadSuggestion/">
-<a href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
-<li class="chapter" data-path="DesigningAPIRateLimiter/">
-<a href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
-<li class="chapter" data-path="DesigningTwitterSearch/">
-<a href="../DesigningTwitterSearch/">Designing Twitter Search</a>
-<li class="chapter" data-path="DesigningWebCrawler/">
-<a href="../DesigningWebCrawler/">Designing a Web Crawler</a>
-<li class="chapter" data-path="DesigningFacebookNewsfeed/">
-<a href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
-<li class="chapter" data-path="DesigningYelporNearbyFriends/">
-<a href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
-<li class="chapter" data-path="DesigningUberBackend/">
-<a href="../DesigningUberBackend/">Designing Uber backend</a>
-<li class="chapter" data-path="DesignTicketmaster/">
-<a href="../DesignTicketmaster/">Design Ticketmaster</a>
-<li class="chapter" data-path="PraticeDesignProblems/">
-<a href="../PraticeDesignProblems/">Pratice Design Problems</a>
-<li class="chapter" data-path="about/">
-<a href="../about/">About</a>
-<li class="divider"></li>
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> system_design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
 
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level1</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Consistent Hashing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-consistent-hashing-and-how-does-it-work">What is Consistent Hashing, and how does it work?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#how-does-it-function">How does it function?</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level3</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
 
-<li><a href="http://www.mkdocs.org">
-Published with MkDocs
-</a></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-<li><a href="https://github.com/GitbookIO/theme-default">
-Theme by GitBook
-</a></li>
-</ul>
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">system_design</a>
+      </nav>
 
-</nav>
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Level2 &raquo;</li>
+        
+      
+    
+    <li>Consistent Hashing</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
 
-</div> <!-- end of book-summary -->
-
-<div class="book-body">
-<div class="body-inner">
-<div class="book-header" role="navigation">
-
-<!-- Title -->
-<h1>
-<i class="fa fa-circle-o-notch fa-spin"></i>
-<a href="." ></a>
-</h1>
-
-</div> <!-- end of book-header -->
-
-<div class="page-wrapper" tabindex="-1" role="main">
-<div class="page-inner">
-<div id="book-search-results">
-<div class="search-noresults">
-
-<section class="normal markdown-section">
-
-
-
-<h1 id="consistent-hashing">Consistent Hashing</h1>
-<p>Distributed Hash Table (DHT) is one of the fundamental components used in distributed scalable systems. Hash Tables need a key, a value, and a hash function where hash function maps the key to a location where the value is stored.</p>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="consistent-hashing">Consistent Hashing</h1>
+<p>One of the most important components in distributed scalable systems is the Distributed Hash Table (DHT). Hash tables require a key, a value, and a hash function, which maps the key to a storage place for the value.</p>
 <pre><code>                                index = hash_function(key)
 </code></pre>
-<p>Suppose we are designing a distributed caching system. Given ‘n’ cache servers, an intuitive hash function would be ‘key % n’. It is simple and commonly used. But it has two major drawbacks:</p>
+<p>Let's pretend we're working on a distributed caching system. An sensible hash function for 'n' cache servers would be 'key percent n'. It's straightforward and widely utilized. However, it has two fundamental flaws:</p>
 <ol>
-<li>It is NOT horizontally scalable. Whenever a new cache host is added to the system, all existing mappings are broken. It will be a pain point in maintenance if the caching system contains lots of data. Practically, it becomes difficult to schedule a downtime to update all caching mappings.</li>
-<li>It may NOT be load balanced, especially for non-uniformly distributed data. In practice, it can be easily assumed that the data will not be distributed uniformly. For the caching system, it translates into some caches becoming hot and saturated while the others idle and are almost empty.</li>
+<li>It is not scalable horizontally. All current mappings are broken whenever a new cache host is introduced to the system. If the caching system has a lot of data, it will be difficult to maintain. In practice, scheduling a downtime to update all caching mappings becomes problematic.</li>
+<li>It may not be load balanced, especially if the data is not spread consistently. In practice, it is reasonable to expect that the data will not be dispersed evenly. For the caching system, this means that some caches will become hot and saturated while others will remain inactive and nearly empty.</li>
 </ol>
-<p>In such situations, consistent hashing is a good way to improve the caching system.</p>
-<h2 id="what-is-consistent-hashing">What is Consistent Hashing?</h2>
-<p>Consistent hashing is a very useful strategy for distributed caching system and DHTs. It allows us to distribute data across a cluster in such a way that will minimize reorganization when nodes are added or removed. Hence, the caching system will be easier to scale up or scale down.</p>
-<p>In Consistent Hashing, when the hash table is resized (e.g. a new cache host is added to the system), only ‘k/n’ keys need to be remapped where ‘k’ is the total number of keys and ‘n’ is the total number of servers. Recall that in a caching system using the ‘mod’ as the hash function, all keys need to be remapped.</p>
-<p>In Consistent Hashing, objects are mapped to the same host if possible. When a host is removed from the system, the objects on that host are shared by other hosts; when a new host is added, it takes its share from a few hosts without touching other’s shares.</p>
-<h2 id="how-does-it-work">How does it work?</h2>
-<p>As a typical hash function, consistent hashing maps a key to an integer. Suppose the output of the hash function is in the range of [0, 256). Imagine that the integers in the range are placed on a ring such that the values are wrapped around.</p>
-<p>Here’s how consistent hashing works:</p>
+<p>Consistent hashing is an excellent method to improve the caching system in these scenarios.</p>
+<h2 id="what-is-consistent-hashing-and-how-does-it-work">What is Consistent Hashing, and how does it work?</h2>
+<p>For distributed caching systems and DHTs, consistent hashing is a particularly beneficial method. It allows us to distribute data across a cluster in such a way that nodes are added or withdrawn with minimal rearrangement. As a result, scaling up or down the caching system will be much easier.</p>
+<p>Only 'k/n' keys need to be remapped in Consistent Hashing when the hash table is resized (e.g. a new cache host is added to the system), where 'k' is the total number of keys and 'n' is the total number of servers. Remember that in a caching system that uses the hash function'mod,' all keys must be remapped.</p>
+<p>If possible, items in Consistent Hashing are mapped to the same host. When a host is removed from the system, its objects are shared by other hosts; when a new host is introduced, it takes its share from a few hosts without affecting the shares of others.</p>
+<h2 id="how-does-it-function">How does it function?</h2>
+<p>Consistent hashing is a hash function that maps a key to an integer. Assume the hash function's output is in the range [0, 256]. Consider placing the integers in the range on a ring and wrapping the values around it.</p>
+<p>The following is an example of how consistent hashing works:</p>
 <ol>
-<li>Given a list of cache servers, hash them to integers in the range.</li>
+<li>Hash a list of cache servers into integers in the range given.</li>
 <li>
-<p>To map a key to a server,</p>
-<p>a. Hash it to a single integer.</p>
-<p>b. Move clockwise on the ring until finding the first cache it encounters.</p>
+<p>To associate a key with a server,</p>
+<p>a. Convert it to a single integer hash.</p>
+<p>b. Work your way around the ring clockwise until you reach the first cache.</p>
 <p>c. That cache is the one that contains the key. </p>
 </li>
 </ol>
-<p>See below as an example: key1 maps to cache A; key2 maps to cache C.</p>
+<p>As an example, consider the following: Key1 corresponds to cache A, while key2 corresponds to cache C.</p>
 <p align="center"> 
   <kbd>
   <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/ConsistentHashing.JPG">
@@ -164,39 +200,63 @@ Theme by GitBook
   </kbd>
 </p>
 
-<p>To add a new server, say D, keys that were originally residing at C will be split. Some of them will be shifted to D, while other keys will not be touched.</p>
-<p>To remove a cache or, if a cache fails, say A, all keys that were originally mapped to A will fall into B, and only those keys need to be moved to B; other keys will not be affected.</p>
-<p>For load balancing, as we discussed in the beginning, the real data is essentially randomly distributed and thus may not be uniform. It may make the keys on caches unbalanced.</p>
-<p>To handle this issue, we add “virtual replicas” for caches. Instead of mapping each cache to a single point on the ring, we map it to multiple points on the ring, i.e. replicas. This way, each cache is associated with multiple portions of the ring.</p>
-<p>If the hash function “mixes well,” as the number of replicas increases, the keys will be more balanced.</p>
+<p>When a new server, say D, is added, keys that were previously stored on C will be divided. Some will be transferred to D, while others will remain unchanged.</p>
+<p>To remove a cache or if a cache fails, say A, all keys mapped to A will fall into B, and only those keys will need to be relocated to B; other keys will not be affected.</p>
+<p>As we noted in the outset, real data for load balancing is fundamentally randomly distributed and hence may not be uniform. It's possible that the keys on caches will become imbalanced as a result.</p>
+<p>We add "virtual replicas" for caches to address this issue. We map each cache to many points on the ring, i.e. replicas, rather than a single point on the ring. As a result, each cache is linked to numerous ring segments.</p>
+<p>If the hash function "mixes well," the keys will become more balanced as the number of replicates grows.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../Events/" class="btn btn-neutral float-right" title="Long-Polling vs WebSockets vs Server-Sent Events">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../CAPTheorem/" class="btn btn-neutral" title="CAP Theorem"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
 
-</section>
-</div> <!-- end of search-noresults -->
-<div class="search-results">
-<div class="has-results">
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
 
-<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-<ul class="search-results-list"></ul>
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
 
-</div> <!-- end of has-results -->
-<div class="no-results">
+    </section>
 
-<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+  </div>
 
-</div> <!-- end of no-results -->
-</div> <!-- end of search-results -->
-</div> <!-- end of book-search-results -->
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../CAPTheorem/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../Events/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
-</div> <!-- end of page-inner -->
-</div> <!-- end of page-wrapper -->
-
-</div> <!-- end of body-inner -->
-
-</div> <!-- end of book-body -->
-<script src="../js/main.js"></script>
-<script src="../search/main.js"></script>
-<script src="../js/gitbook.min.js"></script>
-<script src="../js/theme.min.js"></script>
 </body>
 </html>

@@ -58,20 +58,67 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Level2</span></p>
+                <p class="caption"><span class="caption-text">Level3</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignCache/">Design Cache</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
                     </li>
                 </ul>
                 <ul>
@@ -116,18 +163,18 @@
             <div class="section">
               
                 <h1 id="pre-requisites">Pre Requisites</h1>
-<p>We assume in this section that you :</p>
+<p>In this part, we'll presume that you:</p>
 <ul>
-<li>Have some experience working with a relational DB ( like MySQL ).</li>
-<li>Have a basic idea about NoSQL DBs.</li>
+<li>Have worked with a relational database before ( like MySQL ).</li>
+<li>Have a basic understanding of NoSQL databases.</li>
 <li>
-<p>Understand the basics of the following : </p>
+<p>Know the fundamentals of the following:</p>
 <p><strong>1. Concurrency :</strong> 
-Do you understand threads, deadlock, and starvation? What happens when multiple processes / threads are trying to modify the same data? A basic understanding of read and write locks.</p>
+Are you familiar with the terms threads, deadlock, and starvation? When numerous processes / threads attempt to edit the same data, what happens? A fundamental grasp of read and write locks is required.</p>
 <p><strong>2. Networking :</strong>
-    Do you roughly understand basic networking protocols like TCP and UDP? Do you understand the role of switches and routers?</p>
+Do you have a basic understanding of networking protocols such as TCP and UDP? Do you know what switches and routers are for?</p>
 <p><strong>3. File systems :</strong> 
-You should understand the systems you’re building upon. Do you know roughly how an OS, file system, and database work? Do you know about the various levels of caching in a modern OS?</p>
+You should have a good understanding of the systems you're working with. Do you have a basic understanding of how an operating system, file system, and database work? Do you understand the several levels of caching in a modern operating system?</p>
 </li>
 </ul>
               

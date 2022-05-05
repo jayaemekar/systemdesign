@@ -1,136 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>Designing Facebook Messenger - My System Design</title>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://system_design.com/DesigningFacebookMessenger/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Designing Facebook Messenger - system_design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
-<meta name="generator" content="mkdocs-1.2.3, mkdocs-gitbook-1.0.7">
-
-<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
-<meta name="HandheldFriendly" content="true"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta rel="next" href="" />
-<link href="../css/style.min.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Designing Facebook Messenger";
+    var mkdocs_page_input_path = "DesigningFacebookMessenger.md";
+    var mkdocs_page_url = "/DesigningFacebookMessenger/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
 </head>
 
-<body>
-<div class="book">
-<div class="book-summary">
-<div id="book-search-input" role="search">
-<input type="text" placeholder="Type to search" />
-</div> <!-- end of book-search-input -->
+<body class="wy-body-for-nav" role="document">
 
-<nav role="navigation">
-<ul class="summary">
-<li>
-<a href=".." target="_blank" class="custom-link">My System Design</a>
-</li>
-<li class="divider"></li>
-<li class="chapter" data-path="">
-<a href="..">Home</a>
-<li class="chapter" data-path="KeyCharDistributedSystem/">
-<a href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
-<li class="chapter" data-path="LoadBalancing/">
-<a href="../LoadBalancing/">Load Balancing</a>
-<li class="chapter" data-path="Caching/">
-<a href="../Caching/">Caching</a>
-<li class="chapter" data-path="DataPartitioning/">
-<a href="../DataPartitioning/">Data Partitioning</a>
-<li class="chapter" data-path="Indexes/">
-<a href="../Indexes/">Indexes</a>
-<li class="chapter" data-path="Proxies/">
-<a href="../Proxies/">Proxies</a>
-<li class="chapter" data-path="RedundancyReplication/">
-<a href="../RedundancyReplication/">Redundancy and Replication</a>
-<li class="chapter" data-path="SQLvsNoSQL/">
-<a href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
-<li class="chapter" data-path="CAPTheorem/">
-<a href="../CAPTheorem/">CAP Theorem</a>
-<li class="chapter" data-path="ConsistentHashing/">
-<a href="../ConsistentHashing/">Consistent Hashing</a>
-<li class="chapter" data-path="Events/">
-<a href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
-<li class="chapter" data-path="SystemDesignInterviews/">
-<a href="../SystemDesignInterviews/">System Design Interviews</a>
-<li class="chapter" data-path="DesignURLShorteningService/">
-<a href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
-<li class="chapter" data-path="DesigningURLShorteningService/">
-<a href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
-<li class="chapter" data-path="DesigningPastebin/">
-<a href="../DesigningPastebin/">Designing Pastebin</a>
-<li class="chapter" data-path="DesigningInstagram/">
-<a href="../DesigningInstagram/">Designing Instagram</a>
-<li class="chapter" data-path="DesigningDropbox/">
-<a href="../DesigningDropbox/">Designing Dropbox</a>
-<li class="chapter active" data-path="DesigningFacebookMessenger/">
-<a href="./">Designing Facebook Messenger</a>
-<li class="chapter" data-path="DesigningTwitter/">
-<a href="../DesigningTwitter/">Designing Twitter</a>
-<li class="chapter" data-path="DesigningYoutubeorNetflix/">
-<a href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
-<li class="chapter" data-path="DesigningTypeaheadSuggestion/">
-<a href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
-<li class="chapter" data-path="DesigningAPIRateLimiter/">
-<a href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
-<li class="chapter" data-path="DesigningTwitterSearch/">
-<a href="../DesigningTwitterSearch/">Designing Twitter Search</a>
-<li class="chapter" data-path="DesigningWebCrawler/">
-<a href="../DesigningWebCrawler/">Designing a Web Crawler</a>
-<li class="chapter" data-path="DesigningFacebookNewsfeed/">
-<a href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
-<li class="chapter" data-path="DesigningYelporNearbyFriends/">
-<a href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
-<li class="chapter" data-path="DesigningUberBackend/">
-<a href="../DesigningUberBackend/">Designing Uber backend</a>
-<li class="chapter" data-path="DesignTicketmaster/">
-<a href="../DesignTicketmaster/">Design Ticketmaster</a>
-<li class="chapter" data-path="PraticeDesignProblems/">
-<a href="../PraticeDesignProblems/">Pratice Design Problems</a>
-<li class="chapter" data-path="about/">
-<a href="../about/">About</a>
-<li class="divider"></li>
+  <div class="wy-grid-for-nav">
 
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> system_design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
 
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level1</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level3</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Designing Facebook Messenger</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#1-what-is-facebook-messenger">1. What is Facebook Messenger?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-requirements-and-goals-of-the-system">2. Requirements and Goals of the System</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-capacity-estimation-and-constraints">3. Capacity Estimation and Constraints</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-high-level-design">4. High Level Design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-detailed-component-design">5. Detailed Component Design</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-data-partitioning">6. Data partitioning</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-cache">7. Cache</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-load-balancing">8. Load balancing</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-fault-tolerance-and-replication">9. Fault tolerance and Replication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-extended-requirements">10. Extended Requirements</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
 
-<li><a href="http://www.mkdocs.org">
-Published with MkDocs
-</a></li>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
-<li><a href="https://github.com/GitbookIO/theme-default">
-Theme by GitBook
-</a></li>
-</ul>
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">system_design</a>
+      </nav>
 
-</nav>
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Level3 &raquo;</li>
+        
+      
+    
+    <li>Designing Facebook Messenger</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
 
-</div> <!-- end of book-summary -->
-
-<div class="book-body">
-<div class="body-inner">
-<div class="book-header" role="navigation">
-
-<!-- Title -->
-<h1>
-<i class="fa fa-circle-o-notch fa-spin"></i>
-<a href="." ></a>
-</h1>
-
-</div> <!-- end of book-header -->
-
-<div class="page-wrapper" tabindex="-1" role="main">
-<div class="page-inner">
-<div id="book-search-results">
-<div class="search-noresults">
-
-<section class="normal markdown-section">
-
-
-
-<h1 id="designing-facebook-messenger">Designing Facebook Messenger</h1>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="designing-facebook-messenger">Designing Facebook Messenger</h1>
 <p>Let's design an instant messaging service like Facebook Messenger where users can send text messages to each other through web and mobile interfaces.</p>
 <h2 id="1-what-is-facebook-messenger">1. What is Facebook Messenger?</h2>
 <p>Facebook Messenger is a software application which provides text-based instant messaging services to its users. Messenger users can chat with their Facebook friends both from cell-phones and Facebook’s website.</p>
@@ -287,34 +339,58 @@ We can have separate group-chat objects in our system that can be stored on the 
 In our current design, users can only send messages to active users and if the receiving user is offline, we send a failure to the sending user. Push notifications will enable our system to send messages to offline users.</p>
 <p>For Push notifications, each user can opt-in from their device (or a web browser) to get notifications whenever there is a new message or event. Each manufacturer maintains a set of servers that handles pushing these notifications to the user.</p>
 <p>To have push notifications in our system, we would need to set up a Notification server, which will take the messages for offline users and send them to the manufacture’s push notification server, which will then send them to the user’s device.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../DesigningTwitter/" class="btn btn-neutral float-right" title="Designing Twitter">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../DesigningDropbox/" class="btn btn-neutral" title="Designing Dropbox"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
 
+  <hr/>
 
-</section>
-</div> <!-- end of search-noresults -->
-<div class="search-results">
-<div class="has-results">
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
 
-<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
-<ul class="search-results-list"></ul>
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
 
-</div> <!-- end of has-results -->
-<div class="no-results">
+    </section>
 
-<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+  </div>
 
-</div> <!-- end of no-results -->
-</div> <!-- end of search-results -->
-</div> <!-- end of book-search-results -->
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../DesigningDropbox/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../DesigningTwitter/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
 
-</div> <!-- end of page-inner -->
-</div> <!-- end of page-wrapper -->
-
-</div> <!-- end of body-inner -->
-
-</div> <!-- end of book-body -->
-<script src="../js/main.js"></script>
-<script src="../search/main.js"></script>
-<script src="../js/gitbook.min.js"></script>
-<script src="../js/theme.min.js"></script>
 </body>
 </html>

@@ -1,51 +1,94 @@
 # Designing Pastebin
 
-Let's design a Pastebin like web service, where users can store plain text. Users of the service will enter a piece of text and get a randomly generated URL to access it.
+## Problem Statement
 
-Similar Services: pastebin.com, pasted.co, chopapp.com
-Difficulty Level: Easy
+Let's create a web service that works like Pastebin and allows users to save plain text. Users will submit a text fragment and receive a randomly generated URL to access it.
 
-## 1. What is Pastebin?
+- Similar Services: pastebin.com, pasted.co, chopapp.com
+- Difficulty Level: Easy
 
-Pastebin like services enable users to store plain text or images over the network (typically the Internet) and generate unique URLs to access the uploaded data. Such services are also used to share data over the network quickly, as users would just need to pass the URL to let other users see it.
+### What is Pastebin, exactly?
 
-If you haven’t used pastebin.com before, please try creating a new ‘Paste’ there and spend some time going through the different options their service offers. This will help you a lot in understanding this chapter.
+Pastebin-style services allow users to upload plain text or images to a network (usually the Internet) and generate unique URLs to retrieve the data. Users can also utilize such services to swiftly distribute data over the network by just passing the URL to other users.
 
-## 2. Requirements and Goals of the System
+If you haven't used pastebin.com before, you should try making a new 'Paste' there and spending some time exploring the various choices available.
 
-Our Pastebin service should meet the following requirements:
+## Pratice Problem
 
-### Functional Requirements:
+***Let's get started on the system design solution.***
 
-1. Users should be able to upload or “paste” their data and get a unique URL to access it.
-2. Users will only be able to upload text.
-3. Data and links will expire after a specific timespan automatically; users should also be able to specify 4. expiration time.
-4. Users should optionally be able to pick a custom alias for their paste.
+**If you run into any problems, please see the solution below.**
 
-### Non-Functional Requirements:
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
 
-1. The system should be highly reliable, any data uploaded should not be lost.
-2. The system should be highly available. This is required because if our service is down, users will not be able to access their Pastes.
-3. Users should be able to access their Pastes in real-time with minimum latency.
-4. Paste links should not be guessable (not predictable).
+    <br><br>
+    <h2>Hints to solve the problem</h2>
 
-### Extended Requirements:
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br><br><br>
 
-1. Analytics, e.g., how many times a paste was accessed?
-2. Our service should also be accessible through REST APIs by other services.
+</body>
+</html>
 
-## 3. Some Design Considerations
-Pastebin shares some requirements with URL Shortening service, but there are some additional design considerations we should keep in mind.
 
-What should be the limit on the amount of text user can paste at a time? We can limit users not to have Pastes bigger than 10MB to stop the abuse of the service.
+## <h1>Solution<h1>
 
-Should we impose size limits on custom URLs? Since our service supports custom URLs, users can pick any URL that they like, but providing a custom URL is not mandatory. However, it is reasonable (and often desirable) to impose a size limit on custom URLs, so that we have a consistent URL database.
+### Requirements and Goals of the System
 
-Our services will be read-heavy; there will be more read requests compared to new Pastes creation. We can assume a 5:1 ratio between read and write.
+The following requirements should be met by our Pastebin service:
 
-#### Traffic estimates
+**Functional Requirements:**
 
-Pastebin services are not expected to have traffic similar to Twitter or Facebook, let’s assume here that we get one million new pastes added to our system every day. This leaves us with five million reads per day.
+1. Users should be able to upload or "paste" their data and receive a unique URL with which to view it.
+2. Users will be limited to text uploads.
+3. Data and links will automatically expire after a set period of time; users should also be allowed to set the 4. expiration time.
+4. Users should be allowed to choose a custom alias for their paste as an option.
+
+**Non-Functional Requirements:**
+
+1. The system must be extremely dependable, and any data uploaded must not be lost.
+2. The system should have a high level of availability. This is necessary because users will be unable to access their Pastes if our service is unavailable.
+3. Users should have real-time access to their Pastes with minimal delay.
+4. Paste links should be impossible to guess (not predictable).
+
+**Extended Requirements:**
+
+1. Analytics, such as the number of times a paste was accessed.
+2. Other services should be able to access our service via REST APIs.
+
+### Some Design Considerations
+Although Pastebin and URL Shortening share similar criteria, there are also extra design considerations to keep in mind.
+
+What should the maximum quantity of text a user can paste at one time be? To prevent misuse of the service, we can limit users' Paste sizes to no more than 10MB.
+
+Should we limit the size of custom URLs? Users can use whatever URL they want because our service supports custom URLs, however giving a custom URL is not required. However, imposing a size limit on custom URLs is reasonable (and frequently desirable) in order to maintain a consistent URL database.
+
+Our services will be heavily read-heavy, with more read requests than new Pastes production. We can assume a read-to-write ratio of 5:1.
+
+**Traffic estimates**
+
+Pastebin services are not expected to have the same level of traffic as Twitter or Facebook, so let's pretend we get one million new pastes every day. This gives us a total of five million daily reads.
 
 New Pastes per second:
 
@@ -54,15 +97,15 @@ Paste reads per second:
 
                     5M / (24 hours * 3600 seconds) ~= 58 reads/sec
 
-#### Storage estimates: 
-Users can upload maximum 10MB of data; commonly Pastebin like services are used to share source code, configs or logs. Such texts are not huge, so let’s assume that each paste on average contains 10KB.
+**Storage estimates:** 
+Users can upload up to 10MB of data; Pastebin-like services are frequently used to share source code, configurations, and logs. Because such texts aren't particularly large, let's say that each paste is 10KB on average.
 
-At this rate, we will be storing 10GB of data per day.
+We'll be storing 10GB of data per day at this rate.
 
                     1M * 10KB => 10 GB/day
-If we want to store this data for ten years we would need the total storage capacity of 36TB.
+We would require a total storage capacity of 36TB to store this data for ten years.
 
-With 1M pastes every day we will have 3.6 billion Pastes in 10 years. We need to generate and store keys to uniquely identify these pastes. If we use base64 encoding ([A-Z, a-z, 0-9, ., -]) we would need six letters strings:
+In ten years, we will have 3.6 billion pastes if 1 million pastes are produced every day. To uniquely identify these pastes, we need to generate and store keys. We'd need six letters strings if we used base64 encoding ([A-Z, a-z, 0-9,., -]):
 
                     64^6 ~= 68.7 billion unique strings
 If it takes one byte to store one character, total size required to store 3.6B keys would be:
@@ -71,7 +114,7 @@ If it takes one byte to store one character, total size required to store 3.6B k
 22GB is negligible compared to 36TB. To keep some margin, we will assume a 70% capacity model (meaning we don’t want to use more than 70% of our total storage capacity at any point), which raises our storage needs to 51.4TB.
 
 
-#### Bandwidth estimates: 
+**Bandwidth estimates:** 
 For write requests, we expect 12 new pastes per second, resulting in 120KB of ingress per second.
 
                     12 * 10KB => 120 KB/s
@@ -80,30 +123,32 @@ As for the read request, we expect 58 requests per second. Therefore, total data
                     58 * 10KB => 0.6 MB/s
 Although total ingress and egress are not big, we should keep these numbers in mind while designing our service.
 
-#### Memory estimates: 
-We can cache some of the hot pastes that are frequently accessed. Following the 80-20 rule, meaning 20% of hot pastes generate 80% of traffic, we would like to cache these 20% pastes
+**Memory estimates:** 
+Some of the most frequently accessed hot pastes can be cached. We'd like to cache these 20% pastes based on the 80-20 rule, which states that 20% of hot pastes produce 80% of traffic.
 
-Since we have 5M read requests per day, to cache 20% of these requests, we would need:
+With 5 million read requests per day, caching 20% of these queries would require:
 
                     0.2 * 5M * 10KB ~= 10 GB
 
-## 5. System APIs
+### System APIs
 
-We can have SOAP or REST APIs to expose the functionality of our service. Following could be the definitions of the APIs to create/retrieve/delete Pastes:
+To expose the functionality of our service, we can use SOAP or REST APIs. The APIs to create/retrieve/delete Pastes could be defined as follows:
 
-            addPaste(api_dev_key, paste_data, custom_url=None user_name=None, paste_name=None, expire_date=None)
+- addPaste(api_dev_key, paste_data, custom_url=None user_name=None, paste_name=None, expire_date=None)
+
 **Parameters:**
-1. api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-2. paste_data (string): Textual data of the paste.
-3. custom_url (string): Optional custom URL.
-4. user_name (string): Optional user name to be used to generate URL.
-5. paste_name (string): Optional name of the paste
-6. expire_date (string): Optional expiration date for the paste.
+
+1. **api_dev_key (string):** The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+2. **paste_data (string):** Textual data of the paste.
+3. **custom_url (string):** Optional custom URL.
+4. **user_name (string):** Optional user name to be used to generate URL.
+5. **paste_name (string):** Optional name of the paste
+6. **expire_date (string):** Optional expiration date for the paste.
 
 **Returns: (string)**
-A successful insertion returns the URL through which the paste can be accessed, otherwise, it will return an error code.
+A successful insertion will return the URL to which the paste can be accessible; otherwise, an error code will be returned.
 
-Similarly, we can have retrieve and delete Paste APIs:
+We can also have Paste APIs that retrieve and remove data:
 
                 getPaste(api_dev_key, api_paste_key)
 Where “api_paste_key” is a string representing the Paste Key of the paste to be retrieved. This API will return the textual data of the paste.
@@ -111,15 +156,15 @@ Where “api_paste_key” is a string representing the Paste Key of the paste to
                 deletePaste(api_dev_key, api_paste_key)
 A successful deletion returns ‘true’, otherwise returns ‘false’.
 
-## 6. Database Design
+### Database Design
 
-A few observations about the nature of the data we are storing:
+A couple more observations on the data we're storing:
 
-1. We need to store billions of records.
-2. Each metadata object we are storing would be small (less than 1KB).
-3. Each paste object we are storing can be of medium size (it can be a few MB).
-4. There are no relationships between records, except if we want to store which user created what Paste.
-5. Our service is read-heavy.
+1. We require billions of documents to be stored.
+2. Each metadata object that we store will be small (less than 1KB).
+3. Each paste object we store can be of average size (it can be a few MB).
+4. Except for storing which user generated which Paste, there are no linkages between entries.
+5. Our service requires extensive reading.
 
 **Database Schema:**
 We would need two tables, one for storing information about the Pastes and the other for users’ data.
@@ -131,11 +176,14 @@ We would need two tables, one for storing information about the Pastes and the o
   </kbd>
 </p>
 
-Here, ‘URlHash’ is the URL equivalent of the TinyURL and ‘ContentKey’ is a reference to an external object storing the contents of the paste; we’ll discuss the external storage of the paste contents later in the chapter.
+'URlHash' is the URL counterpart of the TinyURL, and 'ContentKey' is a reference to an external object that stores the paste contents; we'll go over external paste storage later in the chapter.
 
-## 7. High Level Design
+### High Level Design
 
-At a high level, we need an application layer that will serve all the read and write requests. Application layer will talk to a storage layer to store and retrieve data. We can segregate our storage layer with one database storing metadata related to each paste, users, etc., while the other storing the paste contents in some object storage (like Amazon S3). This division of data will also allow us to scale them individually.
+- A high-level application layer is required to handle all read and write requests. 
+- To store and retrieve data, the application layer will communicate with the storage layer. 
+- Our storage layer can be divided into two databases, one keeping metadata about each paste, users, and so on, and the other storing the paste contents in some object storage (like Amazon S3). 
+- This data split will also allow us to grow them separately.
 
 <p align="center"> 
   <kbd>
@@ -144,26 +192,44 @@ At a high level, we need an application layer that will serve all the read and w
   </kbd>
 </p>
 
-## 8. Component Design
+### Component Design
 
-#### a. Application layer
-Our application layer will process all incoming and outgoing requests. The application servers will be talking to the backend data store components to serve the requests.
+**Application layer**
+All incoming and outgoing requests will be processed by our application layer. To serve the requests, the application servers will communicate with the backend data storage components.
 
-**How to handle a write request?** Upon receiving a write request, our application server will generate a six-letter random string, which would serve as the key of the paste (if the user has not provided a custom key). The application server will then store the contents of the paste and the generated key in the database. After the successful insertion, the server can return the key to the user. One possible problem here could be that the insertion fails because of a duplicate key. Since we are generating a random key, there is a possibility that the newly generated key could match an existing one. In that case, we should regenerate a new key and try again. We should keep retrying until we don’t see failure due to the duplicate key. We should return an error to the user if the custom key they have provided is already present in our database.
+**How should a write request be handled?** 
 
-Another solution of the above problem could be to run a standalone Key Generation Service (KGS) that generates random six letters strings beforehand and stores them in a database (let’s call it key-DB). Whenever we want to store a new paste, we will just take one of the already generated keys and use it. This approach will make things quite simple and fast since we will not be worrying about duplications or collisions. KGS will make sure all the keys inserted in key-DB are unique. KGS can use two tables to store keys, one for keys that are not used yet and one for all the used keys. As soon as KGS gives some keys to an application server, it can move these to the used keys table. KGS can always keep some keys in memory so that whenever a server needs them, it can quickly provide them. As soon as KGS loads some keys in memory, it can move them to the used keys table, this way we can make sure each server gets unique keys. If KGS dies before using all the keys loaded in memory, we will be wasting those keys. We can ignore these keys given that we have a huge number of them.
+- When our application server receives a write request, it generates a six-letter random string that will be used as the paste key (if the user has not provided a custom key). 
+- The contents of the paste, as well as the created key, will be saved in the database by the application server. The server can return the key to the user after successful insertion. 
+- One potential issue here is that the insertion fails due to a duplicate key. 
+- Because we're producing a random key, it's possible that the freshly produced key will match an existing one. In that scenario, we should try again after generating a new key. 
+- We should keep retrying until the duplicate key does not cause failure. If the user's custom key already exists in our database, we should provide them an error message.
 
-**Isn’t KGS a single point of failure?** Yes, it is. To solve this, we can have a standby replica of KGS and whenever the primary server dies it can take over to generate and provide keys.
+- A standalone Key Generation Service (KGS) that creates random six-letter strings and saves them in a database (let's name it key-DB) could be used to solve the aforementioned problem.
+- We'll just use one of the previously produced keys whenever we want to save a new paste. Because we won't have to worry about duplications or collisions, this strategy will make things very simple and quick.
+- KGS will ensure that all of the keys in key-DB are unique. KGS can keep keys in two tables: one for keys that haven't been used yet, and another for all keys that have been used.
+- KGS can move keys to the used keys table as soon as they are sent to an application server. KGS can maintain some keys in memory at all times so that it can rapidly provide them to a server when it needs them.
+- As soon as KGS loads certain keys into memory, it can move them to the utilized keys table, ensuring that each server has its own set of keys.
+- We will be squandering those keys if KGS dies before using all of the keys loaded in memory. We can disregard these keys because there are so many of them.
 
-**Can each app server cache some keys from key-DB?** Yes, this can surely speed things up. Although in this case, if the application server dies before consuming all the keys, we will end up losing those keys. This could be acceptable since we have 68B unique six letters keys, which are a lot more than we require.
+**Doesn't KGS represent a single point of failure?**
 
-**How does it handle a paste read request?** Upon receiving a read paste request, the application service layer contacts the datastore. The datastore searches for the key, and if it is found, returns the paste’s contents. Otherwise, an error code is returned.
+ It certainly is. To overcome this, we may create a standby replica of KGS that will take over key generation and distribution when the original server fails.
 
-#### b. Datastore layer
+**Are some keys from key-DB cacheable on each app server?** 
+
+Yes, this will undoubtedly expedite things. However, if the application server dies before all the keys have been consumed, we will lose those keys. This may be acceptable because we have 68B unique six-letter keys, which is far more than we need.
+
+**How does a paste read request get handled?** 
+
+The application service layer contacts the datastore when it receives a read paste request. The datastore looks for the key and returns the paste's contents if it is found. An error code is returned otherwise.
+
+**Datastore layer**
+
 We can divide our datastore layer into two:
 
-1. **Metadata database:** We can use a relational database like MySQL or a Distributed Key-Value store like Dynamo or Cassandra.
-2. **Object storage:** We can store our contents in an Object Storage like Amazon’s S3. Whenever we feel like hitting our full capacity on content storage, we can easily increase it by adding more servers.
+1. **Metadata database:** A relational database, such as MySQL, or a Distributed Key-Value Store, such as Dynamo or Cassandra, can be used.
+2. **Object storage:** We can save our files in Object Storage, such as Amazon's S3. We can easily enhance our content storage capacity whenever we feel like it by adding more servers.
 
 <p align="center"> 
   <kbd>
@@ -173,14 +239,14 @@ We can divide our datastore layer into two:
 </p>
 
 
-## 9. Purging or DB Cleanup
+### 9. Purging or DB Cleanup
 Please see Designing a URL Shortening service.
 
-## 10. Data Partitioning and Replication
+### 10. Data Partitioning and Replication
 Please see Designing a URL Shortening service.
 
-## 11. Cache and Load Balancer
+### 11. Cache and Load Balancer
 Please see Designing a URL Shortening service.
 
-## 12. Security and Permissions
+### 12. Security and Permissions
 Please see Designing a URL Shortening service.

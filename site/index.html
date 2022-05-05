@@ -58,20 +58,67 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="BasicTerminologies/">Basic Terminologies</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="CAPTheorem/">CAP Theorem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="StepsToApproachAProblem/">Steps To Approach A Problem</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="LoadBalancing/">Load Balancing</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="Caching/">Caching</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="DataPartitioning/">Data Partitioning</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Level2</span></p>
+                <p class="caption"><span class="caption-text">Level3</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="DesignCache/">Design Cache</a>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="PraticeDesignProblems/">Pratice Design Problems</a>
                     </li>
                 </ul>
                 <ul>
@@ -112,15 +159,15 @@
             <div class="section">
               
                 <h1 id="what-is-system-design">What is System Design?</h1>
-<p>System design is the process of defining the architecture, interfaces, and data for a system that satisfies specific requirements. </p>
-<p>Whenever we are designing a large system, we need to consider a few things:</p>
+<p>The process of defining the architecture, interfaces, and data for a system to meet specified criteria is referred to as system design.</p>
+<p>When constructing a huge system, there are a few considerations to keep in mind:</p>
 <ol>
-<li>What are the different architectural pieces that can be used?</li>
-<li>How do these pieces work with each other?</li>
-<li>How can we best utilize these pieces: what are the right tradeoffs?</li>
+<li>What are the many architectural components that can be utilized?</li>
+<li>What is the relationship between these components?</li>
+<li>What are the best tradeoffs to make in order to get the most out of these components?</li>
 </ol>
-<p>System design is a broad topic. There is a vast amount of resources scattered throughout the web on system design principles. In addition to coding interviews, system design is a required component of the technical interview process at many tech companies.</p>
-<p>System design requires a systematic approach to building and engineering systems. A good system design requires you to think about everything in an infrastructure, from the hardware and software, all the way down to the data and how it’s stored.</p>
+<p>The issue of system design is wide. There are numerous materials on system design principles dispersed over the internet. Many tech organizations require system design as part of the technical interview process in addition to coding interviews.</p>
+<p>Building and engineering systems demand a systematic approach to system design. A smart system design considers everything in an infrastructure, from hardware and software to data and how it's kept.</p>
               
             </div>
           </div>
@@ -175,5 +222,5 @@
 
 <!--
 MkDocs version : 1.2.3
-Build Date UTC : 2022-05-05 03:31:21.580901+00:00
+Build Date UTC : 2022-05-05 13:36:19.672265+00:00
 -->

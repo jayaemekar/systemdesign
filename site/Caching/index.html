@@ -51,20 +51,25 @@
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">Level1</span></p>
-                <ul class="current">
+                <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../BasicTerminologies/">Basic Terminologies</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
                     </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul class="current">
                     <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
                     </li>
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">Caching</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#what-is-cache">What is Cache?</a>
+    <li class="toctree-l2"><a class="reference internal" href="#what-is-cache-and-how-does-it-work">What is Cache and how does it work?</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#caches-in-different-layers">Caches in different layers</a>
+    <li class="toctree-l2"><a class="reference internal" href="#caches-in-several-tiers">Caches in several tiers</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#cache-invalidation">Cache Invalidation</a>
     </li>
@@ -74,12 +79,54 @@
                     </li>
                     <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
                     </li>
                 </ul>
-                <p class="caption"><span class="caption-text">Level2</span></p>
+                <p class="caption"><span class="caption-text">Level3</span></p>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignCache/">Design Cache</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningAPIRateLimiter/">Designing an API Rate Limiter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
                     </li>
                 </ul>
                 <ul>
@@ -107,7 +154,7 @@
     
       
         
-          <li>Level1 &raquo;</li>
+          <li>Level2 &raquo;</li>
         
       
     
@@ -131,22 +178,22 @@
   </kbd>
 </p>
 
-<h2 id="what-is-cache">What is Cache?</h2>
+<h2 id="what-is-cache-and-how-does-it-work">What is Cache and how does it work?</h2>
 <ul>
-<li>A cache is like short-term memory which has a limited amount of space. It is typically faster than the original data source.</li>
+<li>A cache is a type of short-term memory with a finite quantity of storage space. It is often quicker than the original data source.</li>
 <li>
-<p>Caching consists of</p>
+<p>Caching is made up of several steps.</p>
 <ol>
-<li>precalculating results (e.g. the number of visits from each referring domain for the previous day)</li>
-<li>pre-generating expensive indexes (e.g. suggested stories based on a user’s click history)</li>
-<li>storing copies of frequently accessed data in a faster backend (e.g. Memcache instead of PostgreSQL.</li>
+<li>Perform a preliminary calculation (e.g. the number of visits from each referring domain for the previous day)</li>
+<li>Creating pricey indexes in advance (for example, suggested stories based on a user's click history)</li>
+<li>Using a quicker backend (e.g. Memcache instead of PostgreSQL) to store copies of frequently accessed data.</li>
 </ol>
 </li>
 </ul>
-<h2 id="caches-in-different-layers">Caches in different layers</h2>
+<h2 id="caches-in-several-tiers">Caches in several tiers</h2>
 <p><strong>1 Client-side</strong></p>
 <ul>
-<li>Use case: Accelerate retrieval of web content from websites (browser or device)</li>
+<li>Use case: Improve the speed with which web content is retrieved from websites (browser or device)</li>
 <li>Tech: HTTP Cache Headers, Browsers</li>
 <li>Solutions: Browser Specific</li>
 </ul>
@@ -158,21 +205,21 @@
 </ul>
 <p><strong>3 Web Server</strong></p>
 <ul>
-<li>Use case: Accelerate retrieval of web content from web/app servers. Manage Web Sessions (server-side)</li>
+<li>Use case: Improve the speed with which web material is retrieved from web/app servers. Web Session Management (server-side)</li>
 <li>Tech: HTTP Cache Headers, CDNs, Reverse Proxies, Web Accelerators, Key/Value Stores</li>
 <li>Solutions: Amazon CloudFront, ElastiCache for Redis, ElastiCache for Memcached, Partner Solutions</li>
 </ul>
 <p><strong>4 Application</strong></p>
 <ul>
-<li>Use case: Accelerate application performance and data access</li>
+<li>Use case: Improve the performance of your applications and data access.</li>
 <li>Tech: Key/Value data stores, Local caches</li>
 <li>Solutions: Redis, Memcached</li>
 </ul>
-<p>Note: Basically it keeps a cache directly on the Application server. Each time a request is made to the service, the node will quickly return local, cached data if it exists. If not, the requesting node will query the data by going to network storage such as a database. When the application server is expanded to many nodes, we may face the following issues:</p>
+<p>Note: It essentially stores a cache on the Application server. If local, cached data exists, the node will promptly return it when a request is made to the service. If not, the data will be queried by the requesting node by accessing network storage, such as a database. When the application server is expanded to a large number of nodes, the following concerns may arise:</p>
 <ol>
-<li>The load balancer randomly distributes requests across the nodes.</li>
-<li>The same request can go to different nodes, increase cache misses.</li>
-<li>Extra storage since the same data will be stored in two or more different nodes. </li>
+<li>The load balancer distributes requests across the nodes at random.</li>
+<li>The same request can be sent to many nodes, resulting in cache misses.</li>
+<li>Additional storage is required since the same data will be stored in two or more nodes.</li>
 </ol>
 <p>Solutions for the issues:</p>
 <ol>
@@ -181,9 +228,9 @@
 </ol>
 <p><strong>5 Database</strong></p>
 <ul>
-<li>Use case: Reduce latency associated with database query requests</li>
+<li>Use case: Decrease the latency of database query requests</li>
 <li>Tech: Database buffers, Key/Value data stores</li>
-<li>Solutions: The database usually includes some level of caching in a default configuration, optimized for a generic use case. Tweaking these settings for specific usage patterns can further boost performance, can also use Redis, Memcached</li>
+<li>Solutions: The database's default setup normally contains some level of caching, which is tuned for a generic use case. These variables can be tweaked for unique usage patterns, and Redis and Memcached can also be used to improve performance.</li>
 </ul>
 <p><strong>6 Content Distribution Network (CDN)</strong></p>
 <p align="center"> 
@@ -193,51 +240,51 @@
   </kbd>
 </p>
 <ul>
-<li>Use case: Take the burden of serving static media off of your application servers and provide a geographic distribution.</li>
+<li>Use case: Remove the burden of providing static media from your application servers by distributing it geographically.</li>
 <li>Solutions: Amazon CloudFront, Akamai</li>
 </ul>
-<p>Note: If the system is not large enough for CDN, it can be built like this:</p>
+<p>Note: If your system isn't big enough for CDN, you can build it this way:</p>
 <ol>
-<li>Serving static media off a separate subdomain using a lightweight HTTP server (e.g. Nginx, Apache).</li>
-<li>Cutover the DNS from this subdomain to a CDN layer.</li>
+<li>Use a lightweight HTTP server to serve static material from a separate subdomain (e.g. Nginx, Apache).</li>
+<li>Switch this subdomain's DNS to a CDN layer.</li>
 </ol>
 <p><strong>7 Other Cache</strong></p>
 <ul>
-<li>CPU Cache: Small memories on or close to the CPU can operate faster than the much larger main memory. </li>
-<li>Most CPUs since the 1980s have used one or more caches, sometimes in cascaded levels; modern high-end embedded, desktop, and server microprocessors may have as many as six types of cache (between levels and functions)</li>
-<li>GPU Cache</li>
-<li>Disk Cache: While CPU caches are generally managed entirely by hardware, a variety of software manages other caches. The page cache in main memory, which is an example of disk cache, is managed by the operating system kernel</li>
+<li><em>CPU Cache:</em> Small memories on or near the CPU can operate at a faster pace than the main memory, which is much larger.</li>
+<li>Since the 1980s, most CPUs have used one or more caches, sometimes in a cascaded configuration; modern high-end embedded, desktop, and server microprocessors may have as many as six cache types (between levels and functions)</li>
+<li>Cache for the GPU</li>
+<li><em>Disk Cache:</em> While CPU caches are often maintained fully by hardware, other caches are managed by a variety of software. The operating system kernel manages the page cache in main memory, which is an example of disk cache.</li>
 </ul>
 <h2 id="cache-invalidation"><strong>Cache Invalidation</strong></h2>
-<p>If the data is modified in the database, it should be invalidated in the cache, if not, this can cause inconsistent application behavior. There are majorly three kinds of caching systems: Write-through cache, Write-around cache, Write-back cache.</p>
-<p>Solving this problem is known as cache invalidation; there are three main schemes that are used:</p>
+<p>If data is changed in the database, it should be invalidated in the cache; otherwise, the program may behave inconsistently. Write-through cache, Write-around cache, and Write-back cache are the three main types of caching systems.</p>
+<p>Cache invalidation is a technique for resolving this issue; there are three main schemes:</p>
 <p><strong>Write-through cache:</strong></p>
 <ul>
-<li>Under this policy, data is written into the cache and the corresponding database at the same time. The cached data allows for fast retrieval and, since the same data gets written in the permanent storage, we will have complete data consistency between the cache and the storage. </li>
-<li>Also, this scheme ensures that nothing will get lost in case of a crash, power failure, or other system disruptions.</li>
-<li>Although, write through minimizes the risk of data loss, since every write operation must be done twice before returning success to the client, this scheme has the disadvantage of higher latency for write operations.</li>
+<li>With this policy, data is simultaneously written to the cache and the appropriate database. Because the identical data is written in the permanent storage, we will have total data consistency between the cache and the store.</li>
+<li>This technique also assures that nothing is lost in the event of a breakdown, power outage, or other system failure.</li>
+<li>Although write through reduces the possibility of data loss, this technique has the disadvantage of increasing write latency because every write operation must be performed twice before providing success to the client.</li>
 </ul>
 <p><strong>Write-around cache:</strong></p>
 <ul>
-<li>This technique is similar to write through cache, but data is written directly to permanent storage, bypassing the cache. </li>
-<li>This can reduce the cache being flooded with write operations that will not subsequently be re-read, but has the disadvantage that a read request for recently written data will create a “cache miss” and must be read from slower back-end storage and experience higher latency.</li>
+<li>This technique is similar to write through cache, except that data is written directly to permanent storage rather than traveling through the cache. </li>
+<li>This can help prevent the cache from being flooded with write operations that will not be re-read, but it also means that a read request for recently written data will result in a "cache miss," requiring the data to be read from slower back-end storage and resulting in increased latency.</li>
 </ul>
 <p><strong>Write-back cache:</strong></p>
 <ul>
-<li>Under this policy, data is written to cache alone and completion is immediately confirmed to the client. </li>
-<li>The write to the permanent storage is done after specified intervals or under certain conditions. This results in low latency and high throughput for write-intensive applications, however, this speed comes with the risk of data loss in case of a crash or other adverse event because the only copy of the written data is in the cache.</li>
+<li>With this policy, data is written to the cache alone, and the client is notified as soon as it is complete. The persistent storage is written to at predetermined intervals or under specific conditions. </li>
+<li>For write-intensive applications, this results in low latency and high throughput; but, because the sole copy of the written data is in the cache, this speed comes with the danger of data loss in the event of a crash or other adverse event.</li>
 </ul>
 <h2 id="cache-eviction-policies">Cache eviction policies</h2>
-<p>Following are some of the most common cache eviction policies:</p>
+<p>Some of the most typical cache eviction policies are as follows:</p>
 <ol>
-<li><strong>First In First Out (FIFO):</strong> The cache evicts the first block accessed first without any regard to how often or how many times it was accessed before.</li>
-<li><strong>Last In First Out (LIFO):</strong> The cache evicts the block accessed most recently first without any regard to how often or how many times it was accessed before.</li>
-<li><strong>Least Recently Used (LRU):</strong> Discards the least recently used items first.</li>
-<li><strong>Most Recently Used (MRU):</strong> Discards, in contrast to LRU, the most recently used items first.</li>
-<li><strong>Least Frequently Used (LFU):</strong> Counts how often an item is needed. Those that are used least often are discarded first.</li>
-<li><strong>Random Replacement (RR):</strong> Randomly selects a candidate item and discards it to make space when necessary.</li>
+<li><strong>First In First Out (FIFO):</strong> The cache evicts the first block accessed first, regardless of how often or how many times it was previously accessed.</li>
+<li><strong>Last In First Out (LIFO):</strong> The cache evicts the block that has been accessed the most recently first, regardless of how often or how many times it has been accessed previously.</li>
+<li><strong>Least Recently Used (LRU):</strong> Tosses out the items that haven't been utilized in a long time first.</li>
+<li><strong>Most Recently Used (MRU):</strong> Discards the most recently used objects first, as opposed to LRU.</li>
+<li><strong>Least Frequently Used (LFU):</strong> Determines how frequently an item is required. The ones that are utilized the least are the first to be discarded.</li>
+<li><strong>Random Replacement (RR):</strong> Selects a candidate item at random and discards it when space is needed.</li>
 </ol>
-<p>Following links have some good discussion about caching:</p>
+<p>The following links include useful information regarding caching:</p>
 <ol>
 <li><strong><a href="https://en.wikipedia.org/wiki/Cache_(computing)">Cache</a></strong></li>
 <li><strong><a href="https://lethain.com/introduction-to-architecting-systems-for-scale/">Introduction to architecting systems</a></strong></li>

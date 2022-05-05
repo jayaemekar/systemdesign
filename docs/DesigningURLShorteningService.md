@@ -1,11 +1,12 @@
 # Creating a TinyURL-style URL shortening service
 
+## Problem Statement
 Let's make a TinyURL-style URL shortening service. Short aliases for long URLs will be provided by this service.
 
 - Bit.ly, goo.gl, qlink.me, and other similar services
 - Level of Difficulty: Easy
 
-***What is the purpose of URL shortening?***
+### ***What is the purpose of URL shortening?***
 
 For long URLs, URL shortening is utilized to create shorter aliases. These shortened aliases are referred to as "short links." When users click on these short links, they are forwarded to the original URL. When displayed, printed, messaged, or tweeted, short links save a lot of space. Shorter URLs are also less likely to be mistyped by users.
 
@@ -40,11 +41,29 @@ URL shortening is used for a variety of purposes, including optimizing links acr
     <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
     <br><br>
 	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
 </body>
 </html>
 
 
-## Solution
+## <h1>Solution<h1>
 ### Requirements and Goals of the System
 
 💡 **At the start of the interview, you should always outline criteria. Ask questions to figure out the exact extent of the system that the interviewer is thinking of.**
