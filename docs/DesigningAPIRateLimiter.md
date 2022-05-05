@@ -59,18 +59,18 @@ To avoid traffic spikiness, make sure the service is available to everyone else.
     <br><br>
     <h2>Hints to solve the problem</h2>
 
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#what-are-different-types-of-algorithms-used-for-rate-limiting" target="_blank">2. What are different types of algorithms used for Rate Limiting? </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#high-level-design-for-rate-limiter" target="_blank">3. Consider high level design. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#sliding-window-algorithm" target="_blank">4. How do you create a Sliding Window algorithm and counters? </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#basic-system-design-and-algorithm" target="_blank">5. Think about Basic System Design and Algorithm?</a>
     <br>
     <br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningAPIRateLimiter/#data-sharding-and-caching" target="_blank">6.  Consider Cache and Load Balancing </a>
     <br>
 <br><br>
 </body>
