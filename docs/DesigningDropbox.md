@@ -96,7 +96,7 @@ The system should support snapshotting of the data, so that users can go back to
 
 <p align="center"> 
   <kbd>
-  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/dropbox.JPG">
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/dropbox.PNG">
   </a>
   </kbd>
 </p>

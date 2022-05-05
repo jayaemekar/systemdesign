@@ -9,7 +9,7 @@
   
   <link rel="canonical" href="https://system_design.com/DesigningFacebookMessenger/">
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Designing Facebook Messenger - system_design</title>
+  <title>Designing Facebook Messenger - System Design By Jayaa</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../css/theme.css" />
@@ -37,7 +37,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
     <div class="wy-side-scroll">
       <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> system_design</a>
+        <a href=".." class="icon icon-home"> System Design By Jayaa</a>
         <div role="search">
   <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
       <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
@@ -176,7 +176,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">system_design</a>
+        <a href="..">System Design By Jayaa</a>
       </nav>
 
       
@@ -432,14 +432,16 @@ While designing our database, we must keep the following in mind:</p>
 </ul>
 <h3 id="data-partitioning">Data partitioning</h3>
 <p>We'll need to divide the data over numerous database servers because we'll be storing a lot of it (3.6PB for five years). What is our plan for partitioning?</p>
-<p><strong>Partitioning based on UserID:</strong><br />
-- Let's pretend we split based on the UserID hash so we can keep all of a user's messages in the same database. We'll have "3.6PB/4TB = 900" shards for five years if each DB shard is 4TB. 
-- Let's assume we maintain 1K shards for the sake of simplicity. 
-- So we'll use "hash(UserID) percent 1000" to obtain the shard number, and then store/retrieve the data from there. This segmentation approach will also make retrieving conversation history for any user very quick.
-- We can start with fewer database servers and several shards on a single physical server in the beginning. 
-- We can simply store several partitions on a single server because we may have multiple database instances on it. 
-- To map many logical partitions on one physical server, our hash function must grasp this logical partitioning scheme.
-- We can start with a large number of logical partitions that are mapped to fewer physical servers because we will keep an indefinite history of messages, and as our storage requirement grows, we can add more physical servers to disperse our logical partitions.</p>
+<p><strong>Partitioning based on UserID:</strong>  </p>
+<ul>
+<li>Let's pretend we split based on the UserID hash so we can keep all of a user's messages in the same database. We'll have "3.6PB/4TB = 900" shards for five years if each DB shard is 4TB. </li>
+<li>Let's assume we maintain 1K shards for the sake of simplicity. </li>
+<li>So we'll use "hash(UserID) percent 1000" to obtain the shard number, and then store/retrieve the data from there. This segmentation approach will also make retrieving conversation history for any user very quick.</li>
+<li>We can start with fewer database servers and several shards on a single physical server in the beginning. </li>
+<li>We can simply store several partitions on a single server because we may have multiple database instances on it. </li>
+<li>To map many logical partitions on one physical server, our hash function must grasp this logical partitioning scheme.</li>
+<li>We can start with a large number of logical partitions that are mapped to fewer physical servers because we will keep an indefinite history of messages, and as our storage requirement grows, we can add more physical servers to disperse our logical partitions.</li>
+</ul>
 <p><strong>Partitioning based on MessageID:</strong> </p>
 <p>We should not utilize this technique since getting a range of messages from a chat would be exceedingly sluggish if we store different messages of a user on various database shards.</p>
 <h3 id="cache">Cache</h3>

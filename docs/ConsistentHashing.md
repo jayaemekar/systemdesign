@@ -38,7 +38,7 @@ As an example, consider the following: Key1 corresponds to cache A, while key2 c
 
 <p align="center"> 
   <kbd>
-  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/ConsistentHashing.JPG">
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/ConsistentHashing1.JPG">
   </a>
   </kbd>
 </p>

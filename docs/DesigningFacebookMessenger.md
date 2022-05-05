@@ -249,6 +249,7 @@ We need to maintain track of each user's online/offline state and notify all aff
 We'll need to divide the data over numerous database servers because we'll be storing a lot of it (3.6PB for five years). What is our plan for partitioning?
 
 **Partitioning based on UserID:**  
+
 - Let's pretend we split based on the UserID hash so we can keep all of a user's messages in the same database. We'll have "3.6PB/4TB = 900" shards for five years if each DB shard is 4TB. 
 - Let's assume we maintain 1K shards for the sake of simplicity. 
 - So we'll use "hash(UserID) percent 1000" to obtain the shard number, and then store/retrieve the data from there. This segmentation approach will also make retrieving conversation history for any user very quick.
