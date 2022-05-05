@@ -1,33 +1,75 @@
 # Designing Twitter Search
-Twitter is one of the largest social networking service where users can share photos, news, and text-based messages. In this chapter, we will design a service that can store and search user tweets.
+## Problem Statement
 
-Similar Problems: Tweet search.
-Difficulty Level: Medium
+Twitter is a popular social media platform that allows users to exchange photographs, news, and text-based communications. We'll create a service that can store and search user tweets in this chapter.
 
-## 1. What is Twitter Search?
+- Similar Problems: Tweet search.
+- Difficulty Level: Medium
 
-Twitter users can update their status whenever they like. Each status (called tweet) consists of plain text and our goal is to design a system that allows searching over all the user tweets.
+### What is Twitter Search?
 
-## 2. Requirements and Goals of the System
+Twitter users can change their status at any time. Each status (also known as a tweet) is made up of plain text, and our goal is to create a system that allows users to search through all of their tweets.
 
-Let’s assume Twitter has 1.5 billion total users with 800 million daily active users.
-On average Twitter gets 400 million tweets every day.
-The average size of a tweet is 300 bytes.
-Let’s assume there will be 500M searches every day.
-The search query will consist of multiple words combined with AND/OR.
-We need to design a system that can efficiently store and query tweets.
+## Pratice Problem
 
-## 3. Capacity Estimation and Constraints
+***Let's get started on the system design solution.***
 
-Storage Capacity: Since we have 400 million new tweets every day and each tweet on average is 300 bytes, the total storage we need, will be:
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+### Requirements and Goals of the System
+
+- Assume Twitter has 1.5 billion overall users, with 800 million of them engaged on a daily basis.
+- Every day, Twitter receives 400 million tweets on average.
+- A tweet's average size is 300 bytes.
+- Let's say there are 500 million queries every day.
+- Multiple terms will be concatenated with AND/OR in the search query.
+- We need to create a system that can store and query tweets quickly.
+
+### Capacity Estimation and Constraints
+
+**Storage Capacity:** With 400 million new tweets each day and an average of 300 bytes per tweet, the total storage we'll require is:
 
                         400M * 300 => 120GB/day
 Total storage per second:
 
                         120GB / 24hours / 3600sec ~= 1.38MB/second
-## 4. System APIs
+### System APIs
 
-We can have SOAP or REST APIs to expose the functionality of our service; following could be the definition of the search API:
+To expose the functionality of our service, we can use SOAP or REST APIs; for example, the search API could be defined as follows:
 
         search(api_dev_key, search_terms, maximum_results_to_return, sort, page_token)
 **Parameters:**
@@ -41,10 +83,9 @@ We can have SOAP or REST APIs to expose the functionality of our service; follow
 **Returns: (JSON)**
 A JSON containing information about a list of tweets matching the search query. Each result entry can have the user ID & name, tweet text, tweet ID, creation time, number of likes, etc.
 
-## 5. High Level Design
+### High Level Design
 
-At the high level, we need to store all the statues in a database and also build an index that can keep track of which word appears in which tweet. This index will help us quickly find tweets that users are trying to search.
-
+Which tweet contains which word? This index will aid us in rapidly locating tweets that users are looking for.
 
 <p align="center"> 
   <kbd>
@@ -53,49 +94,55 @@ At the high level, we need to store all the statues in a database and also build
   </kbd>
 </p>
 
-## 6. Detailed Component Design
+### Detailed Component Design
 
 **1. Storage:**
- We need to store 120GB of new data every day. Given this huge amount of data, we need to come up with a data partitioning scheme that will be efficiently distributing the data onto multiple servers. If we plan for next five years, we will need the following storage:
+
+Every day, we must store 120GB of new data. We need to devise a data partitioning technique that will efficiently distribute the data across numerous servers, given the massive amount of data. We will require the following storage in the next five years if we plan ahead:
 
                             120GB * 365days * 5years ~= 200TB
-If we never want to be more than 80% full at any time, we approximately will need 250TB of total storage. Let’s assume that we want to keep an extra copy of all tweets for fault tolerance; then, our total storage requirement will be 500TB. If we assume a modern server can store up to 4TB of data, we would need 125 such servers to hold all of the required data for the next five years.
+We'll need about 250TB of total storage if we never wish to be more than 80% full at any given time. Assume we wish to preserve a backup copy of all tweets for disaster recovery; our total storage need will be 500TB. If we assume that a current server can store up to 4TB of data, we'll need 125 of them to store all of the data needed during the next five years.
 
-Let’s start with a simplistic design where we store the tweets in a MySQL database. We can assume that we store the tweets in a table having two columns, TweetID and TweetText. Let’s assume we partition our data based on TweetID. If our TweetIDs are unique system-wide, we can define a hash function that can map a TweetID to a storage server where we can store that tweet object.
+Let's begin with a simple design that stores tweets in a MySQL database. We'll suppose that the tweets are stored in a table with two columns: TweetID and TweetText. Assume we want to organize our data by TweetID. If our TweetIDs are system-wide unique, we can build a hash function to map a TweetID to a storage server where that tweet object can be stored.
 
-**How can we create system-wide unique TweetIDs?**
- If we are getting 400M new tweets each day, then how many tweet objects we can expect in five years?
+**How can we create unique TweetIDs for the entire system?**
+
+How many tweet objects can we expect in five years if we get 400 million new tweets every day?
 
                             400M * 365 days * 5 years => 730 billion
-This means we would need a five bytes number to identify TweetIDs uniquely. Let’s assume we have a service that can generate a unique TweetID whenever we need to store an object (The TweetID discussed here will be similar to TweetID discussed in Designing Twitter). We can feed the TweetID to our hash function to find the storage server and store our tweet object there.
+This means we'd need a five-byte integer to uniquely identify TweetIDs. Assume we have a service that can produce a unique TweetID anytime an object needs to be stored (The TweetID discussed here will be similar to TweetID discussed in Designing Twitter). We can use the TweetID to discover the storage server and put our tweet object there using our hash function.
 
 **2. Index:**
- What should our index look like? Since our tweet queries will consist of words, let’s build the index that can tell us which word comes in which tweet object. Let’s first estimate how big our index will be. If we want to build an index for all the English words and some famous nouns like people names, city names, etc., and if we assume that we have around 300K English words and 200K nouns, then we will have 500k total words in our index. Let’s assume that the average length of a word is five characters. If we are keeping our index in memory, we need 2.5MB of memory to store all the words:
+
+How should we design our index? Because our tweet queries will be made up of words, we'll need an index to tell us which word appears in which tweet object. Let's start by estimating the size of our index. If we wish to create an index for all English words as well as certain well-known nouns such as people's names, city names, and so on, and we suppose that we have roughly 300K English words and 200K nouns, we will end up with 500K total words in our index. Let's say a word has an average length of five characters. We'll need 2.5MB of RAM to hold all the words if we maintain our index in memory:
 
                             500K * 5 => 2.5 MB
-Let’s assume that we want to keep the index in memory for all the tweets from only past two years. Since we will be getting 730B tweets in 5 years, this will give us 292B tweets in two years. Given that each TweetID will be 5 bytes, how much memory will we need to store all the TweetIDs?
+Let's pretend we just want to maintain the index in memory for the last two years of tweets. Since there will be 730 billion tweets in five years, we will have 292 billion tweets in two years. How much RAM will we need to store all the TweetIDs if each one is 5 bytes long?
 
                             292B * 5 => 1460 GB
-So our index would be like a big distributed hash table, where ‘key’ would be the word and ‘value’ will be a list of TweetIDs of all those tweets which contain that word. Assuming on average we have 40 words in each tweet and since we will not be indexing prepositions and other small words like ‘the’, ‘an’, ‘and’ etc., let’s assume we will have around 15 words in each tweet that need to be indexed. This means each TweetID will be stored 15 times in our index. So total memory we will need to store our index:
+As a result, our index will be similar to a large distributed hash table, with the 'key' being the term and the 'value' being a list of TweetIDs for all tweets that contain that phrase. Let's assume each tweet has 40 words on average, and since we won't be indexing prepositions and other tiny words like 'the,' 'an,' and 'and,' we'll have roughly 15 words in each tweet that need to be indexed. This means that each TweetID will be saved in our index 15 times. As a result, the total memory required to store our index is:
 
                             (1460 * 15) + 2.5MB ~= 21 TB
-Assuming a high-end server has 144GB of memory, we would need 152 such servers to hold our index.
+We'd need 152 high-end servers to house our index, assuming each has 144GB of memory.
 
-We can partition our data based on two criteria:
+We can divide our data into two groups based on two criteria:
 
-**Sharding based on Words:**
- While building our index, we will iterate through all the words of a tweet and calculate the hash of each word to find the server where it would be indexed. To find all tweets containing a specific word we have to query only the server which contains this word.
+**Word-based sharding:**
 
-We have a couple of issues with this approach:
+We will iterate through all of the terms in a tweet and calculate the hash of each word to locate the server where it will be indexed while constructing our index. To find all tweets that contain a given word, we must only query the server that has that word.
 
-**What if a word becomes hot?**
- Then there will be a lot of queries on the server holding that word. This high load will affect the performance of our service.
+We have a few difficulties with this strategy:
 
-Over time, some words can end up storing a lot of TweetIDs compared to others, therefore, maintaining a uniform distribution of words while tweets are growing is quite tricky.
-To recover from these situations we either have to repartition our data or use Consistent Hashing.
+**What if a word gets popular?**
+
+The server will then get a flood of queries containing that word. This heavy load will have an impact on our service's performance.
+
+Maintaining a uniform distribution of terms while tweets expand is fairly difficult because some words can end up holding a lot more TweetIDs relative to others.
+We can either repartition our data or utilize Consistent Hashing to recover from these circumstances.
 
 **Sharding based on the tweet object:**
- While storing, we will pass the TweetID to our hash function to find the server and index all the words of the tweet on that server. While querying for a particular word, we have to query all the servers, and each server will return a set of TweetIDs. A centralized server will aggregate these results to return them to the user.
+
+While storing, we'll give the TweetID to our hash function, which will locate the server and index all of the tweet's words. When searching for a specific term, we must query all servers, with each server returning a collection of TweetIDs. These results will be compiled and returned to the user by a centralized server.
 
 <p align="center"> 
   <kbd>
@@ -104,28 +151,44 @@ To recover from these situations we either have to repartition our data or use C
   </kbd>
 </p>
 
-## 7. Fault Tolerance
+### Fault Tolerance
 
-**What will happen when an index server dies?**
- We can have a secondary replica of each server and if the primary server dies it can take control after the failover. Both primary and secondary servers will have the same copy of the index.
+**What happens if an index server goes down?**
 
-**What if both primary and secondary servers die at the same time?**
+We can have a secondary replica of each server that can assume control after the parent server fails. The index will be duplicated on both primary and backup servers.
 
- We have to allocate a new server and rebuild the same index on it. How can we do that? We don’t know what words/tweets were kept on this server. If we were using ‘Sharding based on the tweet object’, the brute-force solution would be to iterate through the whole database and filter TweetIDs using our hash function to figure out all the required tweets that would be stored on this server. This would be inefficient and also during the time when the server was being rebuilt we would not be able to serve any query from it, thus missing some tweets that should have been seen by the user.
+**What if both the primary and secondary servers fail simultaneously?**
+
+- We'll need to set up a new server and rebuild the index there. What are our options? We have no idea what words or tweets were saved on this server. 
+- If we used 'Sharding based on the tweet object,' the brute-force method would be to iterate through the entire database, filtering TweetIDs with our hash function to find all of the required tweets that would be kept on this server. 
+- This would be inefficient, and we wouldn't be able to service any queries from the server while it was being rebuilt, resulting in the user missing some tweets that should have been seen.
 
 **How can we efficiently retrieve a mapping between tweets and the index server?**
- We have to build a reverse index that will map all the TweetID to their index server. Our Index-Builder server can hold this information. We will need to build a Hashtable where the ‘key’ will be the index server number and the ‘value’ will be a HashSet containing all the TweetIDs being kept at that index server. Notice that we are keeping all the TweetIDs in a HashSet; this will enable us to add/remove tweets from our index quickly. So now, whenever an index server has to rebuild itself, it can simply ask the Index-Builder server for all the tweets it needs to store and then fetch those tweets to build the index. This approach will surely be fast. We should also have a replica of the Index-Builder server for fault tolerance.
 
-## 8. Cache
-#
-To deal with hot tweets we can introduce a cache in front of our database. We can use Memcached, which can store all such hot tweets in memory. Application servers, before hitting the backend database, can quickly check if the cache has that tweet. Based on clients’ usage patterns, we can adjust how many cache servers we need. For cache eviction policy, Least Recently Used (LRU) seems suitable for our system.
+- We need to create a reverse index that maps all TweetIDs to their respective index servers. This information can be stored on our Index-Builder server. 
+- We'll need to create a Hashtable with the index server number as the key and a HashSet containing all of the TweetIDs stored at that index server as the value. 
+- Notice how we've stored all of the TweetIDs in a HashSet; this allows us to rapidly add and remove tweets from our index. So, whenever an index server has to rebuild itself, it can simply ask the Index-Builder server for all of the tweets it requires, and then fetch those tweets to create the index.
+- This approach will surely be fast. We should also have a replica of the Index-Builder server for fault tolerance.
 
-## 9. Load Balancing
-#
-We can add a load balancing layer at two places in our system 1) Between Clients and Application servers and 2) Between Application servers and Backend server. Initially, a simple Round Robin approach can be adopted; that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is LB will take dead servers out of the rotation and will stop sending any traffic to it. A problem with Round Robin LB is it won’t take server load into consideration. If a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries the backend server about their load and adjust traffic based on that.
+### Cache
 
-## 10. Ranking
+- We can put a cache in front of our database to deal with hot tweets. Memcached can be used to store all of these hot tweets in memory. 
+- Before contacting the backend database, application servers can rapidly check if the tweet is in the cache. We can modify the number of cache servers required based on client usage trends. 
+- Least Recently Used (LRU) appears to be a good cache eviction policy for our system.
 
-How about if we want to rank the search results by social graph distance, popularity, relevance, etc?
+### Load Balancing
 
-Let’s assume we want to rank tweets by popularity, like how many likes or comments a tweet is getting, etc. In such a case, our ranking algorithm can calculate a ‘popularity number’ (based on the number of likes, etc.) and store it with the index. Each partition can sort the results based on this popularity number before returning results to the aggregator server. The aggregator server combines all these results, sorts them based on the popularity number, and sends the top results to the user.
+- Load balancing can be added to our system in two places: 1) between clients and application servers, and 2) between application servers and backend servers. 
+- A simple Round Robin technique can be used at first, which evenly distributes incoming requests among backend servers. 
+- This Load balancer is simple to set up and has no additional overhead. Another advantage of this strategy is that Load balancer will remove dead servers from the rotation and stop transmitting traffic to them. 
+- Round Robin Load balancer has the drawback of not taking server load into account. 
+- The Load balancer will not cease delivering new requests to a server that is overloaded or slow.
+- To deal with this, a more intelligent load balancer system can be implemented, which will periodically query the backend server about their load and modify traffic accordingly.
+
+### Ranking
+
+How about ranking the search results based on social graph distance, popularity, relevance, and so on?
+
+Assume we want to rank tweets based on their popularity, such as how many likes or comments they receive, and so on. Our ranking algorithm can calculate a 'popularity number' (depending on the amount of likes, etc.) and store it with the index in this scenario. 
+
+Before submitting results to the aggregator server, each partition might sort the results based on this popularity value. The aggregator server compiles all of these results, arranges them by popularity, and provides the user the top results.

@@ -1,5 +1,6 @@
-## Designing Instagram
+# Designing Instagram
 
+## Problem Statement
 Let's create a photo-sharing site similar to Instagram, where users can post photographs to share with others.
 
 - Similar Services: Flickr, Picasa

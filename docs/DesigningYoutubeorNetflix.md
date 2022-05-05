@@ -1,49 +1,90 @@
 # Designing Youtube or Netflix
-Let's design a video sharing service like Youtube, where users will be able to upload/view/search videos.
+## Problem Statement
+Let's create a video sharing service similar to Youtube, where users may publish, view, and search videos.
 
-Similar Services: netflix.com, vimeo.com, dailymotion.com, veoh.com
-Difficulty Level: Medium
+- Similar Services: netflix.com, vimeo.com, dailymotion.com, veoh.com
+- Difficulty Level: Medium
 
-## 1. Why Youtube?
-Youtube is one of the most popular video sharing websites in the world. Users of the service can upload, view, share, rate, and report videos as well as add comments on videos.
+### What is Youtube?
+Youtube is one of the world's most popular video-sharing platforms. Users can submit, watch, share, rate, and report videos, as well as leave comments on them.
 
-## 2. Requirements and Goals of the System
-For the sake of this exercise, we plan to design a simpler version of Youtube with following requirements:
+## Pratice Problem
 
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+### Requirements and Goals of the System
+For the purposes of this exercise, we intend to create a simplified version of Youtube that meets the following criteria:
 **Functional Requirements:**
 
-Users should be able to upload videos.
-Users should be able to share and view videos.
-Users should be able to perform searches based on video titles.
-Our services should be able to record stats of videos, e.g., likes/dislikes, total number of views, etc.
+1. Users should be able to upload videos.
+2. Users should be able to share and view videos.
+3. Users should be able to perform searches based on video titles.
+4. Our services should be able to record stats of videos, e.g., likes/dislikes, total number of views, etc.
 Users should be able to add and view comments on videos.
 
 **Non-Functional Requirements:**
 
-The system should be highly reliable, any video uploaded should not be lost.
-The system should be highly available. Consistency can take a hit (in the interest of availability); if a user doesn’t see a video for a while, it should be fine.
-Users should have a real time experience while watching videos and should not feel any lag.
-Not in scope: Video recommendations, most popular videos, channels, subscriptions, watch later, favorites, etc.
+1. The system should be highly reliable, any video uploaded should not be lost.
+2. The system should be highly available. Consistency can take a hit (in the interest of availability); if a user doesn’t see a video for a while, it should be fine.
+3. Users should have a real time experience while watching videos and should not feel any lag.
 
-## 3. Capacity Estimation and Constraints
-Let’s assume we have 1.5 billion total users, 800 million of whom are daily active users. If, on average, a user views five videos per day then the total video-views per second would be:
+**Not in scope:** Video recommendations, most popular videos, channels, subscriptions, watch later, favorites, etc.
+
+### Capacity Estimation and Constraints
+Assume there are 1.5 billion overall users, with 800 million being daily active users. If a consumer watches five videos each day on average, the total video views per second is:
 
                         800M * 5 / 86400 sec => 46K videos/sec
-Let’s assume our upload:view ratio is 1:200, i.e., for every video upload we have 200 videos viewed, giving us 230 videos uploaded per second.
+Assume our upload:view ratio is 1:200, which is 200 videos are seen for every video posted, resulting in 230 videos uploaded each second.
 
                         46K / 200 => 230 videos/sec
-**Storage Estimates:** Let’s assume that every minute 500 hours worth of videos are uploaded to Youtube. If on average, one minute of video needs 50MB of storage (videos need to be stored in multiple formats), the total storage needed for videos uploaded in a minute would be:
+**Storage Estimates:** Assume that 500 hours of videos are added to Youtube every minute. If one minute of video requires an average of 50MB of storage (films must be kept in several codecs), the total storage required for videos uploaded in one minute is:
 
                         500 hours * 60 min * 50MB => 1500 GB/min (25 GB/sec)
-These numbers are estimated with ignoring video compression and replication, which would change our estimates.
+These numbers are calculated without taking into account video compression and replication, which might alter our results.
 
-**Bandwidth estimates:** With 500 hours of video uploads per minute and assuming each video upload takes a bandwidth of 10MB/min, we would be getting 300GB of uploads every minute.
+**Bandwidth estimates:**  With 500 hours of video uploads each minute and a bandwidth of 10MB/min per video upload, we'd be obtaining 300GB of data per minute.
 
                         500 hours * 60 mins * 10MB => 300GB/min (5GB/sec)
 Assuming an upload:view ratio of 1:200, we would need 1TB/s outgoing bandwidth.
 
-## 4. System APIs
-We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definitions of the APIs for uploading and searching videos:
+### System APIs
+To expose the functionality of our service, we can use SOAP or REST APIs. The APIs for posting and searching videos could have the following definitions:
 
         uploadVideo(api_dev_key, video_title, vide_description, tags[], category_id, default_language, 
                                 recording_details, video_contents)
@@ -78,21 +119,21 @@ A JSON containing information about the list of video resources matching the sea
 
 - **api_dev_key (string):** The API developer key of a registered account of our service.
 - **video_id (string):** A string to identify the video.
-- **offset (number):** We should be able to stream video from any offset; this offset would be a time in seconds from the beginning of the video. If we support playing/pausing a video from multiple devices, we will need to store the offset on the server. This will enable the users to start watching a video on any device from the same point where they left off.
-- **codec (string) & resolution(string):** We should send the codec and resolution info in the API from the client to support play/pause from multiple devices. Imagine you are watching a video on your TV’s Netflix app, paused it, and started watching it on your phone’s Netflix app. In this case, you would need codec and resolution, as both these devices have a different resolution and use a different codec.
+- **offset (number):** We should be able to stream video from any offset, which is measured in seconds from the start of the video. We'll need to save the offset on the server if we allow playing/paused videos from many devices. Users will be able to resume watching a video on any device from the point where they left off.
+- **codec (string) & resolution(string):** To support play/pause from different devices, the client should communicate the codec and resolution information to the API. Assume you were watching a video on Netflix on your TV when you paused it and switched to Netflix on your phone. Both these devices have different resolutions and use different codecs, therefore you'll need codec and resolution in this scenario.
 
 **Returns: (STREAM)**
 A media stream (a video chunk) from the given offset.
 
-## 5. High Level Design
-At a high-level we would need the following components:
+### High Level Design
+We'd require the following components at a high level:
 
-Processing Queue: Each uploaded video will be pushed to a processing queue to be de-queued later for encoding, thumbnail generation, and storage.
-Encoder: To encode each uploaded video into multiple formats.
-Thumbnails generator: To generate a few thumbnails for each video.
-Video and Thumbnail storage: To store video and thumbnail files in some distributed file storage.
-User Database: To store user’s information, e.g., name, email, address, etc.
-Video metadata storage: A metadata database to store all the information about videos like title, file path in the system, uploading user, total views, likes, dislikes, etc. It will also be used to store all the video comments.
+- **Processing Queue:** Each submitted video will be placed in a processing queue, which will be de-queued for encoding, thumbnail generation, and storage later.
+- **Encoder:** To encode each uploaded video into multiple formats.
+- **Thumbnails generator:** To generate a few thumbnails for each video.
+- **Video and Thumbnail storage:** To store video and thumbnail files in some distributed file storage.
+- **User Database:** To store user’s information, e.g., name, email, address, etc.
+- **Video metadata storage:** A metadata database that stores all of the information about videos, such as title, system file path, uploading user, total views, likes, dislikes, and so on. It will also serve as a repository for all video comments.
 
 <p align="center"> 
   <kbd>
@@ -101,9 +142,10 @@ Video metadata storage: A metadata database to store all the information about v
   </kbd>
 </p>
 
-## 6. Database Schema
-Video metadata storage - MySql
-Videos metadata can be stored in a SQL database. The following information should be stored with each video:
+### Database Schema
+- Video metadata storage - MySql
+
+A SQL database can be used to store video metadata. Each video should have the following information:
 
     VideoID
     Title
@@ -125,25 +167,40 @@ For each video comment, we need to store following information:
     User data storage - MySql
 
 UserID, Name, email, address, age, registration details etc.
-## 7. Detailed Component Design
-The service would be read-heavy, so we will focus on building a system that can retrieve videos quickly. We can expect our read:write ratio to be 200:1, which means for every video upload there are 200 video views.
 
-Where would videos be stored? Videos can be stored in a distributed file storage system like HDFS or GlusterFS.
+### Detailed Component 
 
-**How should we efficiently manage read traffic?** We should segregate our read traffic from write traffic. Since we will have multiple copies of each video, we can distribute our read traffic on different servers. For metadata, we can have master-slave configurations where writes will go to master first and then gets applied at all the slaves. Such configurations can cause some staleness in data, e.g., when a new video is added, its metadata would be inserted in the master first and before it gets applied at the slave our slaves would not be able to see it; and therefore it will be returning stale results to the user. This staleness might be acceptable in our system as it would be very short-lived and the user would be able to see the new videos after a few milliseconds.
+We'll focus on designing a system that can retrieve videos quickly because the service will be read-heavy. We may expect a read:write ratio of 200:1, which equals 200 video views for every video uploaded.
 
-**Where would thumbnails be stored?** There will be a lot more thumbnails than videos. If we assume that every video will have five thumbnails, we need to have a very efficient storage system that can serve a huge read traffic. There will be two consideration before deciding which storage system should be used for thumbnails:
+Where would the videos be kept? A distributed file storage system such as HDFS or GlusterFS can be used to store videos.
 
-Thumbnails are small files with, say, a maximum 5KB each.
-Read traffic for thumbnails will be huge compared to videos. Users will be watching one video at a time, but they might be looking at a page that has 20 thumbnails of other videos.
-Let’s evaluate storing all the thumbnails on a disk. Given that we have a huge number of files, we have to perform a lot of seeks to different locations on the disk to read these files. This is quite inefficient and will result in higher latencies.
+**How should we manage read traffic efficiently?** 
 
-Bigtable can be a reasonable choice here as it combines multiple files into one block to store on the disk and is very efficient in reading a small amount of data. Both of these are the two most significant requirements of our service. Keeping hot thumbnails in the cache will also help in improving the latencies and, given that thumbnails files are small in size, we can easily cache a large number of such files in memory.
+- Read traffic and write traffic should be separated. We can split our read traffic over numerous servers because each video will have multiple copies. 
+- We can have master-slave arrangements for metadata, where writes go to the master first and subsequently to all slaves. 
+- Such configurations can result in data staleness; for example, when a new video is added, its metadata is placed in the master first, and our slaves will not be able to see it until it is applied to the slave; as a result, the user will receive stale results.
+- This staleness might be acceptable in our system as it would be very short-lived and the user would be able to see the new videos after a few milliseconds.
 
-**Video Uploads:** Since videos could be huge, if while uploading the connection drops we should support resuming from the same point.
+**How would you store thumbnails?** 
 
-**Video Encoding:** Newly uploaded videos are stored on the server and a new task is added to the processing queue to encode the video into multiple formats. Once all the encoding will be completed the uploader will be notified and the video is made available for view/sharing.
+- The number of thumbnails will far outnumber the number of videos. 
+- If we estimate that each movie will have five thumbnails, we'll need a storage system that can handle a large amount of read traffic. 
+- Before determining which thumbnail storage method to utilize, two factors must be considered:
+- Thumbnails are little files with a maximum file size of 5KB.
+- In comparison to videos, read traffic for thumbnails will be massive. 
+- Users will watch a single video at a time, although they may be viewing a page with 20 thumbnails of other films.
+- Consider putting all of the thumbnails on a CD. Given the large number of files, we must do numerous seeks to various regions on the disk in order to read them. This is inefficient and will result in longer delays.
+- Bigtable is a good option because it merges numerous files into a single block for storage on the disk and reads a modest quantity of data quickly. 
+- Our service's two most important needs are both of these. 
+- Keeping hot thumbnails in the cache will also assist to reduce latency, and because thumbnail files are short, we can simply cache a large number of them in memory.
 
+**Video Uploads:** 
+
+Because videos can be large, we should support continuing from the same position if the connection stops while uploading.
+
+**Video Encoding:** 
+
+Newly uploaded videos are saved on the server, and a new task to encode the video into several formats is added to the processing queue. The uploader will be alerted when all of the encoding is complete, and the video will be made available for viewing and sharing.
 
 <p align="center"> 
   <kbd>
@@ -152,52 +209,85 @@ Bigtable can be a reasonable choice here as it combines multiple files into one 
   </kbd>
 </p>
 
-## 8. Metadata Sharding
-Since we have a huge number of new videos every day and our read load is extremely high, therefore, we need to distribute our data onto multiple machines so that we can perform read/write operations efficiently. We have many options to shard our data. Let’s go through different strategies of sharding this data one by one:
+### Metadata Sharding
 
-Sharding based on UserID: We can try storing all the data for a particular user on one server. While storing, we can pass the UserID to our hash function which will map the user to a database server where we will store all the metadata for that user’s videos. While querying for videos of a user, we can ask our hash function to find the server holding the user’s data and then read it from there. To search videos by titles we will have to query all servers and each server will return a set of videos. A centralized server will then aggregate and rank these results before returning them to the user.
+We need to distribute our data across numerous machines to do read/write operations efficiently because we have a large number of new films every day and our read load is really high. We can shard our data in a variety of ways. Let's have a look at the various sharding strategies one by one:
 
-This approach has a couple of issues:
+**Sharding based on UserID:** 
 
-**What if a user becomes popular?** There could be a lot of queries on the server holding that user; this could create a performance bottleneck. This will also affect the overall performance of our service.
-Over time, some users can end up storing a lot of videos compared to others. Maintaining a uniform distribution of growing user data is quite tricky.
-To recover from these situations either we have to repartition/redistribute our data or used consistent hashing to balance the load between servers.
+- We can try storing all of a user's data on a single server. We can give the UserID to our hash function while storing, which will map the user to a database server where all of the metadata for that user's films will be stored. 
+- When searching for a user's videos, we can utilize our hash function to locate the server that holds the user's data and read it from there. 
+- We'll have to ask all servers to find videos by title, and each server will return a set of videos. Before sending the results to the user, a centralized server would aggregate and rank them.
 
-**Sharding based on VideoID:** Our hash function will map each VideoID to a random server where we will store that Video’s metadata. To find videos of a user we will query all servers and each server will return a set of videos. A centralized server will aggregate and rank these results before returning them to the user. This approach solves our problem of popular users but shifts it to popular videos.
+This strategy has several flaws:
 
-We can further improve our performance by introducing a cache to store hot videos in front of the database servers.
+**What if a user gets well-known?** 
 
-## 9. Video Deduplication
-With a huge number of users uploading a massive amount of video data our service will have to deal with widespread video duplication. Duplicate videos often differ in aspect ratios or encodings, can contain overlays or additional borders, or can be excerpts from a longer original video. The proliferation of duplicate videos can have an impact on many levels:
+- There could be a large number of queries on the server that hold that user, causing a performance bottleneck. This will have an impact on our service's overall performance.
+- Some users may accumulate a large number of movies over time compared to others. It's difficult to keep a uniform distribution of rising user data.
+- We must either repartition/redistribute our data or utilize consistent hashing to balance the load between servers to recover from these circumstances.
 
-**Data Storage:** We could be wasting storage space by keeping multiple copies of the same video.
-Caching: Duplicate videos would result in degraded cache efficiency by taking up space that could be used for unique content.
-**Network usage:** Duplicate videos will also increase the amount of data that must be sent over the network to in-network caching systems.
-**Energy consumption:** Higher storage, inefficient cache, and network usage could result in energy wastage.
-For the end user, these inefficiencies will be realized in the form of duplicate search results, longer video startup times, and interrupted streaming.
+**Sharding based on VideoID:** 
 
-For our service, deduplication makes most sense early; when a user is uploading a video as compared to post-processing it to find duplicate videos later. Inline deduplication will save us a lot of resources that can be used to encode, transfer, and store the duplicate copy of the video. As soon as any user starts uploading a video, our service can run video matching algorithms (e.g., Block Matching, Phase Correlation, etc.) to find duplications. If we already have a copy of the video being uploaded, we can either stop the upload and use the existing copy or continue the upload and use the newly uploaded video if it is of higher quality. If the newly uploaded video is a subpart of an existing video or, vice versa, we can intelligently divide the video into smaller chunks so that we only upload the parts that are missing.
+- Each VideoID will be mapped to a random server where the metadata for that video will be stored. We will query all servers to find a user's videos, and each server will return a set of videos. 
+- Before sending these results to the user, a centralized server will aggregate and rank them. 
+- This method overcomes the problem of popular users, but also transfers the focus on popular videos.
 
-## 10. Load Balancing
-We should use Consistent Hashing among our cache servers, which will also help in balancing the load between cache servers. Since we will be using a static hash-based scheme to map videos to hostnames it can lead to an uneven load on the logical replicas due to the different popularity of each video. For instance, if a video becomes popular, the logical replica corresponding to that video will experience more traffic than other servers. These uneven loads for logical replicas can then translate into uneven load distribution on corresponding physical servers. To resolve this issue any busy server in one location can redirect a client to a less busy server in the same cache location. We can use dynamic HTTP redirections for this scenario.
+We can boost our performance even further by putting a cache in front of the database servers to store hot videos.
 
-However, the use of redirections also has its drawbacks. First, since our service tries to load balance locally, it leads to multiple redirections if the host that receives the redirection can’t serve the video. Also, each redirection requires a client to make an additional HTTP request; it also leads to higher delays before the video starts playing back. Moreover, inter-tier (or cross data-center) redirections lead a client to a distant cache location because the higher tier caches are only present at a small number of locations.
+### Video Deduplication
+- Our service will have to deal with widespread video duplication as a result of a large number of customers uploading a large volume of video data. 
+- Duplicate videos can have different aspect ratios or encodings, overlays or extra borders, or be fragments from a lengthier original video. 
 
-## 11. Cache
-To serve globally distributed users, our service needs a massive-scale video delivery system. Our service should push its content closer to the user using a large number of geographically distributed video cache servers. We need to have a strategy that will maximize user performance and also evenly distributes the load on its cache servers.
+The development of duplicate videos has a variety of consequences:
 
-We can introduce a cache for metadata servers to cache hot database rows. Using Memcache to cache the data and Application servers before hitting database can quickly check if the cache has the desired rows. Least Recently Used (LRU) can be a reasonable cache eviction policy for our system. Under this policy, we discard the least recently viewed row first.
+**Data Storage:** Keeping numerous copies of the same video could be a waste of storage space.
 
-**How can we build more intelligent cache?** If we go with 80-20 rule, i.e., 20% of daily read volume for videos is generating 80% of traffic, meaning that certain videos are so popular that the majority of people view them; it follows that we can try caching 20% of daily read volume of videos and metadata.
+**Caching:** Duplicate movies reduce cache efficiency by consuming space that could be used for unique content.
 
-## 12. Content Delivery Network (CDN)
-A CDN is a system of distributed servers that deliver web content to a user based in the geographic locations of the user, the origin of the web page and a content delivery server. Take a look at ‘CDN’ section in our Caching chapter.
+**Network usage:** Duplicate videos will increase the quantity of data that must be transferred over the network to caching services in-network.
 
-Our service can move popular videos to CDNs:
+**Energy consumption:** Increased storage, an ineffective cache, and network utilization can all lead to energy waste.
 
-CDNs replicate content in multiple places. There’s a better chance of videos being closer to the user and, with fewer hops, videos will stream from a friendlier network.
-CDN machines make heavy use of caching and can mostly serve videos out of memory.
-Less popular videos (1-20 views per day) that are not cached by CDNs can be served by our servers in various data centers.
+Duplicate search results, longer video startup times, and interrupted streaming for the end user will be the result of these inefficiencies.
 
-## 13. Fault Tolerance
-We should use Consistent Hashing for distribution among database servers. Consistent hashing will not only help in replacing a dead server, but also help in distributing load among servers.
+Deduplication makes the greatest sense for our service early on, while a user is uploading a video, rather than waiting until later to identify duplicate films. We will save a lot of resources by using inline deduplication instead of encoding, transferring, and storing the duplicate copy of the video. Our service can execute video matching algorithms (e.g., Block Matching, Phase Correlation, etc.) to discover duplications as soon as a user starts uploading a video.
+
+We can either halt the upload and use the old copy or continue the upload and use the freshly uploaded video if it is of higher quality. We can intelligently break the video into smaller chunks if the newly uploaded video is a subpart of an old video or vice versa, so that we only upload the missing parts.
+
+### Load Balancing
+- We should employ Consistent Hashing among our cache servers, as this will assist balance the demand between them. 
+- Due to the varying popularity of each video, we will be adopting a static hash-based approach to map videos to hostnames, which may result in an uneven load on the logical replicas. 
+- If a video gets popular, for example, the logical replica corresponding to that video will see more traffic than other servers. 
+- These unequal loads for logical replicas can then result in unequal load distribution on physical servers. - Any busy server in one area can send a client to a less busy server in the same cache location to remedy this issue. 
+- For this circumstance, we can employ dynamic HTTP redirections.
+- However, there are several disadvantages to using redirections. First, because our service attempts to load balance locally, several redirections may occur if the server receiving the redirection is unable to serve the video. 
+- Furthermore, each redirection necessitates an additional HTTP request from the client, resulting in longer delays before the video begins to play. 
+- Furthermore, because higher tier caches are only available at a limited number of locations, inter-tier (or cross data-center) redirections send a client to a distant cache location.
+
+### Cache
+- Our service requires a large-scale video distribution infrastructure to serve globally distributed users. Using a huge number of geographically distributed video cache servers, our service should bring its material closer to the user. 
+- We need an approach that maximizes user performance while simultaneously distributing the load equitably across the cache servers.
+- To cache hot database rows, we can add a cache to metadata servers. 
+- Application servers can quickly verify if the cache has the needed rows by using Memcache to cache the data before reaching the database. 
+- For our system, the Least Recently Used (LRU) policy may be an appropriate cache eviction policy. 
+- The least recently viewed row is discarded first under this policy.
+
+**How can we make our cache more intelligent?** 
+
+If we follow the 80-20 rule, which states that 20% of daily video read volume generates 80% of traffic, implying that some videos are so popular that the majority of people watch them, we can try caching 20% of daily video read volume and metadata.
+
+### Content Delivery Network (CDN)
+
+- A content delivery network (CDN) is a network of distributed servers that deliver web content to users based on their geographic location, the origin of the web page, and the position of a content delivery server. 
+- In our Caching chapter, look at the 'CDN' section.
+
+Popular videos can be moved to CDNs using our service:
+
+- Content is replicated in many locations using CDNs. Videos are more likely to be closer to the user, and videos will stream from a friendlier network with fewer hops.
+- CDNs make extensive use of caching and can typically serve videos from memory.
+- Our servers in multiple data centers can provide less popular videos (1-20 views per day) that are not cached by CDNs.
+
+### Fault Tolerance
+- For database server distribution, we should utilize Consistent Hashing. 
+- Consistent hashing will aid in the replacement of a dead server as well as the distribution of load among servers.

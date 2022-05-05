@@ -1,44 +1,87 @@
 # Designing Facebook’s Newsfeed
+
+## Problem Statement
 Let's design Facebook's Newsfeed, which would contain posts, photos, videos, and status updates from all the people and pages a user follows.
 
-Similar Services: Twitter Newsfeed, Instagram Newsfeed, Quora Newsfeed
-Difficulty Level: Hard
+- Similar Services: Twitter Newsfeed, Instagram Newsfeed, Quora Newsfeed
+- Difficulty Level: Hard
 
-## 1. What is Facebook’s newsfeed?
-A Newsfeed is the constantly updating list of stories in the middle of Facebook’s homepage. It includes status updates, photos, videos, links, app activity, and ‘likes’ from people, pages, and groups that a user follows on Facebook. In other words, it is a compilation of a complete scrollable version of your friends’ and your life story from photos, videos, locations, status updates, and other activities.
+### What is Facebook’s newsfeed?
+The constantly updated list of stories in the centre of Facebook's site is known as a Newsfeed. It contains status updates, photographs, videos, links, app activity, and 'likes' from Facebook friends, pages, and groups. In other words, it's a collection of images, videos, locations, status updates, and other activities that form a comprehensive scrollable version of your friends' and your life story.
 
-For any social media site you design - Twitter, Instagram, or Facebook - you will need some newsfeed system to display updates from friends and followers.
+You'll need a newsfeed system to display updates from friends and followers on any social media site you create, whether it's Twitter, Instagram, or Facebook.
 
-## 2. Requirements and Goals of the System
+## Pratice Problem
+
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
 Let’s design a newsfeed for Facebook with the following requirements:
 
 **Functional requirements:**
 
-1. Newsfeed will be generated based on the posts from the people, pages, and groups that a user follows.
-2. A user may have many friends and follow a large number of pages/groups.
-3. Feeds may contain images, videos, or just text.
-4. Our service should support appending new posts as they arrive to the newsfeed for all active users.
+1. A user's newsfeed will be based on posts from the individuals, pages, and groups that he or she follows.
+2. A user may have a huge number of friends and follow numerous pages/groups.
+3. Images, videos, and text can all be found in feeds.
+4. For all active users, our service should allow adding new posts to the newsfeed as they arrive.
 
 **Non-functional requirements:**
 
-1. Our system should be able to generate any user’s newsfeed in real-time - maximum latency seen by the end user would be 2s.
-2. A post shouldn’t take more than 5s to make it to a user’s feed assuming a new newsfeed request comes in.
+1. Our system should be capable of generating any user's newsfeed in real-time, with a maximum latency of 2 seconds visible to the end user.
+2. If a new newsfeed request comes in, a post should appear in a user's feed in less than 5 seconds.
 
-## 3. Capacity Estimation and Constraints
-Let’s assume on average a user has 300 friends and follows 200 pages.
+### Capacity Estimation and Constraints
+Let’s assume on average a user has approximately 290-300 friends and follows 190-200 pages.
 
-**Traffic estimates:** Let’s assume 300M daily active users with each user fetching their timeline an average of five times a day. This will result in 1.5B newsfeed requests per day or approximately 17,500 requests per second.
+**Traffic estimates:** Assume 300 million daily active users, with each user fetching their timeline five times each day on average. This will result in 1.5 billion daily newsfeed requests, or about 17,500 requests every second.
 
-**Storage estimates:** On average, let’s assume we need to have around 500 posts in every user’s feed that we want to keep in memory for a quick fetch. Let’s also assume that on average each post would be 1KB in size. This would mean that we need to store roughly 500KB of data per user. To store all this data for all the active users we would need 150TB of memory. If a server can hold 100GB we would need around 1500 machines to keep the top 500 posts in memory for all active users.
+**Storage estimates:** Let's imagine that each user's feed has roughly 500 posts that we wish to save in memory for a quick fetch request. Let's also assume that each post is 1KB in size on average. This means that each user will require approximately 500KB of data storage. We'd need 150TB of memory to store all of this info for all of the active users. We'd need roughly 1500 machines to retain the top 500 posts in memory for all active users if a server can hold 100GB.
 
-## 4. System APIs
+### System APIs
 
-We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definition of the API for getting the newsfeed:
+To expose the functionality of our service, we can use SOAP or REST APIs. The API for retrieving the newsfeed could be defined as follows:
 
         getUserFeed(api_dev_key, user_id, since_id, count, max_id, exclude_replies)
 **Parameters:**
 
-- **api_dev_key (string):** The API developer key of a registered can be used to, among other things, throttle users based on their allocated quota.
+- **api_dev_key (string):** The API developer key of a registered user can be used to throttle users based on their quota allocation, among other things.
 - **user_id (number):** The ID of the user for whom the system will generate the newsfeed.
 - **since_id (number):** Optional; returns results with an ID higher than (that is, more recent than) the specified ID.
 - **count (number):** Optional; specifies the number of feed items to try and retrieve up to a maximum of 200 per distinct request.
@@ -47,15 +90,15 @@ We can have SOAP or REST APIs to expose the functionality of our service. The fo
 
 **Returns: (JSON)** Returns a JSON object containing a list of feed items.
 
-## 5. Database Design
-There are three primary objects: User, Entity (e.g. page, group, etc.), and FeedItem (or Post). Here are some observations about the relationships between these entities:
+### Database Design
+User, Entity (e.g. page, group, etc.) and FeedItem are the three main objects (or Post). Here are some observations about these entities' relationships:
 
-1. A User can follow other entities and can become friends with other users.
-2. Both users and entities can post FeedItems which can contain text, images, or videos.
-3. Each FeedItem will have a UserID which will point to the User who created it. For simplicity, let’s assume that only users can create feed items, although, on Facebook Pages can post feed item too.
-4. Each FeedItem can optionally have an EntityID pointing to the page or the group where that post was created.
+1. A user can follow and become friends with other entities.
+2. FeedItems, which can comprise text, images, or videos, can be posted by both users and entities.
+3. Each FeedItem will be assigned a UserID that will refer to the person who generated it. Let's pretend that just users can produce feed items for the sake of simplicity, while Facebook Pages can also post feed items.
+4. Each FeedItem can have an EntityID that points to the page or group where the post was created as an option.
 
-If we are using a relational database, we would need to model two relations: User-Entity relation and FeedItem-Media relation. Since each user can be friends with many people and follow a lot of entities, we can store this relation in a separate table. The “Type” column in “UserFollow” identifies if the entity being followed is a User or Entity. Similarly, we can have a table for FeedMedia relation.
+If we're working with a relational database, we'll need to model two relationships: User-Entity and FeedItem-Media. We can keep this relationship in a separate table because each user can be friends with a lot of individuals and follow a lot of things. In "UserFollow," the "Type" column indicates whether the entity being followed is a User or an Entity. Similarly, a table for FeedMedia relations can be created.
 
 <p align="center"> 
   <kbd>
@@ -64,31 +107,35 @@ If we are using a relational database, we would need to model two relations: Use
   </kbd>
 </p>
 
-## 6. High Level System Design
+### High Level System Design
 At a high level this problem can be divided into two parts:
 
-**Feed generation:** Newsfeed is generated from the posts (or feed items) of users and entities (pages and groups) that a user follows. So, whenever our system receives a request to generate the feed for a user (say Jane), we will perform the following steps:
+**Feed generation:** 
 
-1. Retrieve IDs of all users and entities that Jane follows.
-2. Retrieve latest, most popular and relevant posts for those IDs. These are the potential posts that we can show in Jane’s newsfeed.
-3. Rank these posts based on the relevance to Jane. This represents Jane’s current feed.
-4. Store this feed in the cache and return top posts (say 20) to be rendered on Jane’s feed.
-5. On the front-end, when Jane reaches the end of her current feed, she can fetch the next 20 posts from the server and so on.
+The posts (or feed items) of persons and entities (pages and groups) that a user follows are used to create the newsfeed. So, whenever our system receives a request to build a feed for a certain user (let's say Jane), we'll do the following:
 
-One thing to notice here is that we generated the feed once and stored it in the cache. What about new incoming posts from people that Jane follows? If Jane is online, we should have a mechanism to rank and add those new posts to her feed. We can periodically (say every five minutes) perform the above steps to rank and add the newer posts to her feed. Jane can then be notified that there are newer items in her feed that she can fetch.
+1. Get the IDs of all the users and entities Jane is following.
+2. For those IDs, get the most recent, popular, and relevant posts. These are the possible posts to display on Jane's newsfeed.
+3. Determine the importance of these jobs to Jane. This is Jane's most recent feed.
+4. Save this feed in the cache and present the top posts (say 20) on Jane's feed.
+5. When Jane reaches the end of her current feed, she can use the front-end to fetch the following 20 posts from the server, and so on.
 
-**Feed publishing:** Whenever Jane loads her newsfeed page, she has to request and pull feed items from the server. When she reaches the end of her current feed, she can pull more data from the server. For newer items either the server can notify Jane and then she can pull, or the server can push, these new posts. We will discuss these options in detail later.
+It's worth noting that we just generated the feed once and saved it in the cache. What about fresh posts from Jane's friends and followers? We should be able to rate and add those new posts to Jane's feed if she is online. We can repeat the above processes every five minutes or so to rate and add the latest posts to her feed. Jane can then be notified when newer items in her feed become available for her to fetch.
 
-At a high level, we will need following components in our Newsfeed service:
+**Feed publishing:** 
 
-- **1. Web servers:** To maintain a connection with the user. This connection will be used to transfer data between the user and the server.
-- **2. Application server:** To execute the workflows of storing new posts in the database servers. We will also need some application servers to retrieve and to push the newsfeed to the end user.
+Jane must request and pull feed articles from the server every time she loads her newsfeed page. She can pull new data from the server when she reaches the end of her current stream. For newer things, the server can either notify Jane, who can then pull or push these new posts, or the server can notify Jane, who can then pull or push these new posts. We'll go through these alternatives in further detail later.
+
+Our Newsfeed service will require the following components at a high level:
+
+- **1. Web servers:** Maintaining the user's connection. Data will be transferred between the user and the server over this connection.
+- **2. Application server:** To carry out workflows for saving new postings in database servers. To retrieve and push the newsfeed to the end user, we'll also need some application servers.
 - **3. Metadata database and cache:** To store the metadata about Users, Pages, and Groups.
 - **4. Posts database and cache:** To store metadata about posts and their contents.
 - **5. Video and photo storage, and cache:** Blob storage, to store all the media included in the posts.
-- **6. Newsfeed generation service:** To gather and rank all the relevant posts for a user to generate newsfeed and store in the cache. This service will also receive live updates and will add these newer feed items to any user’s timeline.
-- **7. Feed notification service:** To notify the user that there are newer items available for their newsfeed.
-Following is the high-level architecture diagram of our system. User B and C are following User A.
+- **6. Newsfeed generation service:** To gather and rank all relevant posts for a user's newsfeed generation and cache storage. This service will also receive real-time updates, and these updated feed items will be added to any user's timeline.
+- **7. Feed notification service:** To alert the user that newer items have been added to their newsfeed.
+Our system's high-level architecture diagram is shown below. User A is being followed by User B and C.
 
 
 <p align="center"> 
@@ -98,11 +145,12 @@ Following is the high-level architecture diagram of our system. User B and C are
   </kbd>
 </p>
 
-## 7. Detailed Component Design
+### Detailed Component Design
 Let’s discuss different components of our system in detail.
 
 **a. Feed generation**
-Let’s take the simple case of the newsfeed generation service fetching most recent posts from all the users and entities that Jane follows; the query would look like this:
+
+Take, for example, the newsfeed creation service retrieving the most recent postings from all the persons and entities Jane follows; the query would be:
 
         (SELECT FeedItemID FROM FeedItem WHERE UserID in (
             SELECT EntityOrFriendID FROM UserFollow WHERE UserID = <current_user_id> and type = 0(user))
@@ -113,51 +161,94 @@ Let’s take the simple case of the newsfeed generation service fetching most re
         )
         ORDER BY CreationDate DESC 
         LIMIT 100
-Here are issues with this design for the feed generation service:
+This concept for the feed generating service has the following flaws:
 
-Crazy slow for users with a lot of friends/follows as we have to perform sorting/merging/ranking of a huge number of posts.
-We generate the timeline when a user loads their page. This would be quite slow and have a high latency.
-For live updates, each status update will result in feed updates for all followers. This could result in high backlogs in our Newsfeed Generation Service.
-For live updates, the server pushing (or notifying about) newer posts to users could lead to very heavy loads, especially for people or pages that have a lot of followers. To improve the efficiency, we can pre-generate the timeline and store it in a memory.
+Users with a large number of friends/followers will notice a significant slowdown because we must sift, merge, and rank a large number of postings.
+When a user loads their page, we construct the timeline. This would be extremely slow and have a significant amount of delay.
+Each status update will result in feed updates for all followers for live updates. This may cause significant delays in our Newsfeed Generation Service.
+For live updates, the server pushing (or notifying users about) newer postings could result in extremely high loads, particularly for people or sites with a large following. We can pre-generate the timeline and save it in memory to increase efficiency.
 
-**Offline generation for newsfeed:** We can have dedicated servers that are continuously generating users’ newsfeed and storing them in memory. So, whenever a user requests for the new posts for their feed, we can simply serve it from the pre-generated, stored location. Using this scheme, user’s newsfeed is not compiled on load, but rather on a regular basis and returned to users whenever they request for it.
+**Offline generation for newsfeed:** We can have dedicated servers that are constantly creating and storing users' newsfeeds in memory. As a result, anytime a user requests new entries for their feed, we may simply provide them from the previously generated, cached location. Users' newsfeeds are not compiled on demand with this scheme, but rather on a regular basis and returned to them whenever they request it.
 
-Whenever these servers need to generate the feed for a user, they will first query to see what was the last time the feed was generated for that user. Then, new feed data would be generated from that time onwards. We can store this data in a hash table where the “key” would be UserID and “value” would be a STRUCT like this:
+When these servers need to build a feed for a user, they'll first check to see when the feed was last generated for that user. From that point on, new feed data would be generated. We may store this information in a hash table with UserID as the "key" and STRUCT as the "value" as seen below:
 
             Struct {
                 LinkedHashMap<FeedItemID, FeedItem> feedItems;
                 DateTime lastGenerated;
             }
-We can store FeedItemIDs in a data structure similar to Linked HashMap or TreeMap, which can allow us to not only jump to any feed item but also iterate through the map easily. Whenever users want to fetch more feed items, they can send the last FeedItemID they currently see in their newsfeed, we can then jump to that FeedItemID in our hash-map and return next batch/page of feed items from there.
+FeedItemIDs can be stored in a data structure similar to Linked HashMap or TreeMap, allowing us to simply jump to any feed item as well as loop across the map. Users can send the last FeedItemID they see in their newsfeed whenever they want more feed items, and we can jump to that FeedItemID in our hash-map and retrieve the next batch/page of feed items from there.
 
-**How many feed items should we store in memory for a user’s feed?** Initially, we can decide to store 500 feed items per user, but this number can be adjusted later based on the usage pattern. For example, if we assume that one page of a user’s feed has 20 posts and most of the users never browse more than ten pages of their feed, we can decide to store only 200 posts per user. For any user who wants to see more posts (more than what is stored in memory), we can always query backend servers.
+**How many feed items should we store in memory for a user’s feed?** 
 
-**Should we generate (and keep in memory) newsfeeds for all users?** There will be a lot of users that don’t login frequently. Here are a few things we can do to handle this; 1) a more straightforward approach could be, to use a LRU based cache that can remove users from memory that haven’t accessed their newsfeed for a long time 2) a smarter solution can figure out the login pattern of users to pre-generate their newsfeed, e.g., at what time of the day a user is active and which days of the week does a user access their newsfeed? etc.
+- We can choose to save 500 feed items per user at first, but this quantity can be changed later based on usage patterns. 
+- For example, if one page of a user's feed has 20 items and most users never visit more than ten pages of their feed, we can keep just 200 posts per user. 
+- We can always query backend servers for every user who wishes to see more posts (than what is stored in memory).
 
-Let’s now discuss some solutions to our “live updates” problems in the following section.
+**Should we generate (and keep in memory) newsfeeds for all users?** 
+
+- There will be many users who do not log in on a regular basis. 
+- Here are several options for dealing with this: 
+   1) A simpler solution could be to employ an LRU-based cache to remove users from memory who haven't seen their newsfeed in a long time. 
+   2) A smarter system can figure out a user's login pattern to pre-generate their newsfeed, such as when a user is active and on which days of the week they read their newsfeed. etc.
+
+In the next section, we'll look at various solutions to our "live updates" issues.
 
 **b. Feed publishing**
-The process of pushing a post to all the followers is called a fanout. By analogy, the push approach is called fanout-on-write, while the pull approach is called fanout-on-load. Let’s discuss different options for publishing feed data to users.
 
-**“Pull” model or Fan-out-on-load:** This method involves keeping all the recent feed data in memory so that users can pull it from the server whenever they need it. Clients can pull the feed data on a regular basis or manually whenever they need it. Possible problems with this approach are a) New data might not be shown to the users until they issue a pull request, b) It’s hard to find the right pull cadence, as most of the time pull requests will result in an empty response if there is no new data, causing waste of resources.
+A fanout is the process of sending a post to all of your followers. The push strategy is known as fanout-on-write, whereas the pull approach is known as fanout-on-load. Let's look at the many possibilities for distributing feed data to users.
 
-**“Push” model or Fan-out-on-write:** For a push system, once a user has published a post, we can immediately push this post to all the followers. The advantage is that when fetching feed you don’t need to go through your friend’s list and get feeds for each of them. It significantly reduces read operations. To efficiently handle this, users have to maintain a Long Poll request with the server for receiving the updates. A possible problem with this approach is that when a user has millions of followers (a celebrity-user) the server has to push updates to a lot of people.
+**“Pull” model or Fan-out-on-load:** 
 
-**Hybrid:** An alternate method to handle feed data could be to use a hybrid approach, i.e., to do a combination of fan-out-on-write and fan-out-on-load. Specifically, we can stop pushing posts from users with a high number of followers (a celebrity user) and only push data for those users who have a few hundred (or thousand) followers. For celebrity users, we can let the followers pull the updates. Since the push operation can be extremely costly for users who have a lot of friends or followers, by disabling fanout for them, we can save a huge number of resources. Another alternate approach could be that, once a user publishes a post, we can limit the fanout to only her online friends. Also, to get benefits from both the approaches, a combination of ‘push to notify’ and ‘pull for serving’ end users is a great way to go. Purely a push or pull model is less versatile.
+- This strategy involves storing all recent feed data in memory so that users can retrieve it whenever they need it from the server. 
+- Clients can pull data from the stream on a regular basis or whenever they require it manually. This strategy has the following drawbacks: 
+  a) Users may not see fresh data until they send a pull request; 
+  b) It's difficult to determine the correct pull cadence, as most pull requests would return an empty response if there is no new data, wasting resources.
 
-**How many feed items can we return to the client in each request?** We should have a maximum limit for the number of items a user can fetch in one request (say 20). But, we should let the client specify how many feed items they want with each request as the user may like to fetch a different number of posts depending on the device (mobile vs. desktop).
+**“Push” model or Fan-out-on-write:** 
 
-**Should we always notify users if there are new posts available for their newsfeed?** It could be useful for users to get notified whenever new data is available. However, on mobile devices, where data usage is relatively expensive, it can consume unnecessary bandwidth. Hence, at least for mobile devices, we can choose not to push data, instead, let users “Pull to Refresh” to get new posts.
+- With a push system, if a user publishes a post, it can be instantaneously pushed to all followers. 
+- The benefit is that you don't have to go through your buddy list and get feeds for each of them when fetching feeds. 
+- It decreases read operations greatly. 
+- Users must keep a Long Poll request with the server to receive updates in an effective manner. 
+- A potential flaw in this strategy is that when a user (a superstar) has millions of followers, the server must push changes to a large number of individuals.
 
-## 8. Feed Ranking
-The most straightforward way to rank posts in a newsfeed is by the creation time of the posts, but today’s ranking algorithms are doing a lot more than that to ensure “important” posts are ranked higher. The high-level idea of ranking is first to select key “signals” that make a post important and then to find out how to combine them to calculate a final ranking score.
+**Hybrid:** 
 
-More specifically, we can select features that are relevant to the importance of any feed item, e.g., number of likes, comments, shares, time of the update, whether the post has images/videos, etc., and then, a score can be calculated using these features. This is generally enough for a simple ranking system. A better ranking system can significantly improve itself by constantly evaluating if we are making progress in user stickiness, retention, ads revenue, etc.
+- A hybrid strategy to handling feed data, combining fan-out-on-write and fan-out-on-load, could be used as an alternative. We can, for example, stop pushing posts from users with a large number of followers (celebrities) and only send data to people with a few hundred (or thousand) followers. 
+- We can allow the followers of celebrities pull the updates. 
+- We can save a lot of resources by blocking fanout for users who have a lot of friends or follows because the push operation can be very expensive for them. 
+- Another option is to limit the fanout to only her online friends after a user writes a post. 
+- A mix of 'push to notify' and 'pull for serving' end users is also a wonderful method to get the most out of both approaches. 
+- A model that is solely push or pull is less versatile.
 
-## 9. Data Partitioning
+**How many feed items can we return to the client in each request?** 
+
+- We should set a limit on how many items a user can retrieve in a single request (say 20). 
+- However, we should allow the client to define the amount of feed items they want with each request because the user may wish to fetch a varied number of posts depending on the device (mobile vs. desktop).
+
+**Should we always notify users if there are new posts available for their newsfeed?** 
+
+- Users may find it beneficial to be notified when new data becomes available. 
+- On mobile devices, however, when data usage is relatively expensive, it can waste bandwidth. 
+- As a result, we can opt not to push data to mobile devices and instead allow users to "Pull to Refresh" for new postings.
+
+### Feed Ranking
+- The simplest straightforward approach to rank items in a newsfeed is by their creation time, but today's ranking algorithms go far further to ensure that "important" messages are prioritized. 
+- The high-level goal behind ranking is to find out how to integrate crucial "signals" that make a post relevant before calculating a final ranking score.
+- More specifically, we can choose features that are related to the importance of any feed item, such as the number of likes, comments, shares, time of the update, whether the article contains images/videos, and so on, and then use these features to create a score. This is usually sufficient for a basic ranking system. 
+- By regularly monitoring if we are making progress in terms of user stickiness, retention, ad income, and so on, a better ranking system may greatly enhance itself.
+
+### Data Partitioning
 
 **a. Sharding posts and metadata**
-Since we have a huge number of new posts every day and our read load is extremely high too, we need to distribute our data onto multiple machines such that we can read/write it efficiently. For sharding our databases that are storing posts and their metadata, we can have a similar design as discussed under Designing Twitter.
+
+- We need to divide our data across numerous machines so that we can read and write it quickly because we have a large number of new postings every day and our read load is also incredibly high. 
+- We can use a scheme similar to the one described in Designing Twitter for sharding our databases that store posts and their metadata.
 
 **b. Sharding feed data**
-For feed data, which is being stored in memory, we can partition it based on UserID. We can try storing all the data of a user on one server. When storing, we can pass the UserID to our hash function that will map the user to a cache server where we will store the user’s feed objects. Also, for any given user, since we don’t expect to store more than 500 FeedItmeIDs, we will not run into a scenario where feed data for a user doesn’t fit on a single server. To get the feed of a user, we would always have to query only one server. For future growth and replication, we must use Consistent Hashing.
+
+- We can partition feed data that is being kept in memory based on UserID. 
+- We can try storing all of a user's data on a single server. We can supply the UserID to our hash function when storing, and it will map the user to a cache server where the user's feed objects will be stored. 
+- Also, because we don't anticipate to keep more than 500 FeedItmeIDs per user, we won't come into a situation where a person's feed data won't fit on a single server. 
+- We would always have to contact only one server to retrieve a user's feed. 
+- Consistent Hashing is required for future development and replication.

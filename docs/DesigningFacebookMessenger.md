@@ -1,40 +1,83 @@
 # Designing Facebook Messenger
-Let's design an instant messaging service like Facebook Messenger where users can send text messages to each other through web and mobile interfaces.
 
+## Problem Statement
+Let's create a service similar to Facebook Messenger that allows users to send text messages to one another via online and mobile interfaces.
 
-## 1. What is Facebook Messenger?
-Facebook Messenger is a software application which provides text-based instant messaging services to its users. Messenger users can chat with their Facebook friends both from cell-phones and Facebook’s website.
+- Difficulty Level: Medium
 
-## 2. Requirements and Goals of the System
+### What is Facebook Messenger, exactly?
+Facebook Messenger is a software application that allows users to send text-based instant messages. Messenger allows users to communicate with their Facebook friends from both their phones and the Facebook 
+
+## Pratice Problem
+
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
 Our Messenger should meet the following requirements:
 
 **Functional Requirements:**
 
-1. Messenger should support one-on-one conversations between users.
-2. Messenger should keep track of the online/offline statuses of its users.
-3. Messenger should support the persistent storage of chat history.
+1. Messenger should allow users to have one-on-one talks.
+2. Messenger should maintain track of its users' online and offline statuses.
+3. Messenger should be able to save chat history indefinitely.
 
 **Non-functional Requirements:**
 
-1. Users should have real-time chat experience with minimum latency.
-2. Our system should be highly consistent; users should be able to see the same chat history on all their devices.
-3. Messenger’s high availability is desirable; we can tolerate lower availability in the interest of consistency.
+1. Users should be able to chat in real time with minimal latency.
+2. Our system should be extremely consistent, with consumers seeing the same conversation history across all of their devices.
+3. We prefer Messenger's high availability, but we can live with reduced availability for the sake of consistency.
 
 **Extended Requirements:**
 
-1. Group Chats: Messenger should support multiple people talking to each other in a group.
-2. Push notifications: Messenger should be able to notify users of new messages when they are offline.
+1. Group Chats: Messenger should allow several users to converse in a group setting.
+2. Push notifications: When users are offline, Messenger should be able to alert them of new messages.
 
-## 3. Capacity Estimation and Constraints
-Let’s assume that we have 500 million daily active users and on average each user sends 40 messages daily; this gives us 20 billion messages per day.
+### Capacity Estimation and Constraints
+Assume we have 500 million daily active users, each of whom sends 40 messages each day, for a total of 20 billion messages every day.
 
-**Storage Estimation:** Let’s assume that on average a message is 100 bytes, so to store all the messages for one day we would need 2TB of storage.
+**Storage Estimation:**  Assuming that a message is 100 bytes on average, we'd need 2TB of storage to store all of the communications for a single day.
 
                             20 billion messages * 100 bytes => 2 TB/day
 To store five years of chat history, we would need 3.6 petabytes of storage.
 
                             2 TB * 365 days * 5 years ~= 3.6 PB
-Other than the chat messages, we would also need to store users’ information, messages’ metadata (ID, Timestamp, etc.). Not to mention, the above calculation doesn’t take data compression and replication into consideration.
+We would also need to keep user information and message metadata in addition to the chat messages (ID, Timestamp, etc.). Not to mention the fact that the above computation ignores data compression and replication.
 
 **Bandwidth Estimation:** If our service is getting 2TB of data every day, this will give us 25MB of incoming data for each second.
 
@@ -49,8 +92,9 @@ Since each incoming message needs to go out to another user, we will need the sa
                             Incomming data	        25MB/s
                             Outgoing data	        25MB/s
 
-## 4. High Level Design
-At a high-level, we will need a chat server that will be the central piece, orchestrating all the communications between users. When a user wants to send a message to another user, they will connect to the chat server and send the message to the server; the server then passes that message to the other user and also stores it in the database.
+### High Level Design
+
+On a high level, we'll require a chat server to function as the central hub, orchestrating all user communications. When a user wants to send a message to another user, they connect to the chat server and transmit the message to the server, which then sends it to the other user and stores it in the database.
 
 <p align="center"> 
   <kbd>
@@ -60,92 +104,131 @@ At a high-level, we will need a chat server that will be the central piece, orch
 </p>
 
 
-The detailed workflow would look like this:
+The detailed workflow would be as follows:
 
-1. User-A sends a message to User-B through the chat server.
-2. The server receives the message and sends an acknowledgment to User-A.
-3. The server stores the message in its database and sends the message to User-B.
-4. User-B receives the message and sends the acknowledgment to the server.
-5. The server notifies User-A that the message has been delivered successfully to User-B.
+1. User-A uses the chat server to send a message to User-B.
+2. The server receives the message and responds to User-A with an acknowledgement.
+3. The message is stored in the server's database and sent to User-B.
+4. User-B receives the message and sends the server an acknowledgment.
+5. The server informs User-A that the message was successfully sent to User-B.
 
-## 5. Detailed Component Design
-Let’s try to build a simple solution first where everything runs on one server. At the high level our system needs to handle the following use cases:
+### Detailed Component Design
+Let's start with a simple approach that runs everything on a single server. Our system must be able to handle the following use scenarios at a high level:
 
-Receive incoming messages and deliver outgoing messages.
-Store and retrieve messages from the database.
-Keep a record of which user is online or has gone offline, and notify all the relevant users about these status changes.
-Let’s talk about these scenarios one by one:
+- Receive and deliver incoming and outgoing messages.
+- Messages are stored and retrieved from a database.
+- Keep track of which users are online and which have gone offline, and inform all relevant users of these changes.
+
+Let's go over each scenario one by one:
 
 **a. Messages Handling**
-**How would we efficiently send/receive messages?** To send messages, a user needs to connect to the server and post messages for the other users. To get a message from the server, the user has two options:
 
-- **Pull model:** Users can periodically ask the server if there are any new messages for them.
+**How would we efficiently send/receive messages?** 
 
-- **Push model:** Users can keep a connection open with the server and can depend upon the server to notify them whenever there are new messages.
+A user must connect to the server and post messages for other users in order to send messages. The user has two options for receiving a message from the server:
 
-If we go with our first approach, then the server needs to keep track of messages that are still waiting to be delivered, and as soon as the receiving user connects to the server to ask for any new message, the server can return all the pending messages. To minimize latency for the user, they have to check the server quite frequently, and most of the time they will be getting an empty response if there are no pending message. This will waste a lot of resources and does not look like an efficient solution.
+- **Pull model:** Users can periodically query the server to see whether they have any new messages.
 
-If we go with our second approach, where all the active users keep a connection open with the server, then as soon as the server receives a message it can immediately pass the message to the intended user. This way, the server does not need to keep track of the pending messages, and we will have minimum latency, as the messages are delivered instantly on the opened connection.
+- **Push model:** Users can keep their connection to the server open and rely on the server to notify them when new messages arrive.
 
-**How will clients maintain an open connection with the server?** We can use HTTP Long Polling or WebSockets. In long polling, clients can request information from the server with the expectation that the server may not respond immediately. If the server has no new data for the client when the poll is received, instead of sending an empty response, the server holds the request open and waits for response information to become available. Once it does have new information, the server immediately sends the response to the client, completing the open request. Upon receipt of the server response, the client can immediately issue another server request for future updates. This gives a lot of improvements in latencies, throughputs, and performance. The long polling request can timeout or can receive a disconnect from the server, in that case, the client has to open a new request.
+If we apply the first strategy, the server will need to keep track of messages that have yet to be delivered, and when the receiving user connects to the server to request a new message, the server will be able to return all of the pending messages. To reduce latency for the user, they must check the server frequently, and if there are no outstanding messages, they will most likely receive an empty response. This is a waste of resources and does not appear to be an effective solution.
 
-**How can the server keep track of all the opened connection to redirect messages to the users efficiently?** The server can maintain a hash table, where “key” would be the UserID and “value” would be the connection object. So whenever the server receives a message for a user, it looks up that user in the hash table to find the connection object and sends the message on the open request.
+If we apply our second strategy, in which all active users maintain a connection with the server, the server can transmit messages to the intended user as soon as they are received. Because the messages are delivered promptly on the opened connection, the server does not need to maintain track of the outstanding messages, and we have minimal latency.
 
-**What will happen when the server receives a message for a user who has gone offline?** If the receiver has disconnected, the server can notify the sender about the delivery failure. If it is a temporary disconnect, e.g., the receiver’s long-poll request just timed out, then we should expect a reconnect from the user. In that case, we can ask the sender to retry sending the message. This retry could be embedded in the client’s logic so that users don’t have to retype the message. The server can also store the message for a while and retry sending it once the receiver reconnects.
+**How will clients keep their connection to the server open?** 
 
-**How many chat servers we need?** Let’s plan for 500 million connections at any time. Assuming a modern server can handle 50K concurrent connections at any time, we would need 10K such servers.
+- HTTP Long Polling or WebSockets are two options. 
+- Clients can request information from the server using extended polling with the understanding that the server may not respond immediately. 
+- Instead of returning an empty response if the server has no fresh data for the client when the poll is received, the server keeps the request open and waits for response information to become available. 
+- The server provides the response to the client as soon as it receives fresh information, completing the open request. 
+- The client can instantly send another server request for future updates after receiving the server answer.
+- This results in significant gains in latency, throughput, and overall performance. 
+- The long polling request may time out or be disconnected from the server, in which case the client must start over.
 
-**How do we know which server holds the connection to which user?** We can introduce a software load balancer in front of our chat servers; that can map each UserID to a server to redirect the request.
+**How can the server keep track of all open connections in order to efficiently relay messages to users?** 
 
-**How should the server process a ‘deliver message’ request?** The server needs to do the following things upon receiving a new message: 
+- The server can keep a hash table with the UserID as the key and the connection object as the value. 
+- As a result, if the server receives a message for a user, it searches the hash table for that user's connection object and transmits the message on the open request.
 
-- 1) Store the message in the database 
-- 2) Send the message to the receiver and 
-- 3) Send an acknowledgment to the sender.
+**What happens if a message for a user who has gone offline is received by the server?** 
 
-The chat server will first find the server that holds the connection for the receiver and pass the message to that server to send it to the receiver. The chat server can then send the acknowledgment to the sender; we don’t need to wait for storing the message in the database (this can happen in the background). Storing the message is discussed in the next section.
+- The server can notify the sender of a delivery failure if the recipient has disconnected. 
+- If the connection is temporary, such as when the receiver's long-poll request timed out, we should expect the user to reconnect. 
+- In that instance, we can request that the sender transmit the message again. 
+- This retry might be built into the client's logic, eliminating the need for users to retype their messages. 
+- The server can also save the message and transmit it again whenever the receiver reconnects.
 
-**How does the messenger maintain the sequencing of the messages?** We can store a timestamp with each message, which is the time the message is received by the server. This will still not ensure correct ordering of messages for clients. The scenario where the server timestamp cannot determine the exact order of messages would look like this:
+**How many chat servers are we going to need?** 
 
-1. User-1 sends a message M1 to the server for User-2.
-2. The server receives M1 at T1.
-3. Meanwhile, User-2 sends a message M2 to the server for User-1.
-4. The server receives the message M2 at T2, such that T2 > T1.
-5. The server sends message M1 to User-2 and M2 to User-1.
+Let's assume there are 500 million connections at any given time. We'd need 10K such servers if a modern server can handle 50K concurrent connections at any given moment.
 
-So User-1 will see M1 first and then M2, whereas User-2 will see M2 first and then M1.
+**How do we know which server is responsible for which user's connection?** 
 
-To resolve this, we need to keep a sequence number with every message for each client. This sequence number will determine the exact ordering of messages for EACH user. With this solution, both clients will see a different view of the message sequence, but this view will be consistent for them on all devices.
+In front of our chat servers, we can put a software load balancer in place that can map each UserID to a server and redirect the request..
 
-**b. Storing and retrieving the messages from the database**
-Whenever the chat server receives a new message, it needs to store it in the database. To do so, we have two options:
+**How should a 'deliver message' request be handled by the server?** 
 
-1. Start a separate thread, which will work with the database to store the message.
-2. Send an asynchronous request to the database to store the message.
-We have to keep certain things in mind while designing our database:
+When the server receives a new message, it must do the following:
 
-1. How to efficiently work with the database connection pool.
-2. How to retry failed requests.
-3. Where to log those requests that failed even after some retries.
-4. How to retry these logged requests (that failed after the retry) when all the issues have resolved.
+- 1) Save the message in the database 
+- 2) Send the message to the recipient 
+- 3) Send the sender an acknowledgment
 
+The chat server will first locate the server that holds the recipient's connection and transmit the message to that server, which will then send the message to the receiver. We don't have to wait for the message to be stored in the database before the chat server sends the acknowledgement to the sender (this can happen in the background). The next section discusses storing the message.
 
-**Which storage system we should use?** We need to have a database that can support a very high rate of small updates and also fetch a range of records quickly. This is required because we have a huge number of small messages that need to be inserted in the database and, while querying, a user is mostly interested in sequentially accessing the messages.
+**How does the messenger keep track of the messages' sequence?** 
 
-We cannot use RDBMS like MySQL or NoSQL like MongoDB because we cannot afford to read/write a row from the database every time a user receives/sends a message. This will not only make the basic operations of our service run with high latency but also create a huge load on databases.
+With each message, we can save a timestamp, which is the moment the message was received by the server. This will still not assure that clients receive messages in the correct order. The following is a scenario in which the server timestamp cannot establish the exact order of messages:
 
-Both of our requirements can be easily met with a wide-column database solution like HBase. HBase is a column-oriented key-value NoSQL database that can store multiple values against one key into multiple columns. HBase is modeled after Google’s BigTable and runs on top of Hadoop Distributed File System (HDFS). HBase groups data together to store new data in a memory buffer and, once the buffer is full, it dumps the data to the disk. This way of storage not only helps to store a lot of small data quickly but also fetching rows by the key or scanning ranges of rows. HBase is also an efficient database to store variable sized data, which is also required by our service.
+1. User-1 sends the server the message M1 for User-2.
+2. At T1, the server gets M1.
+3. In the meantime, User-2 sends User-1 a message M2 to the server.
+4. At T2, the server gets the message M2, and T2 > T1.
+5. The server sends messages M1 and M2 to User-2 and User-1, respectively.
 
-**How should clients efficiently fetch data from the server?** Clients should paginate while fetching data from the server. Page size could be different for different clients, e.g., cell phones have smaller screens, so we need a fewer number of message/conversations in the viewport.
+As a result, User-1 will view M1 first, followed by M2, whereas User-2 will see M2 first, followed by M1.
+
+To fix this, we need to assign a sequence number to each message sent to each client. This number will define the exact order in which messages are delivered to each user. Both clients will see a different perspective of the message sequence using this solution, but it will be consistent across all devices.
+
+**b. Message storage and retrieval from the database**
+
+When a new message is received, the chat server must save it in the database. We have two alternatives for doing so:
+
+1. Create a new thread that will interact with the database to save the message.
+2. Make an asynchronous database request to save the message.
+While designing our database, we must keep the following in mind:
+
+1. How to work with the database connection pool effectively.
+2. How to retry requests that have failed.
+3. Where should requests that failed after several retries be logged?
+4. After all the issues have been rectified, how can I retry these logged requests (that failed after the retry)?
+
+**How should we organize our storage?** 
+
+- We need a database that can handle a high rate of tiny updates while also retrieving a large number of records rapidly. 
+- This is necessary because we have a large number of small messages to insert into the database, and users are more interested in sequentially accessing the messages when querying.
+- Because we can't afford to read/write a row from the database every time a user receives/sends a message, we can't utilize RDBMS like MySQL or NoSQL like MongoDB. 
+- This will cause not just excessive latency in our service's core functions, but also a massive pressure on databases.
+
+- A wide-column database solution like HBase can easily meet both of our requirements. 
+- HBase is a column-oriented key-value NoSQL database that may store numerous values in different columns for a single key. 
+- HBase is based on the Google BigTable database and runs on top of the Hadoop Distributed File System (HDFS). HBase groups data together to store new data in a memory buffer, which it then dumps to disk once the buffer is full. 
+- This kind of storing not only allows you to store a large amount of little data fast, but it also allows you to retrieve rows by key or scan ranges of rows. 
+- HBase is an efficient database for storing variable-sized data, which our business also requires.
+
+**How should clients get data from the server quickly?** 
+
+When retrieving data from the server, clients should use pagination. The size of the page may vary depending on the client; for example, cell phones have smaller screens, therefore we need fewer messages/conversations in the viewport.
 
 **c. Managing user’s status**
-We need to keep track of user’s online/offline status and notify all the relevant users whenever a status change happens. Since we are maintaining a connection object on the server for all active users, we can easily figure out the user’s current status from this. With 500M active users at any time, if we have to broadcast each status change to all the relevant active users, it will consume a lot of resources. We can do the following optimization around this:
 
-1. Whenever a client starts the app, it can pull the current status of all users in their friends’ list.
-2. Whenever a user sends a message to another user that has gone offline, we can send a failure to the sender and update the status on the client.
-3. Whenever a user comes online, the server can always broadcast that status with a delay of a few seconds to see if the user does not go offline immediately.
-4. Clients can pull the status from the server about those users that are being shown on the user’s viewport. This should not be a frequent operation, as the server is broadcasting the online status of users and we can live with the stale offline status of users for a while.
-5. Whenever the client starts a new chat with another user, we can pull the status at that time.
+We need to maintain track of each user's online/offline state and notify all affected users when that status changes. We can easily determine the user's current status because we keep a connection object on the server for all active users. With 500 million active users at any given time, broadcasting each status change to all relevant active users would use a significant amount of resources. Around this, we can apply the following optimization:
+
+1. When a user first opens the app, it can see the current state of all of their pals.
+2. We can send a failure to the sender and change the status on the client whenever a user sends a message to another user who has gone offline.
+3. When a user logs in, the server can broadcast that information with a delay of a few seconds to determine if the person logs out immediately.
+4. Clients can get the status of those users who are visible in the user's viewport from the server. This shouldn't be done frequently because the server broadcasts users' online status, and we can live with the stale offline status of users for a time.
+5. We can pull the status whenever the client starts a new chat with another user.
 
 <p align="center"> 
   <kbd>
@@ -155,39 +238,54 @@ We need to keep track of user’s online/offline status and notify all the relev
 </p>
 
 
-**Design Summary:** Clients will open a connection to the chat server to send a message; the server will then pass it to the requested user. All the active users will keep a connection open with the server to receive messages. Whenever a new message arrives, the chat server will push it to the receiving user on the long poll request. Messages can be stored in HBase, which supports quick small updates, and range based searches. The servers can broadcast the online status of a user to other relevant users. Clients can pull status updates for users who are visible in the client’s viewport on a less frequent basis.
+**Design Summary:** 
 
-## 6. Data partitioning
-Since we will be storing a lot of data (3.6PB for five years), we need to distribute it onto multiple database servers. What will be our partitioning scheme?
+- Clients will establish a connection with the chat server in order to deliver a message, which the server will then forward to the appropriate user. 
+- To receive messages, all active users will maintain a connection with the server. On the lengthy poll request, the chat server will push new messages to the receiving user whenever a new message arrives. 
+- HBase, which offers speedy tiny updates and range-based searches, can be used to store messages. The servers can advertise a user's online status to other users who are interested. 
+- Clients can get fewer frequent status updates for people who are visible in the client's viewport.
 
-**Partitioning based on UserID:** Let’s assume we partition based on the hash of the UserID so that we can keep all messages of a user on the same database. If one DB shard is 4TB, we will have “3.6PB/4TB ~= 900” shards for five years. For simplicity, let’s assume we keep 1K shards. So we will find the shard number by “hash(UserID) % 1000” and then store/retrieve the data from there. This partitioning scheme will also be very quick to fetch chat history for any user.
+### Data partitioning
+We'll need to divide the data over numerous database servers because we'll be storing a lot of it (3.6PB for five years). What is our plan for partitioning?
 
-In the beginning, we can start with fewer database servers with multiple shards residing on one physical server. Since we can have multiple database instances on a server, we can easily store multiple partitions on a single server. Our hash function needs to understand this logical partitioning scheme so that it can map multiple logical partitions on one physical server.
+**Partitioning based on UserID:**  
+- Let's pretend we split based on the UserID hash so we can keep all of a user's messages in the same database. We'll have "3.6PB/4TB = 900" shards for five years if each DB shard is 4TB. 
+- Let's assume we maintain 1K shards for the sake of simplicity. 
+- So we'll use "hash(UserID) percent 1000" to obtain the shard number, and then store/retrieve the data from there. This segmentation approach will also make retrieving conversation history for any user very quick.
+- We can start with fewer database servers and several shards on a single physical server in the beginning. 
+- We can simply store several partitions on a single server because we may have multiple database instances on it. 
+- To map many logical partitions on one physical server, our hash function must grasp this logical partitioning scheme.
+- We can start with a large number of logical partitions that are mapped to fewer physical servers because we will keep an indefinite history of messages, and as our storage requirement grows, we can add more physical servers to disperse our logical partitions.
 
-Since we will store an unlimited history of messages, we can start with a big number of logical partitions, which will be mapped to fewer physical servers, and as our storage demand increases, we can add more physical servers to distribute our logical partitions.
+**Partitioning based on MessageID:** 
 
-**Partitioning based on MessageID:** If we store different messages of a user on separate database shards, fetching a range of messages of a chat would be very slow, so we should not adopt this scheme.
+We should not utilize this technique since getting a range of messages from a chat would be exceedingly sluggish if we store different messages of a user on various database shards.
 
-## 7. Cache
-We can cache a few recent messages (say last 15) in a few recent conversations that are visible in a user’s viewport (say last 5). Since we decided to store all of the user’s messages on one shard, the cache for a user should entirely reside on one machine too.
+### Cache
+We can cache a subset of recent messages (say, the last 15) in a subset of recent conversations displayed in a user's viewport (say last 5). Because we choose to store all of a user's communications on a single shard, the user's cache should also be on a single machine.
 
-## 8. Load balancing
-We will need a load balancer in front of our chat servers; that can map each UserID to a server that holds the connection for the user and then direct the request to that server. Similarly, we would need a load balancer for our cache servers.
+### Load balancing
+In front of our chat servers, we'll need a load balancer that can map each UserID to a server that has the user's connection and then divert requests to that server. A load balancer would also be required for our caching servers.
 
-## 9. Fault tolerance and Replication
-What will happen when a chat server fails? Our chat servers are holding connections with the users. If a server goes down, should we devise a mechanism to transfer those connections to some other server? It’s extremely hard to failover TCP connections to other servers; an easier approach can be to have clients automatically reconnect if the connection is lost.
+### Fault tolerance and Replication
+- What happens if a chat server goes down? Our chat servers are maintaining user connections. Should we create a system to transfer connections to another server if one goes down? 
+- It's difficult to failover TCP connections to different servers; a simpler solution is to have clients reconnect automatically if the connection is lost.
+- Should several copies of user messages be kept? 
+- We can't have only one copy of a user's data since we won't be able to restore it if the server that has it crashes or goes down permanently. 
+- We can either store several copies of the data on various servers or distribute and replicate it using techniques like Reed-Solomon encoding.
 
-Should we store multiple copies of user messages? We cannot have only one copy of the user’s data, because if the server holding the data crashes or is down permanently, we don’t have any mechanism to recover that data. For this, either we have to store multiple copies of the data on different servers or use techniques like Reed-Solomon encoding to distribute and replicate it.
-
-## 10. Extended Requirements
+### Extended Requirements
 **a. Group chat**
-We can have separate group-chat objects in our system that can be stored on the chat servers. A group-chat object is identified by GroupChatID and will also maintain a list of people who are part of that chat. Our load balancer can direct each group chat message based on GroupChatID and the server handling that group chat can iterate through all the users of the chat to find the server handling the connection of each user to deliver the message.
 
-In databases, we can store all the group chats in a separate table partitioned based on GroupChatID.
+- Separate group-chat objects can be created in our system and saved on the chat servers. 
+- GroupChatID is used to identify a group-chat object, which also keeps track of who is in the conversation. Our load balancer can send each group chat message to the server that handles that group chat based on GroupChatID, and the server that handles that group chat can iterate over all of the users in the chat to determine the server that handles each user's connection to deliver the message.
+
+All group conversations can be stored in a distinct table partitioned by GroupChatID in databases.
 
 **b. Push notifications**
-In our current design, users can only send messages to active users and if the receiving user is offline, we send a failure to the sending user. Push notifications will enable our system to send messages to offline users.
 
-For Push notifications, each user can opt-in from their device (or a web browser) to get notifications whenever there is a new message or event. Each manufacturer maintains a set of servers that handles pushing these notifications to the user.
-
-To have push notifications in our system, we would need to set up a Notification server, which will take the messages for offline users and send them to the manufacture’s push notification server, which will then send them to the user’s device.
+- Users can only send messages to active users in our present architecture, and if the receiving user is offline, we transmit a failure to the sending user. 
+- Our system will be able to send messages to people who are not online thanks to push notifications.
+- Each user can opt-in to receive push notifications from their device (or a web browser) whenever a new message or event is received. 
+- Each manufacturer has its own set of servers that handle the distribution of these notifications to users.
+- To implement push notifications, we'll need to build up a Notification server that will collect messages for offline users and transmit them to the manufacturer's push notification server, which will then send them to the user's device.

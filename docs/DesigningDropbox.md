@@ -1,51 +1,98 @@
 # Designing Dropbox
-Let's design a file hosting service like Dropbox or Google Drive. Cloud file storage enables users to store their data on remote servers. Usually, these servers are maintained by cloud storage providers and made available to users over a network (typically through the Internet). Users pay for their cloud data storage on a monthly basis.
 
-Similar Services: OneDrive, Google Drive
-Difficulty Level: Medium
+## Problem Statement
 
-## 1. Why Cloud Storage?
-Cloud file storage services have become very popular recently as they simplify the storage and exchange of digital resources among multiple devices. The shift from using single personal computers to using multiple devices with different platforms and operating systems such as smartphones and tablets each with portable access from various geographical locations at any time, is believed to be accountable for the huge popularity of cloud storage services. Following are some of the top benefits of such services:
+Create a file hosting service similar to Dropbox or Google Drive. 
+Users can save their data on faraway servers using cloud file storage. Typically, cloud storage providers manage these servers and make them available to consumers over a network (typically through the Internet). 
+Users pay a monthly fee for their cloud data storage.
 
-**Availability:** The motto of cloud storage services is to have data availability anywhere, anytime. Users can access their files/photos from any device whenever and wherever they like.
+- Similar Services: OneDrive, Google Drive
+- Difficulty Level: Medium
 
-**Reliability:** and Durability: Another benefit of cloud storage is that it offers 100% reliability and durability of data. Cloud storage ensures that users will never lose their data by keeping multiple copies of the data stored on different geographically located servers.
+### Why Use Cloud Storage?
+Cloud file storage services have recently grown in popularity as they make it easier to store and share digital files across various devices. The massive popularity of cloud storage services is thought to be due to the change from single personal computers to multiple devices with diverse platforms and operating systems, such as smartphones and tablets, each with portable access from various geographical places at any time. The following are some of the most significant advantages of such services:
 
-**Scalability:** Users will never have to worry about getting out of storage space. With cloud storage you have unlimited storage as long as you are ready to pay for it.
+**Availability:** Cloud storage services promote data accessibility from anywhere, at any time. Users can access their files/photos from any device, at any time and from any location.
 
-If you haven’t used dropbox.com before, we would highly recommend creating an account there and uploading/editing a file and also going through the different options their service offers. This will help you a lot in understanding this chapter.
+**Reliability and Durability:** Another advantage of cloud storage is that it guarantees data security and longevity. Cloud storage ensures that users' data is never lost by storing several copies of the data on many servers across the globe.
 
-## 2. Requirements and Goals of the System
-You should always clarify requirements at the beginning of the interview. Be sure to ask questions to find the exact scope of the system that the interviewer has in mind.
+**Scalability:** There will never be a shortage of storage capacity for users. You have infinite storage with cloud storage if you are willing to pay for it.
 
-1. Users should be able to upload and download their files/photos from any device.
-2. Users should be able to share files or folders with other users.
-3. Our service should support automatic synchronization between devices, i.e., after updating a file on one device, it should get synchronized on all devices.
-4. The system should support storing large files up to a GB.
-5. ACID-ity is required. Atomicity, Consistency, Isolation and Durability of all file operations should be guaranteed.
-6. Our system should support offline editing. Users should be able to add/delete/modify files while offline, and as soon as they come online, all their changes should be synced to the remote servers and other online devices.
+If you haven't used dropbox.com before, we highly recommend opening an account and uploading/editing a file, as well as exploring the various options available.
+
+## Pratice Problem
+
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
+At the start of the interview, you should always outline criteria. Ask questions to determine the extent of the system that the interviewer is considering.
+
+1. Users should have the ability to upload and download files/photos from any device.
+2. Users should have the ability to share files and folders with other users.
+3. Our service should allow automated device synchronization, which means that when a file is updated on one device, it should be updated on all devices.
+4. The system should be able to store huge files of up to a GB in size.
+5. Acidity is necessary. All file operations should be assured to be atomic, consistent, isolated, and durable.
+6. Offline editing should be possible in our system. Users should be able to add, delete, and alter files when offline, and their modifications should be synced to remote servers and other online devices as soon as they reconnect.
 
 **Extended Requirements**
 The system should support snapshotting of the data, so that users can go back to any version of the files.
 
-## 3. Some Design Considerations
+### Some Design Considerations
 
-1. We should expect huge read and write volumes.
-2. Read to write ratio is expected to be nearly the same.
-3. Internally, files can be stored in small parts or chunks (say 4MB); this can provide a lot of benefits i.e. all failed operations shall only be retried for smaller parts of a file. If a user fails to upload a file, then only the failing chunk will be retried.
-4. We can reduce the amount of data exchange by transferring updated chunks only.
-5. By removing duplicate chunks, we can save storage space and bandwidth usage.
-6. Keeping a local copy of the metadata (file name, size, etc.) with the client can save us a lot of round trips to the server.
-7. For small changes, clients can intelligently upload the diffs instead of the whole chunk.
+1. Huge read and write volumes are to be expected.
+2. The read-to-write ratio should be about equal.
+3. Internally, files can be saved in small chunks (for example, 4MB); this has a number of advantages, such as the fact that all failed operations will only be retried for smaller portions of a file. Only the failing chunk will be retried if a user fails to upload a file.
+4. By simply sharing updated chunks, we may limit the quantity of data transmission.
+5. We can save storage space and bandwidth by deleting duplicate pieces.
+6. Keeping a local copy of the metadata (file name, size, etc.) on the client can save us a lot of server trips.
+7. Clients can intelligently upload the diffs instead of the entire chunk for minor changes.
 
-## 4. Capacity Estimation and Constraints
+### Capacity Estimation and Constraints
 
-1. Let’s assume that we have 500M total users, and 100M daily active users (DAU).
-2. Let’s assume that on average each user connects from three different devices.
-3. On average if a user has 200 files/photos, we will have 100 billion total files.
-4. Let’s assume that average file size is 100KB, this would give us ten petabytes of total storage.
-                            100B * 100KB => 10PB
-5. Let’s also assume that we will have one million active connections per minute.
+1. Assume we have 500 million total users and 100 million daily active users (DAU).
+2. Assume that each user connects from three distinct devices on average.
+3. If each user has 200 files/photos, we will have a total of 100 billion files.
+4. Assuming that the average file size is 100KB, total storage would be ten petabytes.
+
+                        10PB = 100B * 100KB
+5. Assume that there will be one million active connections per minute.
 
 <p align="center"> 
   <kbd>
@@ -54,13 +101,17 @@ The system should support snapshotting of the data, so that users can go back to
   </kbd>
 </p>
 
-## 5. High Level Design
+### High Level Design
 
-The user will specify a folder as the workspace on their device. Any file/photo/folder placed in this folder will be uploaded to the cloud, and whenever a file is modified or deleted, it will be reflected in the same way in the cloud storage. The user can specify similar workspaces on all their devices and any modification done on one device will be propagated to all other devices to have the same view of the workspace everywhere.
+- On their device, the user will designate a folder as their workspace. Any file/photo/folder saved in this folder will be uploaded to the cloud, and any changes or deletions to the file will be reflected in the cloud storage as well. 
+- The user can create similar workspaces on all of their devices, and any changes made on one device will be replicated on all other devices, ensuring that everyone sees the same workplace.
 
-At a high level, we need to store files and their metadata information like File Name, File Size, Directory, etc., and who this file is shared with. So, we need some servers that can help the clients to upload/download files to Cloud Storage and some servers that can facilitate updating metadata about files and users. We also need some mechanism to notify all clients whenever an update happens so they can synchronize their files.
+- We need to store files and metadata information such as File Name, File Size, Directory, and who this file is shared with at a high level. 
+- As a result, we'll need some servers to assist clients in uploading and downloading files to Cloud Storage, as well as servers to update information about files and users. 
+- We also require a technique to alert all clients when an update occurs, allowing them to synchronize their data.
 
-As shown in the diagram below, Block servers will work with the clients to upload/download files from cloud storage and Metadata servers will keep metadata of files updated in a SQL or NoSQL database. Synchronization servers will handle the workflow of notifying all clients about different changes for synchronization.
+- Block servers will interact with clients to upload/download files from cloud storage, and Metadata servers will maintain file metadata updated in a SQL or NoSQL database, as depicted in the figure below. 
+- Synchronization servers will handle the process of notifying all clients about synchronization updates.
 
 <p align="center"> 
   <kbd>
@@ -70,40 +121,53 @@ As shown in the diagram below, Block servers will work with the clients to uploa
 </p>
 
 
-## 6. Component Design
+### Component Design
 
 Let’s go through the major components of our system one by one:
 
-### a. Client 
-The Client Application monitors the workspace folder on the user’s machine and syncs all files/folders in it with the remote Cloud Storage. The client application will work with the storage servers to upload, download, and modify actual files to backend Cloud Storage. The client also interacts with the remote Synchronization Service to handle any file metadata updates, e.g., change in the file name, size, modification date, etc.
+**a. Client**
 
-Here are some of the essential operations for the client:
+- The Client Application keeps track of the user's workspace folder and syncs all files and folders in it with the remote Cloud Storage. 
+- The client application will communicate with the storage servers to upload, download, and edit files in the backend Cloud Storage. 
+- The client also communicates with the distant Synchronization Service to handle any changes in file metadata, such as file name, size, or modification date.
 
-1. Upload and download files.
-2. Detect file changes in the workspace folder.
-3. Handle conflict due to offline or concurrent updates.
+Here are some of the client's critical operations:
 
+1. Download and upload files.
+2. Monitor changes to files in the workspace folder.
+3. Deal with conflicts caused by offline or simultaneous updates.
 
-**How do we handle file transfer efficiently?**
- As mentioned above, we can break each file into smaller chunks so that we transfer only those chunks that are modified and not the whole file. Let’s say we divide each file into fixed sizes of 4MB chunks. We can statically calculate what could be an optimal chunk size based on 1) Storage devices we use in the cloud to optimize space utilization and input/output operations per second (IOPS) 2) Network bandwidth 3) Average file size in the storage etc. In our metadata, we should also keep a record of each file and the chunks that constitute it.
+**How do we efficiently transfer files?**
 
-**Should we keep a copy of metadata with Client?**
- Keeping a local copy of metadata not only enable us to do offline updates but also saves a lot of round trips to update remote metadata.
+- As previously stated, we can partition each file into smaller chunks so that only the updated chunks are transferred rather than the entire file. 
+- Let's imagine each file is divided into four 4MB parts. Based on 1) Storage devices we utilize in the cloud to optimize space utilization and input/output operations per second, we can statically determine what might be an appropriate chunk size (IOPS) 2) Internet bandwidth 3) Average file size in storage, and so forth. 
+- We should additionally keep a record of each file and the portions that make it up in our metadata.
 
-**How can clients efficiently listen to changes happening with other clients?**
- One solution could be that the clients periodically check with the server if there are any changes. The problem with this approach is that we will have a delay in reflecting changes locally as clients will be checking for changes periodically compared to a server notifying whenever there is some change. If the client frequently checks the server for changes, it will not only be wasting bandwidth, as the server has to return an empty response most of the time, but will also be keeping the server busy. Pulling information in this manner is not scalable.
+**Do we need to keep a copy of the metadata with the client?**
 
-A solution to the above problem could be to use HTTP long polling. With long polling the client requests information from the server with the expectation that the server may not respond immediately. If the server has no new data for the client when the poll is received, instead of sending an empty response, the server holds the request open and waits for response information to become available. Once it does have new information, the server immediately sends an HTTP/S response to the client, completing the open HTTP/S Request. Upon receipt of the server response, the client can immediately issue another server request for future updates.
+Keeping a local copy of metadata allows us to make offline updates while also reducing the number of round trips required to update remote metadata.
+
+**How can clients effectively listen to developments among their peers?**
+
+- One approach could be for the clients to check with the server on a regular basis to see if anything has changed. 
+- The downside with this technique is that changes will take longer to reflect locally because clients would check for updates on a regular basis rather than a server reporting anytime something changes. 
+- If the client checks the server frequently for changes, it will not only waste bandwidth by returning an empty response the majority of the time, but it will also keep the server busy. 
+- This method of gathering data is not scalable.
+
+- The above problem could be solved by using HTTP long polling. Long polling is when a client requests information from a server knowing that the server may not respond right away. 
+- Instead of returning an empty response if the server has no fresh data for the client when the poll is received, the server keeps the request open and waits for response information to become available. 
+- The server provides an HTTP/S response to the client as soon as it receives fresh information, completing the open HTTP/S Request. 
+- The client can instantly send another server request for future updates after receiving the server answer.
 
 Based on the above considerations, we can divide our client into following four parts:
 
-**I. Internal Metadata Database** will keep track of all the files, chunks, their versions, and their location in the file system.
+**I. Internal Metadata Database** will keep track of all files, chunks, versions, and file system locations.
 
-**II. Chunker** will split the files into smaller pieces called chunks. It will also be responsible for reconstructing a file from its chunks. Our chunking algorithm will detect the parts of the files that have been modified by the user and only transfer those parts to the Cloud Storage; this will save us bandwidth and synchronization time.
+**II. Chunker** will split the files down into smaller bits. It will also be in charge of reassembling a file from its fragments. Our chunking algorithm will detect portions of files that have been updated by the user and only send those portions to Cloud Storage, saving bandwidth and synchronization time.
 
-**III. Watcher** will monitor the local workspace folders and notify the Indexer (discussed below) of any action performed by the users, e.g. when users create, delete, or update files or folders. Watcher also listens to any changes happening on other clients that are broadcasted by Synchronization service.
+**III. Watcher** will keep an eye on the local workspace folders and alert the Indexer (described below) of any user actions, such as creating, deleting, or updating files or folders. Watcher also listens for any updates on other clients that the Synchronization service broadcasts.
 
-**IV. Indexer** will process the events received from the Watcher and update the internal metadata database with information about the chunks of the modified files. Once the chunks are successfully submitted/downloaded to the Cloud Storage, the Indexer will communicate with the remote Synchronization Service to broadcast changes to other clients and update remote metadata database.
+**IV. Indexer** The Watcher's events will be processed by the Indexer, who will update the internal metadata database with information about the chunks of updated files. The Indexer will communicate with the remote Synchronization Service to advertise changes to other clients and update the remote metadata database after the chunks have been successfully submitted/downloaded to Cloud Storage.
 
 <p align="center"> 
   <kbd>
@@ -113,32 +177,58 @@ Based on the above considerations, we can divide our client into following four 
 </p>
 
 
-**How should clients handle slow servers?** Clients should exponentially back-off if the server is busy/not-responding. Meaning, if a server is too slow to respond, clients should delay their retries and this delay should increase exponentially.
+**How should customers deal with slow servers?** If the server is busy or not responding, clients should back off significantly. Clients should delay their retries if a server is too sluggish to respond, and this delay should grow exponentially.
 
-**Should mobile clients sync remote changes immediately?** Unlike desktop or web clients, mobile clients usually sync on demand to save user’s bandwidth and space.
+**Should mobile clients automatically sync remote changes?** Mobile clients, unlike desktop or web clients, sync on demand to conserve bandwidth and storage space.
 
-### b. Metadata Database #
-The Metadata Database is responsible for maintaining the versioning and metadata information about files/chunks, users, and workspaces. The Metadata Database can be a relational database such as MySQL, or a NoSQL database service such as DynamoDB. Regardless of the type of the database, the Synchronization Service should be able to provide a consistent view of the files using a database, especially if more than one user is working with the same file simultaneously. Since NoSQL data stores do not support ACID properties in favor of scalability and performance, we need to incorporate the support for ACID properties programmatically in the logic of our Synchronization Service in case we opt for this kind of database. However, using a relational database can simplify the implementation of the Synchronization Service as they natively support ACID properties.
+**b. Metadata Database**
+
+- Versioning and metadata information on files/chunks, users, and workspaces are maintained by the Metadata Database. 
+- A relational database, such as MySQL, or a NoSQL database service, such as DynamoDB, can be used as the Metadata Database. 
+- Regardless of the database type, the Synchronization Service should be able to give a consistent view of the files stored in the database, particularly if multiple users are working on the same file at the same time. 
+- Because NoSQL data stores prioritize scalability and performance over ACID properties, we'll need to programmatically include support for ACID properties in the logic of our Synchronization Service if we choose this type of database.
+- However, using a relational database can simplify the implementation of the Synchronization Service as they natively support ACID properties.
 
 The metadata Database should be storing information about following objects:
 
-Chunks
-Files
-User
-Devices
-Workspace (sync folders)
+- Chunks
+- Files
+- User
+- Devices
+- Workspace (sync folders)
 
-### c. Synchronization Service #
-The Synchronization Service is the component that processes file updates made by a client and applies these changes to other subscribed clients. It also synchronizes clients’ local databases with the information stored in the remote Metadata DB. The Synchronization Service is the most important part of the system architecture due to its critical role in managing the metadata and synchronizing users’ files. Desktop clients communicate with the Synchronization Service to either obtain updates from the Cloud Storage or send files and updates to the Cloud Storage and, potentially, other users. If a client was offline for a period, it polls the system for new updates as soon as they come online. When the Synchronization Service receives an update request, it checks with the Metadata Database for consistency and then proceeds with the update. Subsequently, a notification is sent to all subscribed users or devices to report the file update.
+**c. Synchronization Service**
 
-The Synchronization Service should be designed in such a way that it transmits less data between clients and the Cloud Storage to achieve a better response time. To meet this design goal, the Synchronization Service can employ a differencing algorithm to reduce the amount of the data that needs to be synchronized. Instead of transmitting entire files from clients to the server or vice versa, we can just transmit the difference between two versions of a file. Therefore, only the part of the file that has been changed is transmitted. This also decreases bandwidth consumption and cloud data storage for the end user. As described above, we will be dividing our files into 4MB chunks and will be transferring modified chunks only. Server and clients can calculate a hash (e.g., SHA-256) to see whether to update the local copy of a chunk or not. On the server, if we already have a chunk with a similar hash (even from another user), we don’t need to create another copy, we can use the same chunk. This is discussed in detail later under Data Deduplication.
+- The Synchronization Service is the component that processes a client's file updates and distributes them to other subscribers. 
+- It also synchronizes the information held in the distant Metadata DB with the local databases of clients. Because of its crucial function in managing metadata and synchronizing users' files, the Synchronization Service is the most important aspect of the system design. 
+- Desktop clients use the Synchronization Service to get updates from Cloud Storage or transfer files and updates to Cloud Storage and, perhaps, other users. 
+- If a client has been offline for an extended period of time, it will poll the system for new updates as soon as they are available. 
+- When the Synchronization Service receives an update request, it checks with the Metadata Database for consistency and then proceeds with the update. 
+- Subsequently, a notification is sent to all subscribed users or devices to report the file update.
 
-To be able to provide an efficient and scalable synchronization protocol we can consider using a communication middleware between clients and the Synchronization Service. The messaging middleware should provide scalable message queuing and change notifications to support a high number of clients using pull or push strategies. This way, multiple Synchronization Service instances can receive requests from a global request Queue, and the communication middleware will be able to balance its load.
+- To achieve a faster response time, the Synchronization Service should be built to transport less data between clients and the Cloud Storage. 
+- The Synchronization Service can use a differencing method to reduce the quantity of data that needs to be synced to satisfy this design goal. 
+- We can send the difference between two versions of a file instead of sending whole files from clients to the server or vice versa. 
+- As a result, just the altered portion of the file is transferred. For the end user, this reduces bandwidth consumption and cloud data storage. 
+- As previously said, we will divide our files into 4MB chunks and only transfer the updated parts.
+- To determine whether or not to update the local copy of a chunk, the server and clients can compute a hash (e.g., SHA-256). 
+- We don't need to build a new chunk on the server if we already have one with a comparable hash (even from another user). This is covered in further depth under Data Deduplication.
 
-### d. Message Queuing Service #
-An important part of our architecture is a messaging middleware that should be able to handle a substantial number of requests. A scalable Message Queuing Service that supports asynchronous message-based communication between clients and the Synchronization Service best fits the requirements of our application. The Message Queuing Service supports asynchronous and loosely coupled message-based communication between distributed components of the system. The Message Queuing Service should be able to efficiently store any number of messages in a highly available, reliable and scalable queue.
+- We can use a communication middleware between clients and the Synchronization Service to create an efficient and scalable synchronization mechanism. 
+- To support a large number of clients utilizing pull or push techniques, the messaging middleware should provide scalable message queuing and change notifications. 
+- Multiple Synchronization Service instances can accept requests from a global request Queue in this manner, allowing the communication middleware to balance its load.
 
-The Message Queuing Service will implement two types of queues in our system. The Request Queue is a global queue and all clients will share it. Clients’ requests to update the Metadata Database will be sent to the Request Queue first, from there the Synchronization Service will take it to update metadata. The Response Queues that correspond to individual subscribed clients are responsible for delivering the update messages to each client. Since a message will be deleted from the queue once received by a client, we need to create separate Response Queues for each subscribed client to share update messages.
+**d. Message Queuing Service**
+
+- A messaging middleware, which should be able to manage a large number of requests, is an important aspect of our system. 
+- Our application requires a scalable Message Queuing Service that provides asynchronous message-based communication between clients and the Synchronization Service. 
+- Asynchronous and loosely coupled message-based communication between dispersed system components is supported by the Message Queuing Service. 
+- The Message Queuing Service should be able to hold any number of messages in a highly available, scalable queue.
+
+- In our system, the Message Queuing Service will implement two types of queues. The Request Queue is a global queue that is shared by all clients. 
+- Client requests to update the Metadata Database will first be sent to the Request Queue, where they will be processed by the Synchronization Service. 
+- The update messages are delivered to each client by the Response Queues that correspond to individual subscribed clients. 
+- We need to construct distinct Response Queues for each subscribed client to exchange update messages because a message will be erased from the queue after it is received by a client.
 
 <p align="center"> 
   <kbd>
@@ -148,9 +238,9 @@ The Message Queuing Service will implement two types of queues in our system. Th
 </p>
 
 
-### e. Cloud/Block Storage #
-Cloud/Block Storage stores chunks of files uploaded by the users. Clients directly interact with the storage to send and receive objects from it. Separation of the metadata from storage enables us to use any storage either in the cloud or in-house.
+**e. Cloud/Block Storage**
 
+Cloud/Block Storage saves portions of files that users upload. To send and receive things from the storage, clients interact directly with it. We may use any storage, whether in the cloud or on-premises, because the metadata is separated from the storage.
 
 <p align="center"> 
   <kbd>
@@ -159,60 +249,91 @@ Cloud/Block Storage stores chunks of files uploaded by the users. Clients direct
   </kbd>
 </p>
 
-## 7. File Processing Workflow
-#
-The sequence below shows the interaction between the components of the application in a scenario when Client A updates a file that is shared with Client B and C, so they should receive the update too. If the other clients are not online at the time of the update, the Message Queuing Service keeps the update notifications in separate response queues for them until they come online later.
+### File Processing Workflow
 
-1. Client A uploads chunks to cloud storage.
-2. Client A updates metadata and commits changes.
-3. Client A gets confirmation and notifications are sent to Clients B and C about the changes.
-4. Client B and C receive metadata changes and download updated chunks.
+The following sequence depicts the interaction of the application's components in a case where Client A modifies a file that is shared with Clients B and C, and they should also receive the update. If the other clients aren't online at the time of the update, the Message Queuing Service retains their update alerts in separate response queues until they do.
 
+1. Client A saves chunks to the cloud.
+2. Client A commits modifications and updates metadata.
+3. Client A receives confirmation, and Clients B and C are notified of the modifications.
+4. Clients B and C are notified of metadata changes and are prompted to download updated chunks.
 
-## 8. Data Deduplication
+### Data Deduplication
 
-Data deduplication is a technique used for eliminating duplicate copies of data to improve storage utilization. It can also be applied to network data transfers to reduce the number of bytes that must be sent. For each new incoming chunk, we can calculate a hash of it and compare that hash with all the hashes of the existing chunks to see if we already have the same chunk present in our storage.
+Data deduplication is a storage optimization technique that eliminates redundant copies of data. It can also be used to minimize the number of bytes that must be delivered over a network. We can create a hash for each new arriving chunk and compare it to all the hashes of previous chunks to check if we already have the same chunk in our storage.
 
-We can implement deduplication in two ways in our system:
+In our system, we have two options for deduplication:
 
 **a. Post-process deduplication**
-With post-process deduplication, new chunks are first stored on the storage device and later some process analyzes the data looking for duplication. The benefit is that clients will not need to wait for the hash calculation or lookup to complete before storing the data, thereby ensuring that there is no degradation in storage performance. Drawbacks of this approach are 1) We will unnecessarily be storing duplicate data, though for a short time, 2) Duplicate data will be transferred consuming bandwidth.
+
+- New chunks are initially put on the storage device with post-process deduplication, and then a mechanism checks the data for duplication. 
+- The advantage is that clients will not have to wait for the hash computation or lookup to finish before storing the data, guaranteeing that storage performance is not harmed. 
+- The disadvantages of this technique are that 
+
+1) duplicate data will be stored unnecessarily, although for a short period, and 
+2) duplicate data will be transported, using bandwidth.
 
 **b. In-line deduplication**
-Alternatively, deduplication hash calculations can be done in real-time as the clients are entering data on their device. If our system identifies a chunk that it has already stored, only a reference to the existing chunk will be added in the metadata, rather than a full copy of the chunk. This approach will give us optimal network and storage usage
 
-## 9. Metadata Partitioning
-#
-To scale out metadata DB, we need to partition it so that it can store information about millions of users and billions of files/chunks. We need to come up with a partitioning scheme that would divide and store our data in different DB servers.
+Deduplication hash calculations can also be performed in real time when customers submit data on their devices. If our system recognizes a chunk that it already possesses, the metadata will just provide a reference to the existing chunk rather than a full duplicate of the chunk. This strategy will allow us to make the most of our network and storage resources.
 
-**1. Vertical Partitioning:** We can partition our database in such a way that we store tables related to one particular feature on one server. For example, we can store all the user related tables in one database and all files/chunks related tables in another database. Although this approach is straightforward to implement it has some issues:
+### Metadata Partitioning
 
-Will we still have scale issues? What if we have trillions of chunks to be stored and our database cannot support storing such a huge number of records? How would we further partition such tables?
-Joining two tables in two separate databases can cause performance and consistency issues. How frequently do we have to join user and file tables?
+To scale the metadata database, we must split it so that it can contain data for millions of users and billions of files/chunks. We need to devise a partitioning strategy that will divide and store our data across multiple database servers.
 
-**2. Range Based Partitioning:** What if we store files/chunks in separate partitions based on the first letter of the File Path? In that case, we save all the files starting with the letter ‘A’ in one partition and those that start with the letter ‘B’ into another partition and so on. This approach is called range based partitioning. We can even combine certain less frequently occurring letters into one database partition. We should come up with this partitioning scheme statically so that we can always store/find a file in a predictable manner.
+**1. Vertical Partitioning:** 
 
-The main problem with this approach is that it can lead to unbalanced servers. For example, if we decide to put all files starting with the letter ‘E’ into a DB partition, and later we realize that we have too many files that start with the letter ‘E’, to such an extent that we cannot fit them into one DB partition.
+- We can divide our database so that tables pertaining to a single feature are stored on a single server. For example, all user-related tables can be stored in one database, while all files/chunks-related tables can be stored in another. 
+- Although this method is simple to apply, it has certain drawbacks:
+   - Will there be scaling issues? 
+   - What if we need to store trillions of chunks and our database isn't designed to handle such a large amount of records? 
+   - How would we segment such tables further?
+   - When two tables from two different databases are joined, performance and consistency difficulties can arise. How often must we link the user and file tables?
 
-**3. Hash-Based Partitioning:** In this scheme we take a hash of the object we are storing and based on this hash we figure out the DB partition to which this object should go. In our case, we can take the hash of the ‘FileID’ of the File object we are storing to determine the partition the file will be stored. Our hashing function will randomly distribute objects into different partitions, e.g., our hashing function can always map any ID to a number between [1…256], and this number would be the partition we will store our object.
 
-This approach can still lead to overloaded partitions, which can be solved by using Consistent Hashing.
+**2. Range Based Partitioning:** 
 
-## 10. Caching
-#
-We can have two kinds of caches in our system. To deal with hot files/chunks we can introduce a cache for Block storage. We can use an off-the-shelf solution like Memcached that can store whole chunks with its respective IDs/Hashes and Block servers before hitting Block storage can quickly check if the cache has desired chunk. Based on clients’ usage pattern we can determine how many cache servers we need. A high-end commercial server can have 144GB of memory; one such server can cache 36K chunks.
+- What if we partition files and chunks according to the first letter of the File Path? 
+- In that situation, we save all files beginning with the letter 'A' in one partition, files beginning with the letter 'B' in another, and so on. Range-based partitioning is the name for this method. 
+- Even less commonly occurring letters can be combined into a single database split. 
+- This partitioning scheme should be created statically so that we can always store/find a file in a predictable manner.
+- The biggest disadvantage of this method is that it can result in unbalanced servers. 
+- For example, suppose we decide to place all files beginning with the letter 'E' into a DB partition, only to discover later that we have far too many files beginning with the letter 'E' to fit into one DB partition.
 
-**Which cache replacement policy would best fit our needs?** When the cache is full, and we want to replace a chunk with a newer/hotter chunk, how would we choose? Least Recently Used (LRU) can be a reasonable policy for our system. Under this policy, we discard the least recently used chunk first. Load Similarly, we can have a cache for Metadata DB.
+**3. Hash-Based Partitioning:** 
 
-## 11. Load Balancer (LB)
-#
-We can add the Load balancing layer at two places in our system: 
+- In this scheme, we create a hash of the item we're storing and use that hash to determine which DB partition this object belongs in. 
+- In our example, we can use the hash of the File object's 'FileID' to figure out which partition the file would be placed on. Our hashing function will distribute objects into different partitions at random, for example, any ID can be mapped to a number between [1...256], and this number will be the division in which we will put our object.
+
+This approach can still result in overcrowded partitions, which can be avoided by employing Consistent Hashing.
+
+### Caching
+
+- In our system, we can have two types of caches. We can use a cache for Block storage to deal with hot files/chunks. 
+- We can use an off-the-shelf solution like Memcached to store complete chunks with their corresponding IDs/Hashes, and Block servers can rapidly verify if the cache has the necessary chunk before contacting Block storage. 
+- We can figure out how many cache servers we need based on client usage patterns. A high-end commercial server can have up to 144GB of memory, with 36K chunks cached.
+
+**Which cache replacement policy would be most appropriate for our requirements?** 
+
+- What would we do if the cache was full and we needed to replace a chunk with a newer/hotter chunk? 
+- For our system, LRU (Least Recently Used) can be a suitable policy. 
+- We discard the chunk that has been used the least recently first. 
+- Load We can also have a cache for Metadata DB.
+
+### Load Balancer (LB)
+
+The load balancing layer can be added to our system in two places: 
 
 - 1) Between Clients and Block servers and 
 - 2) Between Clients and Metadata servers. 
 
-Initially, a simple Round Robin approach can be adopted that distributes incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is if a server is dead, LB will take it out of the rotation and will stop sending any traffic to it. A problem with Round Robin LB is, it won’t take server load into consideration. If a server is overloaded or slow, the LB will not stop sending new requests to that server. To handle this, a more intelligent LB solution can be placed that periodically queries backend server about their load and adjusts traffic based on that.
+- At first, a basic Round Robin technique that evenly distributes incoming requests among backend servers can be used. 
+- This LB is simple to set up and has no additional overhead. Another advantage of this method is that if a server goes down, LB will remove it from the rotation and stop transmitting traffic to it. 
+- Round Robin LB has the drawback of not taking server load into account. 
+- The LB will not cease delivering new requests to a server that is overloaded or slow. 
+- To address this, a more intelligent LB solution can be implemented, which queries the backend server about their load on a regular basis and adjusts traffic accordingly.
 
-## 12. Security, Permissions and File Sharing
-#
-One of the primary concerns users will have while storing their files in the cloud is the privacy and security of their data, especially since in our system users can share their files with other users or even make them public to share it with everyone. To handle this, we will be storing the permissions of each file in our metadata DB to reflect what files are visible or modifiable by any user
+### Security, Permissions and File Sharing
+
+- One of the main worries customers would have when saving their files in the cloud is data privacy and security, especially since our system allows users to share their files with other users or even make them public for everyone to see. 
+- To deal with this, we'll store each file's rights in our metadata database to indicate which files are visible or changeable by any user.

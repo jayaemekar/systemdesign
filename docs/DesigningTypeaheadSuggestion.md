@@ -1,25 +1,71 @@
 # Designing Typeahead Suggestion
-Let's design a real-time suggestion service, which will recommend terms to users as they enter text for searching.
+## Problem Statement
+Let's create a real-time suggestion service that suggests terms to consumers as they type text into a search box.
 
-Similar Services: Auto-suggestions, Typeahead search
-Difficulty: Medium
+- Similar Services: Auto-suggestions, Typeahead search
+- Difficulty: Medium
 
-## 1. What is Typeahead Suggestion?
-Typeahead suggestions enable users to search for known and frequently searched terms. As the user types into the search box, it tries to predict the query based on the characters the user has entered and gives a list of suggestions to complete the query. Typeahead suggestions help the user to articulate their search queries better. It’s not about speeding up the search process but rather about guiding the users and lending them a helping hand in constructing their search query.
+### What is Typeahead Suggestion?
+- Users can use typeahead suggestions to find well-known and commonly searched terms. 
+- As the user puts into the search box, it attempts to guess the query based on the characters entered and provides a list of possible answers. 
+- Typeahead suggestions assist users in better articulating their search queries. 
+- It's not about speeding up the search process; instead, it's about guiding people and assisting them in formulating their search query.
+## Pratice Problem
 
-## 2. Requirements and Goals of the System
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
 **Functional Requirements:**
- As the user types in their query, our service should suggest top 10 terms starting with whatever the user has typed.
+Our service should provide the top 10 terms starting with whatever the user has written as they type their query.
 
 **Non-function Requirements:**
- The suggestions should appear in real-time. The user should be able to see the suggestions within 200ms.
+Suggestions should be displayed in real time. Within 200 milliseconds, the user should be able to see the suggestions.
 
-## 3. Basic System Design and Algorithm
-The problem we are solving is that we have a lot of ‘strings’ that we need to store in such a way that users can search with any prefix. Our service will suggest next terms that will match the given prefix. For example, if our database contains the following terms: cap, cat, captain, or capital and the user has typed in ‘cap’, our system should suggest ‘cap’, ‘captain’ and ‘capital’.
-
-Since we’ve got to serve a lot of queries with minimum latency, we need to come up with a scheme that can efficiently store our data such that it can be queried quickly. We can’t depend upon some database for this; we need to store our index in memory in a highly efficient data structure.
-
-One of the most appropriate data structures that can serve our purpose is the Trie (pronounced “try”). A trie is a tree-like data structure used to store phrases where each node stores a character of the phrase in a sequential manner. For example, if we need to store ‘cap, cat, caption, captain, capital’ in the trie, it would look like:
+### Basic System Design and Algorithm
+- The issue we're addressing is that we have a large number of'strings' that we need to store in a form that allows customers to search using any prefix. 
+- Next terms that match the supplied prefix will be suggested by our service. 
+- For example, if the user types in 'cap' and our database has the terms cap, cat, captain, or capital, our system should propose 'cap, captain, and capital.'
+- We need a scheme that can efficiently store our data so that it can be queried rapidly because we need to serve a lot of queries with minimal latency. 
+- We can't rely on a database for this; we'll have to store our index in memory using a fast data structure.
+- The Trie (pronounced "try") is one of the most suited data structures for our needs. 
+- A trie is a tree-like data structure for storing phrases, with each node storing a character in the phrase in order. If we need to store 'cap, cat, caption, captain, capital' in the trie, for example, it would look like this:
 
 <p align="center"> 
   <kbd>
@@ -28,9 +74,9 @@ One of the most appropriate data structures that can serve our purpose is the Tr
   </kbd>
 </p>
 
-Now if the user has typed ‘cap’, our service can traverse the trie to go to the node ‘P’ to find all the terms that start with this prefix (e.g., cap-tion, cap-ital etc).
+Our service can now traverse the trie to the node 'P' to locate all the phrases that begin with this prefix if the user types 'cap' (e.g., cap-tion, cap-ital etc).
 
-We can merge nodes that have only one branch to save storage space. The above trie can be stored like this:
+To conserve storage capacity, we can merge nodes with only one branch. This is how the above trie can be saved:
 
 <p align="center"> 
   <kbd>
@@ -39,45 +85,72 @@ We can merge nodes that have only one branch to save storage space. The above tr
   </kbd>
 </p>
 
-Should we have case insensitive trie? For simplicity and search use-case, let’s assume our data is case insensitive.
+Should case-insensitive trie be used? Let's pretend our data is case-insensitive for the sake of simplicity and searchability.
 
-**How to find top suggestion?**
- Now that we can find all the terms for a given prefix, how can we find the top 10 terms for the given prefix? One simple solution could be to store the count of searches that terminated at each node, e.g., if users have searched about ‘CAPTAIN’ 100 times and ‘CAPTION’ 500 times, we can store this number with the last character of the phrase. Now if the user types ‘CAP’ we know the top most searched word under the prefix ‘CAP’ is ‘CAPTION’. So, to find the top suggestions for a given prefix, we can traverse the sub-tree under it.
+**How do I discover the best recommendation?**
 
-Given a prefix, how much time will it take to traverse its sub-tree? Given the amount of data we need to index, we should expect a huge tree. Even traversing a sub-tree would take really long, e.g., the phrase ‘system design interview questions’ is 30 levels deep. Since we have very strict latency requirements we do need to improve the efficiency of our solution.
+- How can we determine the top 10 terms for a particular prefix now that we've found all of the terms for that prefix? 
+- One simple option is to keep track of the number of searches that ended at each node; for example, if users searched for 'CAPTAIN' 100 times and 'CAPTION' 500 times, we can keep track of this number by the phrase's last character. 
+- We now know that the top most searched word under the prefix 'CAP' is 'CAPTION' if the user inputs 'CAP'. We may then explore the sub-tree beneath it to find the top choices for a given prefix.
+- How long will it take to traverse the sub-tree of a given prefix? We should expect a massive tree given the amount of data we need to index. 
+- Even traversing a sub-tree might take a long time; for example, the term "system design interview questions" has 30 levels. 
+- We need to improve the efficiency of our solution because we have very severe latency constraints.
 
-**Can we store top suggestions with each node?**
- This can surely speed up our searches but will require a lot of extra storage. We can store top 10 suggestions at each node that we can return to the user. We have to bear the big increase in our storage capacity to achieve the required efficiency.
+**Can each node store the top suggestions?**
 
-We can optimize our storage by storing only references of the terminal nodes rather than storing the entire phrase. To find the suggested terms we need to traverse back using the parent reference from the terminal node. We will also need to store the frequency with each reference to keep track of top suggestions.
+- This will undoubtedly speed up our searches, but it will necessitate a significant amount of more storage. At each node, we can save the top 10 suggestions and return them to the user. 
+- To reach the desired efficiency, we must bear a significant increase in our storage capacity.
+- Instead of saving the complete phrase, we can save space by storing only references to the terminal nodes. We must go back using the parent reference from the terminal node to find the proposed phrases. 
+- To keep track of top ideas, we'll need to save the frequency with each reference.
 
-**How would we build this trie?**
- We can efficiently build our trie bottom up. Each parent node will recursively call all the child nodes to calculate their top suggestions and their counts. Parent nodes will combine top suggestions from all of their children to determine their top suggestions.
+**How would we construct this trie?**
 
-**How to update the trie?**
- Assuming five billion searches every day, which would give us approximately 60K queries per second. If we try to update our trie for every query it’ll be extremely resource intensive and this can hamper our read requests, too. One solution to handle this could be to update our trie offline after a certain interval.
+- We can efficiently construct our trie from the bottom up. 
+- To compute their top suggestions and counts, each parent node will recursively call all of the child nodes. To select their top choices, parent nodes will combine the top proposals from all of their children.
 
-As the new queries come in we can log them and also track their frequencies. Either we can log every query or do sampling and log every 1000th query. For example, if we don’t want to show a term which is searched for less than 1000 times, it’s safe to log every 1000th searched term.
+**How should the trie be updated?**
 
-We can have a Map-Reduce (MR) set-up to process all the logging data periodically say every hour. These MR jobs will calculate frequencies of all searched terms in the past hour. We can then update our trie with this new data. We can take the current snapshot of the trie and update it with all the new terms and their frequencies. We should do this offline as we don’t want our read queries to be blocked by update trie requests. We can have two options:
+- Assuming five billion searches each day, this equates to about 60K queries per second. 
+- If we try to update our trie after every query, it will consume a lot of resources and may slow down our read requests. One way to deal with this might be to update our trie offline after a set period of time.
+- We can log new requests as they come in and track their frequency. 
+- We can either log every query or sample and log the 1000th query. 
+- It's okay to log every 1000th searched term if we don't want to show a term that has been searched less than 1000 times.
+- We can put up a Map-Reduce (MR) system to handle all of the logging data on a regular basis, say once an hour. 
+- These MR tasks will calculate the frequency of all terms searched in the previous hour. We may then add this additional information to our trie. 
+- We can update the trie's current snapshot with all of the new terms and their frequency. We should perform this offline because we don't want update trie requests to obstruct our read queries. 
 
-We can make a copy of the trie on each server to update it offline. Once done we can switch to start using it and discard the old one.
-Another option is we can have a master-slave configuration for each trie server. We can update slave while the master is serving traffic. Once the update is complete, we can make the slave our new master. We can later update our old master, which can then start serving traffic, too.
+- There are two possibilities:
 
-**How can we update the frequencies of typeahead suggestions?**
- Since we are storing frequencies of our typeahead suggestions with each node, we need to update them too! We can update only differences in frequencies rather than recounting all search terms from scratch. If we’re keeping count of all the terms searched in last 10 days, we’ll need to subtract the counts from the time period no longer included and add the counts for the new time period being included. We can add and subtract frequencies based on Exponential Moving Average (EMA) of each term. In EMA, we give more weight to the latest data. It’s also known as the exponentially weighted moving average.
+- To update the trie offline, we can make a copy of it on each server. After that, we can start using it and throw away the old one.
+- Another alternative is to set up each trie server as a master-slave arrangement. While the master is serving traffic, we can update the slave. 
+- We can make the slave our new master after the update is complete. We can then upgrade our old master, which will then be able to serve traffic as well.
 
-After inserting a new term in the trie, we’ll go to the terminal node of the phrase and increase its frequency. Since we’re storing the top 10 queries in each node, it is possible that this particular search term jumped into the top 10 queries of a few other nodes. So, we need to update the top 10 queries of those nodes then. We have to traverse back from the node to all the way up to the root. For every parent, we check if the current query is part of the top 10. If so, we update the corresponding frequency. If not, we check if the current query’s frequency is high enough to be a part of the top 10. If so, we insert this new term and remove the term with the lowest frequency.
+**How can the frequency of typeahead suggestions be updated?**
 
-**How can we remove a term from the trie?**
- Let’s say we have to remove a term from the trie because of some legal issue or hate or piracy etc. We can completely remove such terms from the trie when the regular update happens, meanwhile, we can add a filtering layer on each server which will remove any such term before sending them to users.
+- Because the frequencies of our typeahead suggestions are stored with each node, we must also update them! Rather than recreating all search phrases from beginning, we can merely update changes in frequency. 
+- If we want to maintain track of all the phrases searched in the last 10 days, we'll have to deduct the counts from the time period that is no longer included and add the counts for the new time period. Based on the Exponential Moving Average (EMA) of each term, we can add and subtract frequencies. 
+- The most recent data is given more weight in EMA. The exponentially weighted moving average is another name for it.
+- We'll proceed to the phrase's terminal node and boost its frequency after we've added a new term to the trie.
+- Because each node saves the top 10 searches, it's likely that this search term leaped into the top 10 queries of a few additional nodes. 
+- The top 10 queries of those nodes must then be updated. 
+- We must return from the node all the way to the root. We check if the current query is in the top 10 for each parent.
+- If so, we update the corresponding frequency. 
+- If not, we check if the current query’s frequency is high enough to be a part of the top 10. 
+- If so, we insert this new term and remove the term with the lowest frequency.
 
-**What could be different ranking criteria for suggestions?**
- In addition to a simple count, for terms ranking, we have to consider other factors too, e.g., freshness, user location, language, demographics, personal history etc.
+**How can we get a term out of the trie?**
 
-## 4. Permanent Storage of the Trie
-**How to store trie in a file so that we can rebuild our trie easily - this will be needed when a machine restarts?**
- We can take a snapshot of our trie periodically and store it in a file. This will enable us to rebuild a trie if the server goes down. To store, we can start with the root node and save the trie level-by-level. With each node, we can store what character it contains and how many children it has. Right after each node, we should put all of its children. Let’s assume we have the following trie:
+Let's imagine we need to eliminate a term from the trial due to a legal concern, hatred, or piracy, for example. When the normal update occurs, we can totally delete such phrases from the trie; in the meantime, we can add a filtering layer to each server that will remove any such terms before transmitting them to users.
+
+**What different ranking criteria may there be for suggestions?**
+
+In addition to a simple count, other criteria such as freshness, user location, language, demographics, personal history, and so on must be considered when ranking phrases.
+
+### Permanent Storage of the Trie
+
+**How can we keep trie in a file so that we can easily reconstruct our trie when the system restarts?**
+
+Periodically, we can take a snapshot of our trie and save it to a file. If the server goes down, we'll be able to reconstruct the trie. Starting with the root node, we can save the trie level by level. We can keep track of the characters each node includes and how many children it has. We should put all of the children of each node right after it. Let's pretend we've got the following trie:
 
 <p align="center"> 
   <kbd>
@@ -86,69 +159,77 @@ After inserting a new term in the trie, we’ll go to the terminal node of the p
   </kbd>
 </p>
 
-If we store this trie in a file with the above-mentioned scheme, we will have: “C2,A2,R1,T,P,O1,D”. From this, we can easily rebuild our trie.
+This trie will be stored in a file using the above-mentioned scheme: "C2,A2,R1,T,P,O1,D." We can easily reconstruct our trie with this information.
 
-If you’ve noticed, we are not storing top suggestions and their counts with each node. It is hard to store this information; as our trie is being stored top down, we don’t have child nodes created before the parent, so there is no easy way to store their references. For this, we have to recalculate all the top terms with counts. This can be done while we are building the trie. Each node will calculate its top suggestions and pass it to its parent. Each parent node will merge results from all of its children to figure out its top suggestions.
+We don't store top ideas and their counts with each node, as you may have seen. It's difficult to preserve this information since, because our trie is organized top down, we don't have any child nodes generated before the parent, therefore there's no convenient method to keep track of their references. This requires recalculating all of the top terms with counts. This can be done as the trie is being constructed. Each node will calculate and provide its top recommendations to its parent. To determine its top suggestions, each parent node will combine the findings of all of its offspring.
 
-## 5. Scale Estimation
-If we are building a service that has the same scale as that of Google we can expect 5 billion searches every day, which would give us approximately 60K queries per second.
+### Scale Estimation
+If we establish a service on the same scale as Google, we can expect 5 billion searches each day, or about 60K requests per second.
 
-Since there will be a lot of duplicates in 5 billion queries, we can assume that only 20% of these will be unique. If we only want to index the top 50% of the search terms, we can get rid of a lot of less frequently searched queries. Let’s assume we will have 100 million unique terms for which we want to build an index.
+We can predict that just 20% of the 5 billion inquiries will be unique due to the large number of duplicates. We can exclude a lot of less often searched queries if we only want to index the top 50% of search phrases. Assume there are 100 million distinct phrases for which we wish to create an index.
 
 **Storage Estimation:**
- If on the average each query consists of 3 words and if the average length of a word is 5 characters, this will give us 15 characters of average query size. Assuming we need 2 bytes to store a character, we will need 30 bytes to store an average query. So total storage we will need:
+If each query has an average length of 3 words and a word has an average length of 5 characters, the average query size will be 15 characters. If a character takes two bytes to store, an average query will take 30 bytes to store. So, in total, we'll require:
 
                     100 million * 30 bytes => 3 GB
-We can expect some growth in this data every day, but we should also be removing some terms that are not searched anymore. If we assume we have 2% new queries every day and if we are maintaining our index for the last one year, total storage we should expect:
+Every day, we can expect some growth in this data, but we should also remove some terms that are no longer searched. If we assume that we receive 2% new requests per day and that we keep our index for the last year, total storage should be:
 
                     3GB + (0.02 * 3 GB * 365 days) => 25 GB
-## 6. Data Partition
-Although our index can easily fit on one server, we can still partition it in order to meet our requirements of higher efficiency and lower latencies. How can we efficiently partition our data to distribute it onto multiple servers?
+### Data Partition
+Even though our index can easily fit on a single server, we can still split it to fulfill our efficiency and latency requirements. How can we split our data efficiently so that it may be distributed across numerous servers?
 
 **a. Range Based Partitioning:**
- What if we store our phrases in separate partitions based on their first letter. So we save all the terms starting with the letter ‘A’ in one partition and those that start with the letter ‘B’ into another partition and so on. We can even combine certain less frequently occurring letters into one partition. We should come up with this partitioning scheme statically so that we can always store and search terms in a predictable manner.
 
-The main problem with this approach is that it can lead to unbalanced servers, for instance, if we decide to put all terms starting with the letter ‘E’ into one partition, but later we realize that we have too many terms that start with letter ‘E’ that we can’t fit into one partition.
-
-We can see that the above problem will happen with every statically defined scheme. It is not possible to calculate if each of our partitions will fit on one server statically.
+- What if we divided our phrases into groups based on their first letter? As a result, we save all phrases beginning with the letter 'A' in one partition, those beginning with the letter 'B' in another, and so on. 
+- We can even merge a few letters that aren't used very often into one division. This partitioning scheme should be created statically so that we can always store and search phrases in a predictable manner.
+- The biggest issue with this strategy is that it can result in unbalanced servers, such as if we decide to place all terms beginning with the letter 'E' into one partition, only to discover later that we have too many terms beginning with the letter 'E' to fit into one partition.
+- We can see that the problem described above will occur with any statically stated scheme. It is impossible to determine whether each of our partitions will fit on a single server in a static manner.
 
 **b. Partition based on the maximum capacity of the server:**
- Let’s say we partition our trie based on the maximum memory capacity of the servers. We can keep storing data on a server as long as it has memory available. Whenever a sub-tree cannot fit into a server, we break our partition there to assign that range to this server and move on the next server to repeat this process. Let’s say if our first trie server can store all terms from ‘A’ to ‘AABC’, which mean our next server will store from ‘AABD’ onwards. If our second server could store up to ‘BXA’, the next server will start from ‘BXB’, and so on. We can keep a hash table to quickly access this partitioning scheme:
+
+Let's imagine we divide our trie according to the servers' maximum memory capacity. We can continue to store data on a server as long as it has memory. We break our partition there to allocate that range to this server and go on to the next server to continue this process whenever a sub-tree cannot fit into a server. 
+
+Assume that our first trie server can store all terms from 'A' to 'AABC,' implying that our next server will store phrases from 'AABD' onwards. If our second server has enough space to store 'BXA,' the third server will begin with 'BXB,' and so on. To conveniently retrieve this partitioning strategy, we can keep a hash table:
 
 - Server 1, A-AABC
 - Server 2, AABD-BXA
 - Server 3, BXB-CDA
 
-For querying, if the user has typed ‘A’ we have to query both server 1 and 2 to find the top suggestions. When the user has typed ‘AA’, we still have to query server 1 and 2, but when the user has typed ‘AAA’ we only need to query server 1.
+If the user types 'A,' we must query both server 1 and server 2 to discover the top choices. We still have to query servers 1 and 2 when the user types 'AA,' but when the user types 'AAA,' we only have to query server 1.
 
-We can have a load balancer in front of our trie servers which can store this mapping and redirect traffic. Also, if we are querying from multiple servers, either we need to merge the results on the server side to calculate the overall top results or make our clients do that. If we prefer to do this on the server side, we need to introduce another layer of servers between load balancers and trie severs (let’s call them aggregator). These servers will aggregate results from multiple trie servers and return the top results to the client.
+In front of our trie servers, we can put a load balancer that can store this mapping and divert traffic. Also, if we're querying many servers, we'll either have to merge the results on the server side to get the overall top results, or we'll have to rely on our clients to do it. 
 
-Partitioning based on the maximum capacity can still lead us to hotspots, e.g., if there are a lot of queries for terms starting with ‘cap’, the server holding it will have a high load compared to others.
+If we wish to achieve this on the server side, we'll need to add another layer of servers (let's call them aggregators) between load balancers and trie servers. The top results from several trie servers will be returned to the client by these servers.
+
+Partitioning based on maximum capacity might still lead to hotspots; for example, if there are a lot of queries for terms that start with 'cap,' the server that holds it will be under a lot of strain relative to others.
 
 **c. Partition based on the hash of the term:**
- Each term will be passed to a hash function, which will generate a server number and we will store the term on that server. This will make our term distribution random and hence minimize hotspots. The disadvantage of this scheme is, to find typeahead suggestions for a term we have to ask all the servers and then aggregate the results.
 
-## 7. Cache
-We should realize that caching the top searched terms will be extremely helpful in our service. There will be a small percentage of queries that will be responsible for most of the traffic. We can have separate cache servers in front of the trie servers holding most frequently searched terms and their typeahead suggestions. Application servers should check these cache servers before hitting the trie servers to see if they have the desired searched terms. This will save us time to traverse the tri.
+Each phrase will be passed via a hash function, which will generate a server number, which will be used to store the word. As a result, our word distribution will be random, reducing hotspots. The downside of this technique is that we have to ask all of the servers for typeahead suggestions for a term and then aggregate the responses.
 
-We can also build a simple Machine Learning (ML) model that can try to predict the engagement on each suggestion based on simple counting, personalization, or trending data, and cache these terms beforehand.
+### Cache
+- We must understand that caching the most often searched terms will be incredibly beneficial to our business. A small fraction of inquiries will be responsible for the majority of the traffic. 
+- Separate cache servers can be placed in front of the trie servers to store the most commonly searched phrases and typeahead suggestions. Before hitting the trie servers, application servers should check these cache servers to see if they have the desired searched terms. 
+- This will allow us to travel the tri faster.
 
-## 8. Replication and Load Balancer
-We should have replicas for our trie servers both for load balancing and also for fault tolerance. We also need a load balancer that keeps track of our data partitioning scheme and redirects traffic based on the prefixes.
+We can also create a simple Machine Learning (ML) model that uses simple counting, personalisation, or trending data to forecast interaction on each proposal and cache these terms in advance.
 
-## 9. Fault Tolerance
-What will happen when a trie server goes down? As discussed above we can have a master-slave configuration; if the master dies, the slave can take over after failover. Any server that comes back up, can rebuild the trie based on the last snapshot.
+### Load Balancer and Replication
+Our trie servers should have replicas for load balancing as well as fault tolerance. A load balancer that maintains track of our data partitioning method and redirects traffic depending on prefixes is also required.
 
-## 10. Typeahead Client
-We can perform the following optimizations on the client side to improve user’s experience:
+### Fault Tolerance
+What happens if one of the trie servers goes down? We can have a master-slave arrangement, as mentioned previously; if the master dies, the slave can take over after failover. Any server that restarts can recreate the trie using the most recent snapshot.
 
-1. The client should only try hitting the server if the user has not pressed any key for 50ms.
-2. If the user is constantly typing, the client can cancel the in-progress requests.
-3. Initially, the client can wait until the user enters a couple of characters.
-4. Clients can pre-fetch some data from the server to save future requests.
-5. Clients can store the recent history of suggestions locally. Recent history has a very high rate of being reused.
-6. Establishing an early connection with the server turns out to be one of the most important factors. As soon as the user opens the search engine website, the client can open a connection with the server. So when a user types in the first character, the client doesn’t waste time in establishing the connection.
-7. The server can push some part of their cache to CDNs and Internet Service Providers (ISPs) for efficiency.
+### Typeahead Client
+On the client side, we can make the following changes to improve the user experience:
 
-## 11. Personalization
-Users will receive some typeahead suggestions based on their historical searches, location, language, etc. We can store the personal history of each user separately on the server and also cache them on the client. The server can add these personalized terms in the final set before sending it to the user. Personalized searches should always come before others.
+1. The client should only attempt to contact the server if the user has been idle for 50 milliseconds.
+2. The client can cancel in-progress requests if the user is constantly typing.
+3. The client can initially wait till the user types a few characters.
+4. Clients can save time by pre-fetching some data from the server.
+5. Clients can keep track of recent suggestions locally. The rate of reuse in recent history is extremely high.
+6. One of the most crucial things is establishing an early connection with the server. The client can establish a connection with the server as soon as the user visits the search engine page. As a result, the client does not waste time establishing the connection when the user types the first character.
+7. For efficiency, the server can push some of their cache to CDNs and Internet Service Providers (ISPs).
+
+### Personalization
+Users will receive typeahead suggestions based on previous searches, location, language, and other factors. We can save each user's personal history on the server separately and cache it on the client. Before transmitting the final set to the user, the server can include these customised phrases. Personal searches should always take precedence over others.

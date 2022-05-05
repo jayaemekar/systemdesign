@@ -25,18 +25,19 @@ nav:
             - Designing Pastebin: DesigningPastebin.md
         - MEDIUM:    
             - Designing Instagram: DesigningInstagram.md
-        - Designing Dropbox: DesigningDropbox.md
-        - Designing Facebook Messenger: DesigningFacebookMessenger.md
-        - Designing Twitter: DesigningTwitter.md
-        - Designing Youtube or Netflix: DesigningYoutubeorNetflix.md
-        - Designing Typeahead Suggestion: DesigningTypeaheadSuggestion.md
-        - Designing an API Rate Limiter: DesigningAPIRateLimiter.md
-        - Designing Twitter Search: DesigningTwitterSearch.md
-        - Designing a Web Crawler: DesigningWebCrawler.md
-        - Designing Facebook’s Newsfeed : DesigningFacebookNewsfeed.md
-        - Designing Yelp or Nearby Friends: DesigningYelporNearbyFriends.md
-        - Designing Uber backend: DesigningUberBackend.md
-        - Design Ticketmaster: DesignTicketmaster.md
+            - Designing Dropbox: DesigningDropbox.md
+            - Designing Facebook Messenger: DesigningFacebookMessenger.md
+            - Designing Twitter: DesigningTwitter.md
+            - Designing Twitter Search: DesigningTwitterSearch.md
+            - Designing Youtube or Netflix: DesigningYoutubeorNetflix.md
+            - Designing Typeahead Suggestion: DesigningTypeaheadSuggestion.md
+            - Designing an API Rate Limiter: DesigningAPIRateLimiter.md
+        - HARD:  
+            - Designing a Web Crawler: DesigningWebCrawler.md
+            - Designing Facebook’s Newsfeed : DesigningFacebookNewsfeed.md
+            - Designing Yelp or Nearby Friends: DesigningYelporNearbyFriends.md
+            - Designing Uber backend: DesigningUberBackend.md
+            - Design Ticketmaster: DesignTicketmaster.md
         - Pratice Design Problems: PraticeDesignProblems.md
     - About: about.md
 

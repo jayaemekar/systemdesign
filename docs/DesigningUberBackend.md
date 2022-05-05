@@ -1,63 +1,120 @@
 # Designing Uber backend
+
+## Problem Statement
 Let's design a ride-sharing service like Uber, which connects passengers who need a ride with drivers who have a car.
 
-Similar Services: Lyft, Didi, Via, Sidecar, etc.
-Difficulty level: Hard
-Prerequisite: Designing Yelp
+- Similar Services: Lyft, Didi, Via, Sidecar, etc.
+- Difficulty level: Hard
+- Prerequisite: Designing Yelp
 
-## 1. What is Uber?
-Uber enables its customers to book drivers for taxi rides. Uber drivers use their personal cars to drive customers around. Both customers and drivers communicate with each other through their smartphones using the Uber app.
+### What is Uber?
+Customers may book drivers for taxi rides using Uber. Uber drivers drive consumers around in their own automobiles. The Uber app allows consumers and drivers to communicate with one another via their smartphones.
 
-## 2. Requirements and Goals of the System
+## Pratice Problem
+
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
 Let’s start with building a simpler version of Uber.
 
-There are two types of users in our system: 1) Drivers 2) Customers.
+In our system, there are two sorts of users: 1) Motorists 2) Clientele.
 
-1. Drivers need to regularly notify the service about their current location and their availability to pick passengers.
-2. Passengers get to see all the nearby available drivers.
-3. Customer can request a ride; nearby drivers are notified that a customer is ready to be picked up.
-4. Once a driver and a customer accept a ride, they can constantly see each other’s current location until the trip finishes.
-5. Upon reaching the destination, the driver marks the journey complete to become available for the next ride.
+1. Drivers must inform the service of their current position and availability to pick up customers on a frequent basis.
+2. Passengers can see all available drivers in their immediate vicinity.
+3. Customers can request a ride, and neighboring drivers will be notified.
+4. Once a consumer accepts a ride, the driver and customer can see each other's current location until the trip is completed.
+5. When the driver arrives at his destination, he marks the ride as completed and becomes ready for the next ride.
 
-## 3. Capacity Estimation and Constraints
-1. Let’s assume we have 300M customers and 1M drivers with 1M daily active customers and 500K daily active drivers.
-2. Let’s assume 1M daily rides.
-3. Let’s assume that all active drivers notify their current location every three seconds.
-Once a customer puts in a request for a ride, the system should be able to contact drivers in real-time.
+### Capacity Estimation and Constraints
+1. Assume we have 300 million consumers and one million drivers, with one million daily active customers and 500 thousand daily active drivers.
+2. Assume 1 million daily rides.
+3. Assume that every three seconds, all active drivers broadcast their present location.
+The system should be able to contact drivers in real time if a customer requests a ride.
 
-## 4. Basic System Design and Algorithm
-We will take the solution discussed in Designing Yelp and modify it to make it work for the above-mentioned “Uber” use cases. The biggest difference we have is that our QuadTree was not built keeping in mind that there would be frequent updates to it. So, we have two issues with our Dynamic Grid solution:
+### Basic System Design and Algorithm
+We'll alter the solution outlined in Designing Yelp to make it work for the "Uber" use cases mentioned above. The most significant difference we have is that our QuadTree was not designed with frequent updates in mind. So, with our Dynamic Grid solution, we have two issues:
 
-1. Since all active drivers are reporting their locations every three seconds, we need to update our data structures to reflect that. If we have to update the QuadTree for every change in the driver’s position, it will take a lot of time and resources. To update a driver to its new location, we must find the right grid based on the driver’s previous location. If the new position does not belong to the current grid, we have to remove the driver from the current grid and move/reinsert the user to the correct grid. After this move, if the new grid reaches the maximum limit of drivers, we have to repartition it.
-2. We need to have a quick mechanism to propagate the current location of all the nearby drivers to any active customer in that area. Also, when a ride is in progress, our system needs to notify both the driver and passenger about the current location of the car.
-Although our QuadTree helps us find nearby drivers quickly, a fast update in the tree is not guaranteed.
+1. We need to change our data structures to reflect the fact that all active drivers are reporting their whereabouts every three seconds. It will take a lot of time and resources to update the QuadTree for every change in the driver's location. We must locate the correct grid based on the driver's previous location to update a driver to its new location. We must delete the driver from the current grid and move/reinsert the user to the right grid if the new position does not correspond to the current grid. If the new grid exceeds the maximum number of drivers after this relocation, we must repartition it.
 
-**Do we need to modify our QuadTree every time a driver reports their location?** If we don’t update our QuadTree with every update from the driver, it will have some old data and will not reflect the current location of drivers correctly. If you recall, our purpose of building the QuadTree was to find nearby drivers (or places) efficiently. Since all active drivers report their location every three seconds, therefore there will be a lot more updates happening to our tree than querying for nearby drivers. So, what if we keep the latest position reported by all drivers in a hash table and update our QuadTree a little less frequently? Let’s assume we guarantee that a driver’s current location will be reflected in the QuadTree within 15 seconds. Meanwhile, we will maintain a hash table that will store the current location reported by drivers; let’s call this DriverLocationHT.
+2. We need a fast way to communicate the current location of all surrounding drivers to every active customer in the vicinity. Also, when a ride is in progress, our system must inform both the driver and the passenger of the car's present location.
+Although our QuadTree assists us in swiftly locating nearby drivers, a speedy update in the tree is not guaranteed.
 
-How much memory we need for DriverLocationHT? We need to store DriveID, their present and old location, in the hash table. So, we need a total of 35 bytes to store one record:
+**Do we need to modify our QuadTree every time a driver reports their location?** 
+
+- QuadTree will have some old data with each driver update and may not accurately reflect the current position of drivers. If you recall, the QuadTree was designed to quickly locate nearby drivers (or locations). 
+- There will be a lot more updates to our tree than asking for nearby drivers because all current drivers submit their location every three seconds. 
+- So, what if we save all drivers' most recent positions in a hash table and update our QuadTree less frequently? Assume that the current location of a driver will be reflected in the QuadTree within 15 seconds. 
+- Meanwhile, we'll keep a hash table to keep track of the present location drivers have reported; This will be known as DriverLocationHT.
+
+How much memory/RAM does DriverLocationHT require? In the hash table, we must store DriveID, as well as their current and previous locations. To store one record, we'll need a total of 35 bytes:
 
 1. DriverID (3 bytes - 1 million drivers)
 2. Old latitude (8 bytes)
 3. Old longitude (8 bytes)
 4. New latitude (8 bytes)
 5. New longitude (8 bytes) Total = 35 bytes
+
 If we have 1 million total drivers, we need the following memory (ignoring hash table overhead):
 
             1 million * 35 bytes => 35 MB
-**How much bandwidth will our service consume to receive location updates from all drivers?** If we get DriverID and their location, it will be (3+16 => 19 bytes). If we receive this information every three seconds from 500K daily active drivers, we will be getting 9.5MB per three seconds.
+**How much bandwidth will our service consume to receive location updates from all drivers?** 
 
-**Do we need to distribute DriverLocationHT onto multiple servers?** Although our memory and bandwidth requirements don’t require this, since all this information can easily be stored on one server, but, for scalability, performance, and fault tolerance, we should distribute DriverLocationHT onto multiple servers. We can distribute based on the DriverID to make the distribution completely random. Let’s call the machines holding DriverLocationHT the Driver Location server. Other than storing the driver’s location, each of these servers will do two things:
+If we get It will be (3+16 => 19 bytes) for DriverID and their location. We will receive 9.5MB per three seconds if we receive this information every three seconds from 500K daily active drivers.
 
-1. As soon as the server receives an update for a driver’s location, they will broadcast that information to all the interested customers.
-2. The server needs to notify the respective QuadTree server to refresh the driver’s location. As discussed above, this can happen every 10 seconds.
+**Do we need to distribute DriverLocationHT onto multiple servers?** 
+
+Although our memory and bandwidth requirements don't necessitate it because all of this data can be stored on a single server, we should divide DriverLocationHT among numerous servers for scalability, performance, and fault tolerance. To make the distribution entirely random, we can distribute depending on the DriverID. The machines that hold DriverLocationHT are referred to as the Driver Location server. Each of these servers will do two things in addition to storing the driver's location:
+
+1. As soon as the server receives an update on a driver's position, it will broadcast it to all clients who are interested.
+2. The server must notify the appropriate QuadTree server in order to update the driver's location. As previously stated, this can occur every 10 seconds.
 
 **How can we efficiently broadcast the driver’s location to customers?** 
 
-We can have a Push Model where the server will push the positions to all the relevant users. We can have a dedicated Notification Service that can broadcast the current location of drivers to all the interested customers. We can build our Notification service on a publisher/subscriber model. When a customer opens the Uber app on their cell phone, they query the server to find nearby drivers. On the server side, before returning the list of drivers to the customer, we will subscribe the customer for all the updates from those drivers. We can maintain a list of customers (subscribers) interested in knowing the location of a driver and, whenever we have an update in DriverLocationHT for that driver, we can broadcast the current location of the driver to all subscribed customers. This way, our system makes sure that we always show the driver’s current position to the customer.
+- We can utilize a Push Model, in which the server sends the positions to all users who are interested. We could create a dedicated Notification Service that broadcasts the current location of drivers to all clients that are interested. 
+- We can create a publisher/subscriber model for our Notification service. When a customer launches the Uber app on their smartphone, the server searches for nearby drivers. 
+- Before providing the list of drivers to the client, we shall subscribe the customer to all updates from those drivers on the server side. We can keep a list of clients (subscribers) who want to know where a driver is and, if there is an update in DriverLocationHT for that driver, we can broadcast the driver's current location to all subscribers. 
+- Our system ensures that the customer is always aware of the driver's current location.
 
 **How much memory will we need to store all these subscriptions?** 
 
-As we have estimated above, we will have 1M daily active customers and 500K daily active drivers. On average let’s assume that five customers subscribe to one driver. Let’s assume we store all this information in a hash table so that we can update it efficiently. We need to store driver and customer IDs to maintain the subscriptions. Assuming we will need 3 bytes for DriverID and 8 bytes for CustomerID, we will need 21MB of memory.
+As previously said, we expect 1 million daily active consumers and 500 thousand daily active drivers. Assume that five consumers subscribe to one driver on average. Let's pretend we keep all of this data in a hash table so we can update it quickly. To keep the subscriptions running, we need to keep track of the driver and customer IDs. We'll require 21MB of memory if we need 3 bytes for DriverID and 8 bytes for CustomerID.
 
                     (500K * 3) + (500K * 5 * 8 ) ~= 21 MB
 How much bandwidth will we need to broadcast the driver’s location to customers? For every active driver, we have five subscribers, so the total subscribers we have:
@@ -66,15 +123,26 @@ How much bandwidth will we need to broadcast the driver’s location to customer
 To all these customers we need to send DriverID (3 bytes) and their location (16 bytes) every second, so, we need the following bandwidth:
 
                     2.5M * 19 bytes => 47.5 MB/s
-**How can we efficiently implement Notification service?** We can either use HTTP long polling or push notifications.
+**How can we efficiently implement Notification service?** 
+
+We can either use HTTP long polling or push notifications.
 
 **How will the new publishers/drivers get added for a current customer?** 
 
-As we have proposed above, customers will be subscribed to nearby drivers when they open the Uber app for the first time, what will happen when a new driver enters the area the customer is looking at? To add a new customer/driver subscription dynamically, we need to keep track of the area the customer is watching. This will make our solution complicated; how about if instead of pushing this information, clients pull it from the server?
+- Customers will be subscribed to nearby drivers when they open the Uber app for the first time, as we proposed above; however, what will happen if a new driver enters the area the client is looking at? We need to keep track of the region the client is watching in order to dynamically add a new customer/driver subscription. 
+- This will complicate our solution; how about clients pulling this information from the server instead of pushing it?
 
-**How about if clients pull information about nearby drivers from the server?** Clients can send their current location, and the server will find all the nearby drivers from the QuadTree to return them to the client. Upon receiving this information, the client can update their screen to reflect the current positions of the drivers. Clients can query every five seconds to limit the number of round trips to the server. This solution looks simpler compared to the push model described above.
+**How about if clients pull information about nearby drivers from the server?** 
 
-**Do we need to repartition a grid as soon as it reaches the maximum limit?** We can have a cushion to let each grid grow a little bigger beyond the limit before we decide to partition it. Let’s say our grids can grow/shrink an extra 10% before we partition/merge them. This should decrease the load for a grid partition or merge on high traffic grids.
+- Clients can send their current position to the server, which will locate any nearby QuadTree drivers and return them to the client. 
+- When the client receives this information, they can change their screen to reflect the drivers' current positions. To reduce the amount of round trips to the server, clients might query every five seconds. 
+- In comparison to the push paradigm discussed above, this solution appears to be easier.
+
+**Do we need to repartition a grid as soon as it reaches the maximum limit?** 
+
+- We can have a buffer to allow each grid to grow slightly beyond the limit before partitioning it. 
+- Let's say our grids can expand or contract by 10% more before we separate or merge them. 
+- On high-traffic grids, this should reduce the demand for a grid split or merge.
 
 <p align="center"> 
   <kbd>
@@ -83,25 +151,25 @@ As we have proposed above, customers will be subscribed to nearby drivers when t
   </kbd>
 </p>
 
-**How would “Request Ride” use case work?**
+**How would “Request A Ride” use case work?**
 
-1. The customer will put a request for a ride.
-2. One of the Aggregator servers will take the request and asks QuadTree servers to return nearby drivers.
-3. The Aggregator server collects all the results and sorts them by ratings.
-4. The Aggregator server will send a notification to the top (say three) drivers simultaneously, whichever driver accepts the request first will be assigned the ride. The other drivers will receive a cancellation request. If none of the three drivers respond, the Aggregator will request a ride from the next three drivers from the list.
-5. Once a driver accepts a request, the customer is notified.
+1. The customer will make a ride request.
+2. One of the Aggregator servers will accept the request and send it to the QuadTree servers, who will then return nearby drivers.
+3. The Aggregator server gathers all of the results and organizes them according to their ratings.
+4. The Aggregator server will send a notification to the top (say three) drivers at the same time, and the ride will be assigned to the driver who accepts the request first. A cancellation request will be sent to the other drivers. The Aggregator will request a ride from the next three drivers on the list if none of the three drivers answer.
+5. The customer is notified when a driver accepts a request.
 
-## 5. Fault Tolerance and Replication
-What if a Driver Location server or Notification server dies? We would need replicas of these servers, so that if the primary dies the secondary can take control. Also, we can store this data in some persistent storage like SSDs that can provide fast IOs; this will ensure that if both primary and secondary servers die we can recover the data from the persistent storage.
+### Fault Tolerance and Replication
+What happens if a Driver Location or Notification server goes down? We'd need duplicates of these servers so that if the primary goes down, the backup can take over. We can also store this data in some persistent storage, such as SSDs with quick IOs, so that we can recover the data from the persistent storage if both the primary and secondary servers fail.
 
-## 6. Ranking
+### Ranking
 **How about if we want to rank the search results not just by proximity but also by popularity or relevance?**
 
-How can we return top rated drivers within a given radius? 
+How can we find the best drivers within a certain radius?
 
-Let’s assume we keep track of the overall ratings of each driver in our database and QuadTree. An aggregated number can represent this popularity in our system, e.g., how many stars does a driver get out of ten? While searching for the top 10 drivers within a given radius, we can ask each partition of the QuadTree to return the top 10 drivers with a maximum rating. The aggregator server can then determine the top 10 drivers among all the drivers returned by different partitions.
+Assume we maintain track of each driver's overall ratings in our database and QuadTree. In our system, an aggregated number can represent this popularity, such as how many stars a driver receives out of 10. We can ask each partition of the QuadTree to return the top 10 drivers with the highest rating while looking for the top 10 drivers within a defined radius. The aggregator server can then select the top ten drivers from all of the drivers returned by the various partitions.
 
-## 7. Advanced Issues
-1. How will we handle clients on slow and disconnecting networks?
-2. What if a client gets disconnected when they are a part of a ride? How will we handle billing in such a scenario?
-3. How about if clients pull all the information, compared to servers always pushing it?
+### Advanced Issues
+1. How will we deal with clients on sluggish or unstable networks?
+2. What happens if a client is disconnected during a ride? In this case, how will we handle billing?
+3. What if clients pull all of the data rather than servers always pushing it?

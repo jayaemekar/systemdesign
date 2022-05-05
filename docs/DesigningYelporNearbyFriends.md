@@ -1,31 +1,75 @@
-## Designing Yelp or Nearby Friends
-Let's design a Yelp like service, where users can search for nearby places like restaurants, theaters, or shopping malls, etc., and can also add/view reviews of places.
+# Designing Yelp or Nearby Friends
 
-Similar Services: Proximity server.
-Difficulty Level: Hard
+## Problem Statement
+Let's create a Yelp-style service where users can look for nearby restaurants, theaters, and shopping malls, among other things, and add/view reviews.
 
-## 1. Why Yelp or Proximity Server?
-Proximity servers are used to discover nearby attractions like places, events, etc. If you haven’t used yelp.com before, please try it before proceeding (you can search for nearby restaurants, theaters, etc.) and spend some time understanding different options that the website offers. This will help you a lot in understanding this chapter better.
+- Similar Services: Proximity server.
+- Difficulty Level: Hard
 
-## 2. Requirements and Goals of the System
-What do we wish to achieve from a Yelp like service? Our service will be storing information about different places so that users can perform a search on them. Upon querying, our service will return a list of places around the user.
+### Why Yelp or Proximity Server?
+Proximity servers are used to find nearby attractions such as venues, events, and other activities. If you haven't utilized yelp.com before, do so first (you can search for nearby restaurants, theaters, and so on) and spend some time learning about the various possibilities available. 
 
-Our Yelp-like service should meet the following requirements:
+## Pratice Problem
+
+***Let's get started on the system design solution.***
+
+**If you run into any problems, please see the solution below.**
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+
+    <br><br>
+    <h2>Hints to solve the problem</h2>
+
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <br><br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <br>
+    <br>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <br>
+<br><br>
+</body>
+</html>
+
+
+## <h1>Solution<h1>
+
+### Requirements and Goals of the System
+What do we hope to accomplish with a Yelp-like service? Our service will store information about various locations so that users can search for them. Following a query, our service will offer a list of nearby locations.
+
+The following requirements should be met by our Yelp-like service:
 
 **Functional Requirements:**
 
-Users should be able to add/delete/update Places.
-Given their location (longitude/latitude), users should be able to find all nearby places within a given radius.
-Users should be able to add feedback/review about a place. The feedback can have pictures, text, and a rating.
+1. Places should be added, deleted, and updated by users.
+2. Users should be able to find all local places within a certain radius based on their location (longitude/latitude).
+3. Users should be allowed to leave feedback or reviews on a location. Pictures, text, and a rating can all be included in the feedback.
 
 **Non-functional Requirements:**
 
-Users should have a real-time search experience with minimum latency.
-Our service should support a heavy search load. There will be a lot of search requests compared to adding a new place.
-## 3. Scale Estimation
-Let’s build our system assuming that we have 500M places and 100K queries per second (QPS). Let’s also assume a 20% growth in the number of places and QPS each year.
+1. Users should be able to search in real time with minimal delay.
+2. Our service should be able to handle a large number of searches. When compared to adding a new location, there will be a lot of search inquiries.
 
-## 4. Database Schema
+### Scale Estimation
+Assume our system has 500 million places and 100 thousand queries per second (QPS). Let's additionally assume a 20% annual increase in the number of locations and QPS.
+
+### Database Schema
 Each Place can have the following fields:
 
 1. LocationID (8 bytes): Uniquely identifies a location.
@@ -34,11 +78,11 @@ Each Place can have the following fields:
 4. Longitude (8 bytes)
 5. Description (512 bytes)
 6. Category (1 byte): E.g., coffee shop, restaurant, theater, etc.
-Although a four bytes number can uniquely identify 500M locations, with future growth in mind, we will go with 8 bytes for LocationID.
+Although a four-byte integer can uniquely identify 500 million places, we will use eight bytes for LocationID to accommodate future expansion.
 
             Total size: 8 + 256 + 8 + 8 + 512 + 1 => 793 bytes
 
-We also need to store reviews, photos, and ratings of a Place. We can have a separate table to store reviews for Places:
+We also need to store reviews, photos, and ratings of a Place. We can have a different table to store reviews for Places:
 
 1. LocationID (8 bytes)
 2. ReviewID (4 bytes): Uniquely identifies a review, assuming any location will not have more than 2^32 reviews.
@@ -46,44 +90,48 @@ We also need to store reviews, photos, and ratings of a Place. We can have a sep
 4. Rating (1 byte): how many stars a place gets out of ten.
 Similarly, we can have a separate table to store photos for Places and Reviews.
 
-## 5. System APIs
-We can have SOAP or REST APIs to expose the functionality of our service. The following could be the definition of the API for searching:
+### System APIs
+To expose the functionality of our service, we can use SOAP or REST APIs. The following could be the API for searching's definition:
 
         search(api_dev_key, search_terms, user_location, radius_filter, maximum_results_to_return, 
             category_filter, sort, page_token)
 **Parameters:**
 
-- **api_dev_key (string):** The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+- **api_dev_key (string):** A registered account's API developer key. This will be used to throttle users based on their quota allocation, among other things.
 - **search_terms (string):** A string containing the search terms.
-- **user_location (string):** Location of the user performing the search.
-- **radius_filter (number):** Optional search radius in meters.
+- **user_location (string):** Location of the user.
+- **radius_filter (number):** Optional search option to define radius in meters.
 - **maximum_results_to_return (number):** Number of business results to return.
 - **category_filter (string):** Optional category to filter search results, e.g., Restaurants, Shopping Centers, etc.
 - **sort (number):** Optional sort mode: Best matched (0 - default), Minimum distance (1), Highest rated (2).
 - **page_token (string):** This token will specify a page in the result set that should be returned.
 
 **Returns: (JSON)**
-A JSON containing information about a list of businesses matching the search query. Each result entry will have the business name, address, category, rating, and thumbnail.
+A JSON file containing data about a list of businesses that match the search query. The business name, address, category, rating, and thumbnail will all be included in each search entry.
 
-## 6. Basic System Design and Algorithm
-At a high level, we need to store and index each dataset described above (places, reviews, etc.). For users to query this massive database, the indexing should be read efficient, since while searching for the nearby places users expect to see the results in real-time.
+### Basic System Design and Algorithm
+At a high level, each dataset given above must be stored and indexed (places, reviews, etc.). Users expect to see results in real time while searching for local areas, therefore the indexing must be read efficiently for them to query this enormous database.
 
-Given that the location of a place doesn’t change that often, we don’t need to worry about frequent updates of the data. As a contrast, if we intend to build a service where objects do change their location frequently, e.g., people or taxis, then we might come up with a very different design.
+We don't need to worry about frequent data updates because the position of a place doesn't change too often. In contrast, if we want to construct a service where items, such as people or cabs, change their location regularly, we might come up with a radically different design.
 
-Let’s see what are different ways to store this data and also find out which method will suit best for our use cases:
+Let's look at the various options for storing this information and determine which technique is appropriate for our needs:
 
 **a. SQL solution**
-One simple solution could be to store all the data in a database like MySQL. Each place will be stored in a separate row, uniquely identified by LocationID. Each place will have its longitude and latitude stored separately in two different columns, and to perform a fast search; we should have indexes on both these fields.
 
-To find all the nearby places of a given location (X, Y) within a radius ‘D’, we can query like this:
+One simple option is to put all of the information in a database such as MySQL. Each location will be recorded in its own row, with its own LocationID. Each location's longitude and latitude will be stored separately in two columns, so we'll need indexes on both of these values to perform a quick search.
+
+We can use the following query to find all the nearby places of a given location (X, Y) within a radius of 'D':
 
         Select * from Places where Latitude between X-D and X+D and Longitude between Y-D and Y+D
-The above query is not completely accurate, as we know that to find the distance between two points we have to use the distance formula (Pythagorean theorem), but for simplicity let’s take this.
+The preceding question is not quite accurate, as we know that the distance formula (Pythagorean theorem) must be used to find the distance between two points, but let's go with it for now.
 
-**How efficient would this query be?** We have estimated 500M places to be stored in our service. Since we have two separate indexes, each index can return a huge list of places and performing an intersection on those two lists won’t be efficient. Another way to look at this problem is that there could be too many locations between ‘X-D’ and ‘X+D’, and similarly between ‘Y-D’ and ‘Y+D’. If we can somehow shorten these lists, it can improve the performance of our query.
+**How efficient would this query be?** 
+
+We expect that our service will store 500 million items. Because we have two different indexes, each one can produce a large list of locations, making an intersection of the two lists inefficient. Another perspective on this issue is that there may be too many locations between 'X-D' and 'X+D,' and similarly between 'Y-D' and 'Y+D.' We can enhance the performance of our query if we can shorten these lists.
 
 **b. Grids**
-We can divide the whole map into smaller grids to group locations into smaller sets. Each grid will store all the Places residing within a specific range of longitude and latitude. This scheme would enable us to query only a few grids to find nearby places. Based on a given location and radius, we can find all the neighboring grids and then query these grids to find nearby places.
+
+To arrange sites into smaller sets, we can divide the entire map into smaller grids. Each grid will contain all of the Places that fall within a specified longitude and latitude range. This technique would allow us to discover neighboring locations by querying only a few grids. We can identify all the neighboring grids based on a given location and radius, and then query these grids to find close places.
 
 <p align="center"> 
   <kbd>
@@ -92,28 +140,35 @@ We can divide the whole map into smaller grids to group locations into smaller s
   </kbd>
 </p>
 
-Let’s assume that GridID (a four bytes number) would uniquely identify grids in our system.
+It would be safe to assume that GridID (a four bytes number) would uniquely identify grids in our system.
 
-**What could be a reasonable grid size?** Grid size could be equal to the distance we would like to query since we also want to reduce the number of grids. If the grid size is equal to the distance we want to query, then we only need to search within the grid which contains the given location and neighboring eight grids. Since our grids would be statically defined (from the fixed grid size), we can easily find the grid number of any location (lat, long) and its neighboring grids.
+**What could be a reasonable grid size?** 
 
-In the database, we can store the GridID with each location and have an index on it, too, for faster searching. Now, our query will look like:
+Because we also want to limit the number of grids, the grid size might be equal to the distance we want to query. If the grid size is the same as the distance we want to query, we just need to look in the grid that contains the supplied location and the eight grids around it. We can simply discover the grid number of any place (lat, long) and its nearby grids because our grids are statically specified (due to the set grid size).
+
+We may save the GridID with each location in the database and create an index on it for faster searching. Our query will now look like this:
 
     Select * from Places where Latitude between X-D and X+D and Longitude between Y-D and Y+D and GridID in (GridID, GridID1, GridID2, ..., GridID8)
-This will undoubtedly improve the runtime of our query.
+This will surely reduce the query's execution time.
 
-Should we keep our index in memory? Maintaining the index in memory will improve the performance of our service. We can keep our index in a hash table where ‘key’ is the grid number and ‘value’ is the list of places contained in that grid.
+Is it necessary to store our index in memory? Our service's performance will be improved by keeping the index in memory. We can keep our index in a hash table with the grid number as the key and the list of places in the grid as the value.
 
-**How much memory will we need to store the index?** Let’s assume our search radius is 10 miles; given that the total area of the earth is around 200 million square miles, we will have 20 million grids. We would need a four bytes number to uniquely identify each grid and, since LocationID is 8 bytes, we would need 4GB of memory (ignoring hash table overhead) to store the index.
+**How much memory will we need to store the index?** 
+
+Let's say our search radius is 10 miles; we'll have 20 million grids because the earth's total area is roughly 200 million square miles. We'd need a four-byte integer to uniquely identify each grid, and since LocationID is eight bytes, we'd require 4GB of memory to hold the index (ignoring hash table overhead).
 
                 (4 * 20M) + (8 * 500M) ~= 4 GB
-This solution can still run slow for those grids that have a lot of places since our places are not uniformly distributed among grids. We can have a thickly dense area with a lot of places, and on the other hand, we can have areas which are sparsely populated.
+Because our locations are not evenly distributed among grids, this method may still be slow for grids with a large number of places. On the one hand, we can have densely crowded areas with many places, and on the other hand, we can have sparsely populated areas.
 
-This problem can be solved if we can dynamically adjust our grid size such that whenever we have a grid with a lot of places we break it down to create smaller grids. A couple of challenges with this approach could be: 1) how to map these grids to locations and 2) how to find all the neighboring grids of a grid.
+This issue can be overcome if we can dynamically alter our grid size such that whenever we have a large grid, we can divide it down into smaller grids. The following are some potential drawbacks of this strategy: 1) how to map these grids to locations, and 2) how to locate all of a grid's neighboring grids.
 
 **c. Dynamic size grids**
-Let’s assume we don’t want to have more than 500 places in a grid so that we can have a faster searching. So, whenever a grid reaches this limit, we break it down into four grids of equal size and distribute places among them. This means thickly populated areas like downtown San Francisco will have a lot of grids, and sparsely populated area like the Pacific Ocean will have large grids with places only around the coastal lines.
 
-**What data-structure can hold this information?** A tree in which each node has four children can serve our purpose. Each node will represent a grid and will contain information about all the places in that grid. If a node reaches our limit of 500 places, we will break it down to create four child nodes under it and distribute places among them. In this way, all the leaf nodes will represent the grids that cannot be further broken down. So leaf nodes will keep a list of places with them. This tree structure in which each node can have four children is called a QuadTree
+Let's pretend we don't want more than 500 spots in a grid since we want to search faster. When a grid hits this size limit, we divide it into four equal-sized grids and distribute locations among them. This implies densely crowded locations, such as downtown San Francisco, will have several grids, while sparsely populated areas, such as the Pacific Ocean, will have enormous grids with places just along the shore.
+
+**What data-structure can hold this information?** 
+
+Our needs can be met by a tree with four children at each node. Each node will represent a grid and will store information about all of the locations within that grid. If a node surpasses our 500-place limit, it will be broken down into four child nodes, with spots distributed among them. All of the leaf nodes will now depict grids that can't be broken down any more. As a result, leaf nodes will maintain a list of locations. A QuadTree is a tree structure in which each node can have four offspring.
 
 <p align="center"> 
   <kbd>
@@ -122,45 +177,63 @@ Let’s assume we don’t want to have more than 500 places in a grid so that we
   </kbd>
 </p>
 
-**How will we build a QuadTree?** We will start with one node that will represent the whole world in one grid. Since it will have more than 500 locations, we will break it down into four nodes and distribute locations among them. We will keep repeating this process with each child node until there are no nodes left with more than 500 locations.
+**How will we build a QuadTree?** 
 
-**How will we find the grid for a given location?** We will start with the root node and search downward to find our required node/grid. At each step, we will see if the current node we are visiting has children. If it has, we will move to the child node that contains our desired location and repeat this process. If the node does not have any children, then that is our desired node.
+We'll start with a single node that represents the entire world in a single grid. We'll divide it into four nodes and distribute places among them because it'll contain more than 500 sites. This step will be repeated for each child node until no nodes with more than 500 locations remain.
 
-**How will we find neighboring grids of a given grid?** Since only leaf nodes contain a list of locations, we can connect all leaf nodes with a doubly linked list. This way we can iterate forward or backward among the neighboring leaf nodes to find out our desired locations. Another approach for finding adjacent grids would be through parent nodes. We can keep a pointer in each node to access its parent, and since each parent node has pointers to all of its children, we can easily find siblings of a node. We can keep expanding our search for neighboring grids by going up through the parent pointers.
+**How will we find the grid for a given location?** 
 
-Once we have nearby LocationIDs, we can query the backend database to find details about those places.
+We'll start with the root node and work our way down to the node/grid we need. We'll check if the current node we're visiting has any children at each step. If it has, we will repeat the operation on the child node that has our desired location. If the node doesn't have any children, it's the one we want.
 
-**What will be the search workflow?** We will first find the node that contains the user’s location. If that node has enough desired places, we can return them to the user. If not, we will keep expanding to the neighboring nodes (either through the parent pointers or doubly linked list) until either we find the required number of places or exhaust our search based on the maximum radius.
+**How will we find neighboring grids of a given grid?** 
 
-How much memory will be needed to store the QuadTree? For each Place, if we cache only LocationID and Lat/Long, we would need 12GB to store all places.
+We can connect all leaf nodes using a doubly linked list because only leaf nodes include a list of locations. We can iterate forward and backward among the surrounding leaf nodes to find our target positions in this fashion. Another method for locating adjacent grids is to use parent nodes. We can store a pointer in each node to access its parent, and we can quickly discover siblings of a node because each parent node holds pointers to all of its offspring. By continuing up through the parent pointers, we can keep broadening our search for neighboring grids.
+
+We can query the backend database to discover details about adjacent LocationIDs once we have them.
+
+**What will be the search workflow?** 
+
+We'll start by locating the node that includes the user's current location. We can return them to the user if that node contains enough desired spots. If not, we'll keep expanding to surrounding nodes (either through parent pointers or a doubly linked list) until we either locate the needed number of places or our maximum radius search is exhausted.
+
+To store the QuadTree, how much memory will be required? If we merely cache LocationID and Lat/Long for each Place, we'd require 12GB to keep all of them.
 
                             24 * 500M => 12 GB
 Since each grid can have a maximum of 500 places, and we have 500M locations, how many total grids we will have?
 
                             500M / 500 => 1M grids
-Which means we will have 1M leaf nodes and they will be holding 12GB of location data. A QuadTree with 1M leaf nodes will have approximately 1/3rd internal nodes, and each internal node will have 4 pointers (for its children). If each pointer is 8 bytes, then the memory we need to store all internal nodes would be:
+That means we'll have 1 million leaf nodes, each with 12GB of location data. Internal nodes make up around 1/3 of a QuadTree with 1M leaf nodes, and each internal node has four pointers (for its children). If each pointer is 8 bytes long, the total amount of memory required to hold all internal nodes is:
 
                             1M * 1/3 * 4 * 8 = 10 MB
-So, total memory required to hold the whole QuadTree would be 12.01GB. This can easily fit into a modern-day server.
+As a result, total memory for the QuadTree would be 12.01GB. This is small enough to fit into a modern server.
 
-**How would we insert a new Place into our system?** Whenever a new Place is added by a user, we need to insert it into the databases as well as in the QuadTree. If our tree resides on one server, it is easy to add a new Place, but if the QuadTree is distributed among different servers, first we need to find the grid/server of the new Place and then add it there (discussed in the next section).
+**How would we insert a new Place into our system?** 
 
-## 7. Data Partitioning
-What if we have a huge number of places such that our index does not fit into a single machine’s memory? With 20% growth each year we will reach the memory limit of the server in the future. Also, what if one server cannot serve the desired read traffic? To resolve these issues, we must partition our QuadTree!
+We need to update the databases as well as the QuadTree whenever a new Place is added by a user. If our tree is on a single server, adding a new Place is simple; but, if the QuadTree is split across multiple servers, we must first locate the new Place's grid/server and then add it there (discussed in the next section).
 
-We will explore two solutions here (both of these partitioning schemes can be applied to databases, too):
+### Data Partitioning
+What if we have so many places that our index will not fit in the memory of a single machine? With a 20% annual growth rate, we will eventually surpass the server's memory limit. What if one server is unable to handle all of the read traffic? We must partition our QuadTree to tackle these problems!
 
-**a. Sharding based on regions:** We can divide our places into regions (like zip codes), such that all places belonging to a region will be stored on a fixed node. To store a place we will find the server through its region and, similarly, while querying for nearby places we will ask the region server that contains user’s location. This approach has a couple of issues:
+We'll look at two options (both of these partitioning strategies can be used with databases):
 
-**What if a region becomes hot?** There would be a lot of queries on the server holding that region, making it perform slow. This will affect the performance of our service.
-Over time, some regions can end up storing a lot of places compared to others. Hence, maintaining a uniform distribution of places, while regions are growing is quite difficult.
-To recover from these situations, either we have to repartition our data or use consistent hashing.
+**a. Sharding based on regions:** 
 
-**b. Sharding based on LocationID:** Our hash function will map each LocationID to a server where we will store that place. While building our QuadTree, we will iterate through all the places and calculate the hash of each LocationID to find a server where it would be stored. To find places near a location, we have to query all servers and each server will return a set of nearby places. A centralized server will aggregate these results to return them to the user.
+We can divide our locations into regions (similar to zip codes), with each region's locations kept on a single node. To save a location, we will use the server's region, and to query for nearby places, we will use the region server that contains the user's position. This strategy has couple of flaws:
 
-**Will we have different QuadTree structure on different partitions?** Yes, this can happen since it is not guaranteed that we will have an equal number of places in any given grid on all partitions. However, we do make sure that all servers have approximately an equal number of Places. This different tree structure on different servers will not cause any issue though, as we will be searching all the neighboring grids within the given radius on all partitions.
+**What if a region becomes hot?** 
 
-The remaining part of this chapter assumes that we have partitioned our data based on LocationID.
+On the server holding that region, there would be a lot of inquiries, making it slow. This will have an impact on the quality of our service.
+When compared to other regions, some can wind up storing a lot of spots over time. As a result, keeping a consistent allocation of sites while regions grow is difficult.
+We must either repartition our data or apply consistent hashing to recover from these instances.
+
+**b. Sharding based on LocationID:** 
+
+Each LocationID will be mapped to a server where it will be stored by our hash function. We'll go through all of the places and calculate the hash of each LocationID to select a server where it may be stored while creating our QuadTree. To locate places near a location, we must query all servers, with each server returning a list of neighboring locations. These results will be compiled and returned to the user by a centralized server.
+
+**Will we have different QuadTree structure on different partitions?** 
+
+Yes, this is possible because an equal number of locations in any particular grid on all partitions is not guaranteed. We do, however, ensure that each server has roughly the same number of Places. However, because we will be scanning all nearby grids within the stated radius on all partitions, the differing tree structure on different servers will not be an issue.
+
+The remaining part of this chapter is based on an assumtion that we have partitioned our data based on LocationID.
 
 
 <p align="center"> 
@@ -170,28 +243,47 @@ The remaining part of this chapter assumes that we have partitioned our data bas
   </kbd>
 </p>
 
-## 8. Replication and Fault Tolerance
-Having replicas of QuadTree servers can provide an alternate to data partitioning. To distribute read traffic, we can have replicas of each QuadTree server. We can have a master-slave configuration where replicas (slaves) will only serve read traffic; all write traffic will first go to the master and then applied to slaves. Slaves might not have some recently inserted places (a few milliseconds delay will be there), but this could be acceptable.
+### Replication and Fault Tolerance
+Data partitioning can be replaced by having replicas of QuadTree servers. We can have clones of each QuadTree server to spread read traffic. We can set up a master-slave setup in which replicas (slaves) solely provide read traffic and all write traffic goes to the master before being applied to slaves. Slaves may not have certain newly inserted spots (there will be a few milliseconds delay), but this may be okay.
 
-**What will happen when a QuadTree server dies?** We can have a secondary replica of each server and, if primary dies, it can take control after the failover. Both primary and secondary servers will have the same QuadTree structure.
+**What will happen when a QuadTree server dies?** 
 
-**What if both primary and secondary servers die at the same time?** We have to allocate a new server and rebuild the same QuadTree on it. How can we do that, since we don’t know what places were kept on this server? The brute-force solution would be to iterate through the whole database and filter LocationIDs using our hash function to figure out all the required places that will be stored on this server. This would be inefficient and slow; also, during the time when the server is being rebuilt, we will not be able to serve any query from it, thus missing some places that should have been seen by users.
+We can have a secondary replica of each server that will assume control after the primary dies. The QuadTree structure will be the same on both primary and backup servers.
 
-**How can we efficiently retrieve a mapping between Places and QuadTree server?** We have to build a reverse index that will map all the Places to their QuadTree server. We can have a separate QuadTree Index server that will hold this information. We will need to build a HashMap where the ‘key’ is the QuadTree server number and the ‘value’ is a HashSet containing all the Places being kept on that QuadTree server. We need to store LocationID and Lat/Long with each place because information servers can build their QuadTrees through this. Notice that we are keeping Places’ data in a HashSet, this will enable us to add/remove Places from our index quickly. So now, whenever a QuadTree server needs to rebuild itself, it can simply ask the QuadTree Index server for all the Places it needs to store. This approach will surely be quite fast. We should also have a replica of the QuadTree Index server for fault tolerance. If a QuadTree Index server dies, it can always rebuild its index from iterating through the database.
+**What if both primary and secondary servers die at the same time?** 
 
-## 9. Cache
-To deal with hot Places, we can introduce a cache in front of our database. We can use an off-the-shelf solution like Memcache, which can store all data about hot places. Application servers, before hitting the backend database, can quickly check if the cache has that Place. Based on clients’ usage pattern, we can adjust how many cache servers we need. For cache eviction policy, Least Recently Used (LRU) seems suitable for our system.
+- We'll need to set aside a new server and rebuild the QuadTree on it. We don't know what locations were saved on this server, so how can we do that? The brute-force technique would be to cycle over the entire database, filtering LocationIDs with our hash function to find all of the required locations that would be kept on this server. 
+- This would be wasteful and slow; also, while the server is being rebuilt, we will be unable to service any queries from it, resulting in the users missing certain areas that they should have viewed.
 
-## 10. Load Balancing (LB)
-We can add LB layer at two places in our system 1) Between Clients and Application servers and 2) Between Application servers and Backend server. Initially, a simple Round Robin approach can be adopted; that will distribute all incoming requests equally among backend servers. This LB is simple to implement and does not introduce any overhead. Another benefit of this approach is if a server is dead the load balancer will take it out of the rotation and will stop sending any traffic to it.
+**How can we efficiently retrieve a mapping between Places and QuadTree server?** 
 
-A problem with Round Robin LB is, it won’t take server load into consideration. If a server is overloaded or slow, the load balancer will not stop sending new requests to that server. To handle this, a more intelligent LB solution would be needed that periodically queries backend server about their load and adjusts traffic based on that.
+- We must create a reverse index that maps all Places to their QuadTree server. This information can be stored on a separate QuadTree Index server. 
+- We'll need to create a HashMap with the QuadTree server number as the key and a HashSet containing all the Places kept on that QuadTree server as the value. 
+- Because information servers can generate QuadTrees using LocationID and Lat/Long, we need to keep them with each place. We've kept Places' data in a HashSet, which allows us to swiftly add and remove Places from our index. 
+- So now, anytime a QuadTree server has to rebuild itself, it can simply request all of the Places it requires from the QuadTree Index server. 
+- This method will undoubtedly be quick. For fault tolerance, we need additionally have a duplicate of the QuadTree Index server. If a QuadTree Index server fails, the index can be rebuilt by iterating through the database.
 
-## 11. Ranking
-How about if we want to rank the search results not just by proximity but also by popularity or relevance?
+### Cache
+- We can put a cache in front of our database to deal with busy places. We may use an off-the-shelf solution like Memcache to store all of the information about hot spots. 
+- Before reaching the backend database, application servers can rapidly verify if the cache has that Place. We can modify the number of cache servers required based on client usage patterns. 
+- Least Recently Used (LRU) appears to be a good cache eviction policy for our system.
 
-**How can we return most popular places within a given radius?** Let’s assume we keep track of the overall popularity of each place. An aggregated number can represent this popularity in our system, e.g., how many stars a place gets out of ten (this would be an average of different rankings given by users)? We will store this number in the database as well as in the QuadTree. While searching for the top 100 places within a given radius, we can ask each partition of the QuadTree to return the top 100 places with maximum popularity. Then the aggregator server can determine the top 100 places among all the places returned by different partitions.
+### Load Balancing (LB)
+- We can use the LB layer in our system in two places: 1) between clients and application servers, and 2) between application servers and backend servers. 
+- A basic Round Robin technique can be used to distribute all incoming requests evenly among backend servers at first. 
+- This LB is simple to set up and has no additional overhead. Another advantage of this method is that if a server goes down, the load balancer will remove it from the rotation and stop distributing traffic to it.
+- Round Robin LB has the drawback of not taking server load into account. The load balancer will not stop sending new requests to a server that is overcrowded or slow. 
+- To tackle this, a more intelligent LB solution would be required, one that polls the backend server about their load on a regular basis and adjusts traffic accordingly.
 
-Remember that we didn’t build our system to update place’s data frequently. With this design, how can we modify the popularity of a place in our QuadTree? Although we can search a place and update its popularity in the QuadTree, it would take a lot of resources and can affect search requests and system throughput. Assuming the popularity of a place is not expected to reflect in the system within a few hours, we can decide to update it once or twice a day, especially when the load on the system is minimum.
+### Ranking
+How about if we want to rank the search results not only by proximity but also by popularity or relevance?
 
-Our next problem, Designing Uber backend, discusses dynamic updates of the QuadTree in detail.
+**How can we return most popular places within a given radius?** 
+
+- Assume we keep track of each location's overall popularity. In our system, an aggregated figure can indicate this popularity, such as how many stars a location receives out of 10 (this would be an average of multiple user rankings)? 
+- This number will be saved in both the database and the QuadTree. We can ask each partition of the QuadTree to return the top 100 places with the most popularity while looking for the top 100 places within a defined radius. 
+- The aggregator server may then decide the top 100 locations from all of the locations returned by different partitions.
+
+Remember that our system was not designed to update location data often. How can we change the popularity of a location in our QuadTree using this design? Although we can search for a location and update its popularity in the QuadTree, this would consume a significant amount of resources and could slow down search queries and system throughput. We can decide to update it once or twice a day if the popularity of a location is not expected to show in the system within a few hours, especially when the load on the system is low.
+
+The QuadTree's dynamic updates are discussed in depth in our following challenge, Designing Uber backend.
