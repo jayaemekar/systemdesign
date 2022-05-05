@@ -1,8 +1,8 @@
-# Redundancy and Replication
+# Replication and Redundancy
 
-Redundancy is the duplication of critical components or functions of a system with the intention of increasing the reliability of the system, usually in the form of a backup or fail-safe, or to improve actual system performance. For example, if there is only one copy of a file stored on a single server, then losing that server means losing the file. Since losing data is seldom a good thing, we can create duplicate or redundant copies of the file to solve this problem.
+Redundancy is the duplication of important components or functions in a system with the goal of boosting the system's reliability, usually as a backup or fail-safe, or improving real system performance. If a single copy of a file is stored on a single server, for example, losing that server means losing the file. Because losing data is rarely a good thing, we can remedy this problem by making duplicate or redundant copies of the file.
 
-Redundancy plays a key role in removing the single points of failure in the system and provides backups if needed in a crisis. For example, if we have two instances of a service running in production and one fails, the system can failover to the other one.
+Redundancy is important because it eliminates single points of failure in the system and offers backups in the event of a disaster. For instance, if one of two service instances running in production fails, the system can failover to the other.
 
 <p align="center"> 
   <kbd>
@@ -11,9 +11,9 @@ Redundancy plays a key role in removing the single points of failure in the syst
   </kbd>
 </p>
 
-Replication means sharing information to ensure consistency between redundant resources, such as software or hardware components, to improve reliability, fault-tolerance, or accessibility.
+Replication is the process of exchanging data among redundant resources, such as software or hardware components, in order to improve dependability, fault tolerance, or accessibility.
 
-Replication is widely used in many database management systems (DBMS), usually with a master-slave relationship between the original and the copies. The master gets all the updates, which then ripple through to the slaves. Each slave outputs a message stating that it has received the update successfully, thus allowing the sending of subsequent updates.
+Many database management systems (DBMS) use replication, which is commonly done using a master-slave connection between the original and the copies. The master receives all updates, which are then sent to the slaves. Each slave sends a message indicating that the update was properly received, enabling for the delivery of following updates.
 
 
 **References**

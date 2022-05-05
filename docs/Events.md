@@ -1,12 +1,12 @@
-# Long-Polling vs WebSockets vs Server-Sent Events
+# WebSockets vs. Server-Sent Events vs. Long-Polling
 
-**What is the difference between Long-Polling, WebSockets, and Server-Sent Events?**
+**Can you explain the differences between Long-Polling, WebSockets, and Server-Sent Events?
 
-Long-Polling, WebSockets, and Server-Sent Events are popular communication protocols between a client like a web browser and a web server. First, let’s start with understanding what a standard HTTP web request looks like. Following are a sequence of events for regular HTTP request:
+Long-Polling, WebSockets, and Server-Sent Events are some of the most popular communication protocols between a client and a web server. Let's start with a basic understanding of how a regular HTTP web request looks. The sequence of events for a standard HTTP request is as follows:
 
-1. The client opens a connection and requests data from the server.
-2. The server calculates the response.
-3. The server sends the response back to the client on the opened request.
+1. The client establishes a connection with the server and requests data.
+2. The response is calculated by the server.
+3. On the opened request, the server provides the response back to the client.
 
 <p align="center"> 
   <kbd>
@@ -15,15 +15,15 @@ Long-Polling, WebSockets, and Server-Sent Events are popular communication proto
   </kbd>
 </p>
 
-## Ajax Polling
-Polling is a standard technique used by the vast majority of AJAX applications. The basic idea is that the client repeatedly polls (or requests) a server for data. The client makes a request and waits for the server to respond with data. If no data is available, an empty response is returned.
+## Polling with Ajax
+The great majority of AJAX apps employ polling as a common strategy. The basic concept is that the client polls (or requests) data from the server on a regular basis. The client submits a request and awaits a response from the server. An empty response is returned if no data is available.
 
-1. The client opens a connection and requests data from the server using regular HTTP.
-2. The requested webpage sends requests to the server at regular intervals (e.g., 0.5 seconds).
-3. The server calculates the response and sends it back, just like regular HTTP traffic.
-4. The client repeats the above three steps periodically to get updates from the server.
+1. The client establishes a connection with the server and sends a standard HTTP request for data.
+2. The requested webpage sends periodic queries to the server (e.g., 0.5 seconds).
+3. Just like regular HTTP traffic, the server calculates the response and sends it back.
+4. To acquire updates from the server, the client performs the first three steps on a regular basis.
 
-The problem with Polling is that the client has to keep asking the server for any new data. As a result, a lot of responses are empty, creating HTTP overhead.
+Polling has the drawback of requiring the client to continually requesting the server for new data. As a result, many answers are blank, resulting in HTTP overhead.
 
 <p align="center"> 
   <kbd>
@@ -32,19 +32,19 @@ The problem with Polling is that the client has to keep asking the server for an
   </kbd>
 </p>
 
-## HTTP Long-Polling
-This is a variation of the traditional polling technique that allows the server to push information to a client whenever the data is available. With Long-Polling, the client requests information from the server exactly as in normal polling, but with the expectation that the server may not respond immediately. That’s why this technique is sometimes referred to as a “Hanging GET”.
+## Long-Polling HTTP
+This is a version of traditional polling that allows the server to push data to a client whenever it is available. Long-Polling involves the client requesting information from the server in the same way that standard polling does, but with the caveat that the server may not respond right away. This is why this approach is also known as a "Hanging GET."
 
-1. If the server does not have any data available for the client, instead of sending an empty response, the server holds the request and waits until some data becomes available.
-2. Once the data becomes available, a full response is sent to the client. The client then immediately re-request information from the server so that the server will almost always have an available waiting request that it can use to deliver data in response to an event.
+1. Instead of returning an empty answer if the server does not have any data for the client, the server holds the request and waits for data to become available.
+2. A full response is delivered to the client once the data is accessible. The client then instantly re-requests information from the server, ensuring that the server has a waiting request ready to give data in response to an event virtually all of the time.
 
-The basic life cycle of an application using HTTP Long-Polling is as follows:
+The following is the basic life cycle of an application that uses HTTP Long-Polling:
 
-1. The client makes an initial request using regular HTTP and then waits for a response.
-2. The server delays its response until an update is available or a timeout has occurred.
-3. When an update is available, the server sends a full response to the client.
-4. The client typically sends a new long-poll request, either immediately upon receiving a response or after a pause to allow an acceptable latency period.
-5. Each Long-Poll request has a timeout. The client has to reconnect periodically after the connection is closed due to timeouts.
+1. The client issues a standard HTTP request and then waits for a response.
+2. The server waits until an update is available or a timeout occurs before responding.
+3. When an update is available, the server sends the client a complete response.
+4. After getting a response, the client normally sends a new long-poll request, either immediately or after a delay to provide for an acceptable latency duration.
+5. There is a timeout on each Long-Poll request. After a connection is lost owing to timeouts, the client must rejoin on a regular basis.
 
 <p align="center"> 
   <kbd>
@@ -55,7 +55,9 @@ The basic life cycle of an application using HTTP Long-Polling is as follows:
 
 ## WebSockets
 
-WebSocket provides Full duplex communication channels over a single TCP connection. It provides a persistent connection between a client and a server that both parties can use to start sending data at any time. The client establishes a WebSocket connection through a process known as the WebSocket handshake. If the process succeeds, then the server and client can exchange data in both directions at any time. The WebSocket protocol enables communication between a client and a server with lower overheads, facilitating real-time data transfer from and to the server. This is made possible by providing a standardized way for the server to send content to the browser without being asked by the client and allowing for messages to be passed back and forth while keeping the connection open. In this way, a two-way (bi-directional) ongoing conversation can take place between a client and a server.
+Over a single TCP connection, WebSocket delivers full duplex communication channels. It establishes a permanent link between a client and a server, allowing both parties to begin transferring data at any moment. The WebSocket handshake is the process by which the client establishes a WebSocket connection. If the operation is successful, the server and client can freely communicate data in both ways.
+
+The WebSocket protocol allows for low-latency communication between a client and a server, allowing for real-time data flow from and to the server. This is accomplished by providing a standardized method for the server to deliver content to the browser without the client's permission, as well as allowing messages to be passed back and forth while the connection is open. A two-way (bi-directional) continuing dialogue between a client and a server can be established in this manner.
 
 <p align="center"> 
   <kbd>
@@ -64,13 +66,14 @@ WebSocket provides Full duplex communication channels over a single TCP connecti
   </kbd>
 </p>
 
-## Server-Sent Events (SSEs)
-Under SSEs the client establishes a persistent and long-term connection with the server. The server uses this connection to send data to a client. If the client wants to send data to the server, it would require the use of another technology/protocol to do so.
+## Server-Delivered Events (SSEs)
+SSEs allow the client to establish a long-term and persistent connection with the server. This connection is used by the server to send data to a client. If the client wants to communicate data to the server, it will have to do so using a different technology/protocol.
 
-1. Client requests data from a server using regular HTTP.
-2. The requested webpage opens a connection to the server.
-3. The server sends the data to the client whenever there’s new information available.
-SSEs are best when we need real-time traffic from the server to the client or if the server is generating data in a loop and will be sending multiple events to the client.
+1. A client uses HTTP to request data from a server.
+2. The requesting webpage establishes a server connection.
+3. When new information becomes available, the server provides it to the client.
+
+When real-time transmission from the server to the client is required, or if the server generates data in a loop and will be transmitting several events to the client, SSEs are the ideal choice.
 
 <p align="center"> 
   <kbd>

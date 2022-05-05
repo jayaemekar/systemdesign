@@ -1,13 +1,14 @@
-# System Design Basics
+# What is System Design?
 
-Whenever we are designing a large system, we need to consider a few things:
+The process of defining the architecture, interfaces, and data for a system to meet specified criteria is referred to as system design.
 
-1. What are the different architectural pieces that can be used?
-2. How do these pieces work with each other?
-3. How can we best utilize these pieces: what are the right tradeoffs?
+When constructing a huge system, there are a few considerations to keep in mind:
 
-Investing in scaling before it is needed is generally not a smart business proposition; however, some forethought into the design can save valuable time and resources in the future. In the following chapters, we will try to define some of the core building blocks of scalable systems. Familiarizing these concepts would greatly benefit in understanding distributed system concepts. 
+  1. What are the many architectural components that can be utilized?
+  2. What is the relationship between these components?
+  3. What are the best tradeoffs to make in order to get the most out of these components?
 
-In the next section, we will go through Consistent Hashing, CAP Theorem, Load Balancing, Caching, Data Partitioning, Indexes, Proxies, Queues, Replication, and choosing between SQL vs. NoSQL.
+The issue of system design is wide. There are numerous materials on system design principles dispersed over the internet. Many tech organizations require system design as part of the technical interview process in addition to coding interviews.
 
-Let’s start with the Key Characteristics of Distributed Systems.
+Building and engineering systems demand a systematic approach to system design. A smart system design considers everything in an infrastructure, from hardware and software to data and how it's kept.
+

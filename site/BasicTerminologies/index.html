@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  <link rel="canonical" href="https://system_design.com/BasicTerminologies/">
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Basic Terminologies - system_design</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Basic Terminologies";
+    var mkdocs_page_input_path = "BasicTerminologies.md";
+    var mkdocs_page_url = "/BasicTerminologies/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> system_design</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level1</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../PreRequisites/">Pre Requisites</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Basic Terminologies</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#reliability">Reliability</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#replication">Replication</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consistency">Consistency</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#availability">Availability</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#partition-tolerance">Partition Tolerance</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#scaling">Scaling</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#sharding">Sharding</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../StepsToApproachAProblem/">Steps To Approach A Problem</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Level2</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../DesignCache/">Design Cache</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">system_design</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Level1 &raquo;</li>
+        
+      
+    
+    <li>Basic Terminologies</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="basic-terminologies">Basic Terminologies</h1>
+<p>We try to explain some of the terminologies in simple words. Lookup wiki for a more formal definition.</p>
+<h2 id="reliability">Reliability</h2>
+<ul>
+<li>Reliability is the probability a system will fail in a given period.</li>
+<li>A distributed system is considered reliable if it keeps delivering its services even when one or several of its software or hardware components fail</li>
+</ul>
+<h2 id="replication">Replication</h2>
+<ul>
+<li>Replication refers to frequently copying the data across multiple machines. </li>
+<li>Post replication, multiple copies of the data exists across machines. This might help in case one or more of the machines die due to some failure.</li>
+</ul>
+<h2 id="consistency">Consistency</h2>
+<ul>
+<li>Assuming you have a storage system which has more than one machine, consistency implies that the data is same across the cluster, so you can read or write to/from any node and get the same data.</li>
+<li><strong>Eventual consistency</strong>:
+Exactly what the name suggests. In a cluster, if multiple machines store the same data, an eventual consistent model implies that all machines will have the same data eventually. </li>
+<li>Its possible that at a given instance, those machines have different versions of the same data ( temporarily inconsistent ) but they will eventually reach a state where they have the same data.</li>
+</ul>
+<h2 id="availability">Availability</h2>
+<ul>
+<li>It is a simple measure of the percentage of time that a system, service, or a machine remains operational under normal conditions. </li>
+<li>In the context of a database cluster, Availability refers to the ability to always respond to queries ( read or write ) irrespective of nodes going down.</li>
+<li><strong>Reliability Vs. Availability</strong>
+If a system is reliable, it is available. However, if it is available, it is not necessarily reliable. </li>
+</ul>
+<h2 id="partition-tolerance">Partition Tolerance</h2>
+<p>In the context of a database cluster, cluster continues to function even if there is a “partition” (communications break) between two nodes (both nodes are up, but can’t communicate).</p>
+<h2 id="scaling">Scaling</h2>
+<p>Scalability is the capability of a system, process, or a network to grow and manage increased demand.
+There are two types of scaling, Horizontal and Vertical Scaling 
+In simple terms, to scale horizontally is adding more servers. To scale vertically is to increase the resources of the server ( RAM, CPU, storage, etc. ). </p>
+<p align="center"> 
+  <kbd>
+  <a href="https://github.com/jayaemekar/systemdesign" target="_blank"><img src="../docs/images/Scaling.png">
+  </a>
+  </kbd>
+</p>
+
+<h2 id="sharding">Sharding</h2>
+<p>Sharding is a method for distributing data across multiple machines.
+With most huge systems, data does not fit on a single machine. In such cases, sharding refers to splitting the very large database into smaller, faster and more manageable parts called data shards.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../CAPTheorem/" class="btn btn-neutral float-right" title="CAP Theorem">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../PreRequisites/" class="btn btn-neutral" title="Pre Requisites"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../PreRequisites/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../CAPTheorem/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

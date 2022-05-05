@@ -1,69 +1,91 @@
-# Designing a URL Shortening service like TinyURL
-Let's design a URL shortening service like TinyURL. This service will provide short aliases redirecting to long URLs.
+# Creating a TinyURL-style URL shortening service
 
-Similar services: bit.ly, goo.gl, qlink.me, etc.
-Difficulty Level: Easy
+Let's make a TinyURL-style URL shortening service. Short aliases for long URLs will be provided by this service.
 
-## Why do we need URL shortening?
+- Bit.ly, goo.gl, qlink.me, and other similar services
+- Level of Difficulty: Easy
 
-URL shortening is used to create shorter aliases for long URLs. We call these shortened aliases “short links.” Users are redirected to the original URL when they hit these short links. Short links save a lot of space when displayed, printed, messaged, or tweeted. Additionally, users are less likely to mistype shorter URLs.
+***What is the purpose of URL shortening?***
 
-For example, if we shorten this page through TinyURL:
+For long URLs, URL shortening is utilized to create shorter aliases. These shortened aliases are referred to as "short links." When users click on these short links, they are forwarded to the original URL. When displayed, printed, messaged, or tweeted, short links save a lot of space. Shorter URLs are also less likely to be mistyped by users.
 
-    https://www.educative.io/collection/page/5668639101419520/5649050225344512/5668600916475904/
+For example, if we use TinyURL to shorten this page:
+
+        https://www.jayaaemekar.io/collection/page/5668639101419520/
 
 We would get:
 
-    http://tinyurl.com/jlg8zpc
+        http://tinyurl.com/jlg8zpc
 
-The shortened URL is nearly one-third the size of the actual URL.
+The abbreviated URL is almost one-third the length of the original.
 
-The shortened URL is nearly one-third the size of the actual URL.
+The abbreviated URL is almost one-third the length of the original.
 
-URL shortening is used for optimizing links across devices, tracking individual links to analyze audience and campaign performance, and hiding affiliated original URLs.
+URL shortening is used for a variety of purposes, including optimizing links across devices, tracking individual links to gauge audience and campaign performance, and concealing connected original URLs.
 
-If you haven’t used tinyurl.com before, please try creating a new shortened URL and spend some time going through the various options their service offers. This will help you a lot in understanding this chapter.
+## Pratice Problem
 
-## Requirements and Goals of the System
+***Let's get started on the system design solution.***
 
-💡 You should always clarify requirements at the beginning of the interview. Be sure to ask questions to find the exact scope of the system that the interviewer has in mind.
+**If you run into any problems, please see the solution below.**
 
-Our URL shortening system should meet the following requirements:
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
+</head>
+<body>
+    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <br><br>
+	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
+</body>
+</html>
+
+
+## Solution
+### Requirements and Goals of the System
+
+💡 **At the start of the interview, you should always outline criteria. Ask questions to figure out the exact extent of the system that the interviewer is thinking of.**
+
+The following requirements should be met by our URL shortening system:
 
 **Functional Requirements:**
 
-1. Given a URL, our service should generate a shorter and unique alias of it. This is called a short link. This link should be short enough to be easily copied and pasted into applications.
-2. When users access a short link, our service should redirect them to the original link.
-3. Users should optionally be able to pick a custom short link for their URL.
-4. Links will expire after a standard default timespan. Users should be able to specify the expiration time.
+1. Given a URL, our service should create a unique and shorter alias for it. This is referred to as a short link. This URL should be short enough to be copied and pasted into programs without difficulty.
+2. Our service should redirect visitors to the original site when they click on a short link.
+3. Users should be allowed to choose a custom short link for their URL as an option.
+4. Links will expire after a set amount of time. The expiration time should be configurable by the user.
 
 **Non-Functional Requirements:**
 
-1. The system should be highly available. This is required because, if our service is down, all the URL redirections will start failing.
-2. URL redirection should happen in real-time with minimal latency.
-3. Shortened links should not be guessable (not predictable).
+1. The system should have a high level of availability. This is necessary because if our service is unavailable, all URL redirections would fail.
+2. URL redirection should take place in real time with the least amount of latency possible.
+3. It should not be possible to guess the length of shortened connections (not predictable).
 
 **Extended Requirements:**
-1. Analytics; e.g., how many times a redirection happened?
+
+1. Analytical data; for example, how many times has a redirection occurred?
 2. Our service should also be accessible through REST APIs by other services.
 
 ## Capacity Estimation and Constraints
-Our system will be read-heavy. There will be lots of redirection requests compared to new URL shortenings. Let’s assume a 100:1 ratio between read and write.
+Our system will rely heavily on reading. In comparison to new URL shortenings, there will be a lot of redirection requests. Assume that read and write have a 100:1 ratio.
 
-**Traffic estimates:** Assuming, we will have 500M new URL shortenings per month, with 100:1 read/write ratio, we can expect 50B redirections during the same period:
+**Traffic estimates:**  If we assume 500 million new URL shortenings every month and a 100:1 read/write ratio, we can expect 50 billion redirections in the same time period:
 
         100 * 500M => 50B
-What would be Queries Per Second (QPS) for our system? New URLs shortenings per second:
+What would our system's Queries Per Second (QPS) be? Per second, new URL shortenings:
 
         500 million / (30 days * 24 hours * 3600 seconds) = ~200 URLs/s
 Considering 100:1 read/write ratio, URLs redirections per second will be:
 
         100 * 200 URLs/s = 20K/
 
-**Storage estimates:** Let’s assume we store every URL shortening request (and associated shortened link) for 5 years. Since we expect to have 500M new URLs every month, the total number of objects we expect to store will be 30 billion:
+**Storage estimates:** Let's say we keep track of every URL shortening request (and the abbreviated link that goes with it) for five years. With 500 million new URLs expected per month, the total number of objects we expect to store is 30 billion:
 
         500 million * 5 years * 12 months = 30 billion
-Let’s assume that each stored object will be approximately 500 bytes (just a ballpark estimate–we will dig into it later). We will need 15TB of total storage:
+Let's assume that each stored object is 500 bytes in size (this is just a guess–we'll look at it later). We'll need a total of 15TB of storage:
 
         30 billion * 500 bytes = 15 TB
 
@@ -80,18 +102,18 @@ Let’s assume that each stored object will be approximately 500 bytes (just a b
 For read requests, since every second we expect ~20K URLs redirections, total outgoing data for our service would be 10MB per second:
 
         20K * 500 bytes = ~10 MB/s
-Memory estimates: If we want to cache some of the hot URLs that are frequently accessed, how much memory will we need to store them? If we follow the 80-20 rule, meaning 20% of URLs generate 80% of traffic, we would like to cache these 20% hot URLs.
+**Memory estimates:** How much RAM will we need to keep some of the most often visited URLs if we wish to cache them? We'd like to cache this 20% of hot URLs if we follow the 80-20 rule, which states that 20% of URLs produce 80% of traffic.
 
-Since we have 20K requests per second, we will be getting 1.7 billion requests per day:
+We'll get 1.7 billion requests each day if we have 20K requests per second:
 
         20K * 3600 seconds * 24 hours = ~1.7 billion
 To cache 20% of these requests, we will need 170GB of memory.
 
         0.2 * 1.7 billion * 500 bytes = ~170GB
 
-One thing to note here is that since there will be a lot of duplicate requests (of the same URL), therefore, our actual memory usage will be less than 170GB.
+One thing to keep in mind is that because there will be a lot of duplicate requests (for the same URL), our actual memory consumption will be less than 170GB.
 
-High level estimates: Assuming 500 million new URLs per month and 100:1 read:write ratio, following is the summary of the high level estimates for our service:
+Estimates at a high level: The following is a summary of our high-level estimations for our service, assuming 500 million new URLs each month and a 100:1 read:write ratio:
 
 <p align="center"> 
   <kbd>
@@ -100,25 +122,25 @@ High level estimates: Assuming 500 million new URLs per month and 100:1 read:wri
   </kbd>
 </p>
 
-## System APIs
+### System APIs
 
-💡      Once we've finalized the requirements, it's always a good idea to define the system APIs. This should explicitly state what is expected from the system.
-We can have SOAP or REST APIs to expose the functionality of our service. Following could be the definitions of the APIs for creating and deleting URLs:
+💡 **It's always a good idea to establish the system APIs after we've finalized the requirements. This should express clearly what the system is intended to do.**
+To expose the functionality of our service, we can use SOAP or REST APIs. The following are possible API specifications for creating and removing URLs:
 
-        createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)
+- createURL(api_dev_key, original_url, custom_alias=None, user_name=None, expire_date=None)
 
 **Parameters:**
-api_dev_key (string): The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
-original_url (string): Original URL to be shortened.
-custom_alias (string): Optional custom key for the URL.
-user_name (string): Optional user name to be used in the encoding.
-expire_date (string): Optional expiration date for the shortened URL.
+
+- **api_dev_key (string):** The API developer key of a registered account. This will be used to, among other things, throttle users based on their allocated quota.
+- **original_url (string):** Original URL to be shortened.
+- **custom_alias (string):** Optional custom key for the URL.
+- **user_name (string):** Optional user name to be used in the encoding.
+- **expire_date (string):** Optional expiration date for the shortened URL.
 
 **Returns:** (string)
 A successful insertion returns the shortened URL; otherwise, it returns an error code.
 
-        deleteURL(api_dev_key, url_key)
-Where “url_key” is a string representing the shortened URL to be retrieved. A successful deletion returns ‘URL Removed’.
+- **deleteURL(api_dev_key, url_key)** Where “url_key” is a string representing the shortened URL to be retrieved. A successful deletion returns ‘URL Removed’.
 
 **How do we detect and prevent abuse?** A malicious user can put us out of business by consuming all URL keys in the current design. To prevent abuse, we can limit users via their api_dev_key. Each api_dev_key can be limited to a certain number of URL creations and redirections per some time period (which may be set to a different duration per developer key).
 

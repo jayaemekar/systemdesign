@@ -1,14 +1,16 @@
 # Indexes
 
-Indexes are well known when it comes to databases. Sooner or later there comes a time when database performance is no longer satisfactory. One of the very first things you should turn to when that happens is database indexing.
+When it comes to databases, indexes are well-known. Database performance will eventually degrade to the point where it is no longer acceptable. When this happens, database indexing is one of the first things you should do.
 
-The goal of creating an index on a particular table in a database is to make it faster to search through the table and find the row or rows that we want. Indexes can be created using one or more columns of a database table, providing the basis for both rapid random lookups and efficient access of ordered records.
+The purpose of setting an index on a table in a database is to make it easier to search through the table and discover the row or rows we're looking for. Indexes can be built utilizing one or more columns from a database table, allowing for quick random lookups as well as efficient access to ordered items.
 
-## Example: A library catalog
+**An example would be a library catalog.**
 
-A library catalog is a register that contains the list of books found in a library. The catalog is organized like a database table generally with four columns: book title, writer, subject, and date of publication. There are usually two such catalogs: one sorted by the book title and one sorted by the writer name. That way, you can either think of a writer you want to read and then look through their books or look up a specific book title you know you want to read in case you don’t know the writer’s name. These catalogs are like indexes for the database of books. They provide a sorted list of data that is easily searchable by relevant information.
-
-Simply saying, an index is a data structure that can be perceived as a table of contents that points us to the location where actual data lives. So when we create an index on a column of a table, we store that column and a pointer to the whole row in the index. Let’s assume a table containing a list of books, the following diagram shows how an index on the ‘Title’ column looks like:
+- A library catalog is a list of books found in a library that is kept in a register. The catalog is laid out in the format of a database table, with four columns: book title, author, subject, and publication date.
+- Typically, there are two such catalogs: one ordered by book title and the other sorted by author name. That way, you may either think of a writer you'd like to read and then browse their books, or hunt up a specific book title you'd like to read if you don't know the author's name. 
+- These catalogs function as indexes for the book database. They give you a sorted set of data that you can search for pertinent information in.
+- Simply said, an index is a data structure that functions similarly to a table of contents in that it directs us to the real data. When we establish an index on a table column, we store the column as well as a pointer to the entire row in the index. 
+- Assuming you have a table with a list of books, the diagram below depicts how an index on the 'Title' column would look:
 
 <p align="center"> 
   <kbd>
@@ -17,12 +19,18 @@ Simply saying, an index is a data structure that can be perceived as a table of 
   </kbd>
 </p>
 
-Just like a traditional relational data store, we can also apply this concept to larger datasets. The trick with indexes is that we must carefully consider how users will access the data. In the case of data sets that are many terabytes in size, but have very small payloads (e.g., 1 KB), indexes are a necessity for optimizing data access. Finding a small payload in such a large dataset can be a real challenge, since we can’t possibly iterate over that much data in any reasonable time. Furthermore, it is very likely that such a large data set is spread over several physical devices—this means we need some way to find the correct physical location of the desired data. Indexes are the best way to do this.
+- This notion can be used to larger datasets in the same way that a standard relational data store can. When it comes to indexes, the trick is to think about how users will access the data. 
+- Indexes are essential for maximizing data access when data sets are many terabytes in size but have very little payloads (e.g., 1 KB). 
+- Finding a tiny payload in such a vast dataset can be difficult because we can't iterate over all of it in an acceptable amount of time.
+- Furthermore, such a big data collection is extremely likely to be dispersed among numerous physical devices, necessitating the development of a method for locating the correct physical location of the needed data. 
+- The best way to do this is to use indexes.
 
 ## How do Indexes decrease write performance?
 
-An index can dramatically speed up data retrieval but may itself be large due to the additional keys, which slow down data insertion & update.
+- An index can drastically speed up data retrieval, but because of the additional keys, it can be rather huge, slowing down data input and update.
+- When adding rows to a table with an active index or updating existing rows, we must not only write the data but also update the index. The writing performance will suffer as a result of this. 
+- All insert, update, and delete actions for the table suffer from this speed decrease. 
+- As a result, adding unnecessary indexes to tables should be avoided, and obsolete indexes should be eliminated.
+- To be clear, increasing indexes is all about enhancing the speed of search queries. If the purpose of the database is to offer a data store that is frequently written to but seldom read from, then slowing down the more common process, writing, is probably not worth the performance boost we obtain from reading.
 
-When adding rows or making updates to existing rows for a table with an active index, we not only have to write the data but also have to update the index. This will decrease the write performance. This performance degradation applies to all insert, update, and delete operations for the table. For this reason, adding unnecessary indexes on tables should be avoided and indexes that are no longer used should be removed. To reiterate, adding indexes is about improving the performance of search queries. If the goal of the database is to provide a data store that is often written to and rarely read from, in that case, decreasing the performance of the more common operation, which is writing, is probably not worth the increase in performance we get from reading.
-
-For more details, see **[Database Indexes](https://en.wikipedia.org/wiki/Database_index)**
+See this page for further information. **[Database Indexes](https://en.wikipedia.org/wiki/Database_index)**

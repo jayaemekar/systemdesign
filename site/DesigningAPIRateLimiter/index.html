@@ -1,235 +1,136 @@
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  
-  <link rel="canonical" href="https://systemdesignbyjayaa.com/DesigningAPIRateLimiter/">
-  <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Designing an API Rate Limiter - My System Design</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+<meta charset="utf-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Designing an API Rate Limiter - My System Design</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <link rel="stylesheet" href="../css/theme.css" />
-  <link rel="stylesheet" href="../css/theme_extra.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
-  
-  <script>
-    // Current page data
-    var mkdocs_page_name = "Designing an API Rate Limiter";
-    var mkdocs_page_input_path = "DesigningAPIRateLimiter.md";
-    var mkdocs_page_url = "/DesigningAPIRateLimiter/";
-  </script>
-  
-  <script src="../js/jquery-2.1.1.min.js" defer></script>
-  <script src="../js/modernizr-2.8.3.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script> 
+<meta name="generator" content="mkdocs-1.2.3, mkdocs-gitbook-1.0.7">
+
+<link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta rel="next" href="" />
+<link href="../css/style.min.css" rel="stylesheet"> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body>
+<div class="book">
+<div class="book-summary">
+<div id="book-search-input" role="search">
+<input type="text" placeholder="Type to search" />
+</div> <!-- end of book-search-input -->
 
-  <div class="wy-grid-for-nav">
+<nav role="navigation">
+<ul class="summary">
+<li>
+<a href=".." target="_blank" class="custom-link">My System Design</a>
+</li>
+<li class="divider"></li>
+<li class="chapter" data-path="">
+<a href="..">Home</a>
+<li class="chapter" data-path="KeyCharDistributedSystem/">
+<a href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
+<li class="chapter" data-path="LoadBalancing/">
+<a href="../LoadBalancing/">Load Balancing</a>
+<li class="chapter" data-path="Caching/">
+<a href="../Caching/">Caching</a>
+<li class="chapter" data-path="DataPartitioning/">
+<a href="../DataPartitioning/">Data Partitioning</a>
+<li class="chapter" data-path="Indexes/">
+<a href="../Indexes/">Indexes</a>
+<li class="chapter" data-path="Proxies/">
+<a href="../Proxies/">Proxies</a>
+<li class="chapter" data-path="RedundancyReplication/">
+<a href="../RedundancyReplication/">Redundancy and Replication</a>
+<li class="chapter" data-path="SQLvsNoSQL/">
+<a href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
+<li class="chapter" data-path="CAPTheorem/">
+<a href="../CAPTheorem/">CAP Theorem</a>
+<li class="chapter" data-path="ConsistentHashing/">
+<a href="../ConsistentHashing/">Consistent Hashing</a>
+<li class="chapter" data-path="Events/">
+<a href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
+<li class="chapter" data-path="SystemDesignInterviews/">
+<a href="../SystemDesignInterviews/">System Design Interviews</a>
+<li class="chapter" data-path="DesignURLShorteningService/">
+<a href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
+<li class="chapter" data-path="DesigningURLShorteningService/">
+<a href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
+<li class="chapter" data-path="DesigningPastebin/">
+<a href="../DesigningPastebin/">Designing Pastebin</a>
+<li class="chapter" data-path="DesigningInstagram/">
+<a href="../DesigningInstagram/">Designing Instagram</a>
+<li class="chapter" data-path="DesigningDropbox/">
+<a href="../DesigningDropbox/">Designing Dropbox</a>
+<li class="chapter" data-path="DesigningFacebookMessenger/">
+<a href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
+<li class="chapter" data-path="DesigningTwitter/">
+<a href="../DesigningTwitter/">Designing Twitter</a>
+<li class="chapter" data-path="DesigningYoutubeorNetflix/">
+<a href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
+<li class="chapter" data-path="DesigningTypeaheadSuggestion/">
+<a href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
+<li class="chapter active" data-path="DesigningAPIRateLimiter/">
+<a href="./">Designing an API Rate Limiter</a>
+<li class="chapter" data-path="DesigningTwitterSearch/">
+<a href="../DesigningTwitterSearch/">Designing Twitter Search</a>
+<li class="chapter" data-path="DesigningWebCrawler/">
+<a href="../DesigningWebCrawler/">Designing a Web Crawler</a>
+<li class="chapter" data-path="DesigningFacebookNewsfeed/">
+<a href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
+<li class="chapter" data-path="DesigningYelporNearbyFriends/">
+<a href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
+<li class="chapter" data-path="DesigningUberBackend/">
+<a href="../DesigningUberBackend/">Designing Uber backend</a>
+<li class="chapter" data-path="DesignTicketmaster/">
+<a href="../DesignTicketmaster/">Design Ticketmaster</a>
+<li class="chapter" data-path="PraticeDesignProblems/">
+<a href="../PraticeDesignProblems/">Pratice Design Problems</a>
+<li class="chapter" data-path="about/">
+<a href="../about/">About</a>
+<li class="divider"></li>
 
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
-    <div class="wy-side-scroll">
-      <div class="wy-side-nav-search">
-        <a href=".." class="icon icon-home"> My System Design</a>
-        <div role="search">
-  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
-      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
-  </form>
-</div>
-      </div>
 
-      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../KeyCharDistributedSystem/">Key Characteristics of Distributed Systems</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../LoadBalancing/">Load Balancing</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Caching/">Caching</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DataPartitioning/">Data Partitioning</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Indexes/">Indexes</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Proxies/">Proxies</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../RedundancyReplication/">Redundancy and Replication</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../SQLvsNoSQL/">SQL vs. NoSQL</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../CAPTheorem/">CAP Theorem</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../ConsistentHashing/">Consistent Hashing</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../Events/">Long-Polling vs WebSockets vs Server-Sent Events</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../SystemDesignInterviews/">System Design Interviews</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignURLShorteningService/">Question-Design a URL Shortening service</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningURLShorteningService/">Designing a URL Shortening service</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningPastebin/">Designing Pastebin</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningInstagram/">Designing Instagram</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningDropbox/">Designing Dropbox</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookMessenger/">Designing Facebook Messenger</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitter/">Designing Twitter</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYoutubeorNetflix/">Designing Youtube or Netflix</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTypeaheadSuggestion/">Designing Typeahead Suggestion</a>
-                    </li>
-                </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Designing an API Rate Limiter</a>
-    <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#1-what-is-a-rate-limiter">1. What is a Rate Limiter?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#2-why-do-we-need-api-rate-limiting">2. Why do we need API rate limiting?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3-requirements-and-goals-of-the-system">3. Requirements and Goals of the System</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4-how-to-do-rate-limiting">4. How to do Rate Limiting?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5-what-are-different-types-of-throttling">5. What are different types of throttling?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#6-what-are-different-types-of-algorithms-used-for-rate-limiting">6. What are different types of algorithms used for Rate Limiting?</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#7-high-level-design-for-rate-limiter">7. High level design for Rate Limiter</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#8-basic-system-design-and-algorithm">8. Basic System Design and Algorithm</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#9-sliding-window-algorithm">9. Sliding Window algorithm</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#10-sliding-window-with-counters">10. Sliding Window with Counters</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#11-data-sharding-and-caching">11. Data Sharding and Caching</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#12-should-we-rate-limit-by-ip-or-by-user">12. Should we rate limit by IP or by user?</a>
-    </li>
-    </ul>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningTwitterSearch/">Designing Twitter Search</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningWebCrawler/">Designing a Web Crawler</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningFacebookNewsfeed/">Designing Facebook’s Newsfeed</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningYelporNearbyFriends/">Designing Yelp or Nearby Friends</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesigningUberBackend/">Designing Uber backend</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../DesignTicketmaster/">Design Ticketmaster</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../PraticeDesignProblems/">Pratice Design Problems</a>
-                    </li>
-                </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../about/">About</a>
-                    </li>
-                </ul>
-      </div>
-    </div>
-    </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+<li><a href="http://www.mkdocs.org">
+Published with MkDocs
+</a></li>
 
-      
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="..">My System Design</a>
-      </nav>
+<li><a href="https://github.com/GitbookIO/theme-default">
+Theme by GitBook
+</a></li>
+</ul>
 
-      
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="breadcrumbs navigation">
-  <ul class="wy-breadcrumbs">
-    <li><a href="..">Docs</a> &raquo;</li>
-    
-      
-    
-    <li>Designing an API Rate Limiter</li>
-    <li class="wy-breadcrumbs-aside">
-      
-    </li>
-  </ul>
-  
-  <hr/>
-</div>
+</nav>
 
-          <div role="main">
-            <div class="section">
-              
-                <h1 id="designing-an-api-rate-limiter">Designing an API Rate Limiter</h1>
+</div> <!-- end of book-summary -->
+
+<div class="book-body">
+<div class="body-inner">
+<div class="book-header" role="navigation">
+
+<!-- Title -->
+<h1>
+<i class="fa fa-circle-o-notch fa-spin"></i>
+<a href="." ></a>
+</h1>
+
+</div> <!-- end of book-header -->
+
+<div class="page-wrapper" tabindex="-1" role="main">
+<div class="page-inner">
+<div id="book-search-results">
+<div class="search-noresults">
+
+<section class="normal markdown-section">
+
+
+
+<h1 id="designing-an-api-rate-limiter">Designing an API Rate Limiter</h1>
 <p>Let's design an API Rate Limiter which will throttle users based upon the number of the requests they are sending.</p>
 <p>Difficulty Level: Medium</p>
 <h2 id="1-what-is-a-rate-limiter">1. What is a Rate Limiter?</h2>
@@ -412,58 +313,34 @@ If ‘Count &gt;= 3’, reject the request.</p>
 <p><strong>User:</strong> Rate limiting can be done on APIs after user authentication. Once authenticated, the user will be provided with a token which the user will pass with each request. This will ensure that we will rate limit against a particular API that has a valid authentication token. But what if we have to rate limit on the login API itself? The weakness of this rate-limiting would be that a hacker can perform a denial of service attack against a user by entering wrong credentials up to the limit; after that the actual user will not be able to log-in.</p>
 <p><strong>How about if we combine the above two schemes?</strong></p>
 <p><strong>Hybrid:</strong> A right approach could be to do both per-IP and per-user rate limiting, as they both have weaknesses when implemented alone, though, this will result in more cache entries with more details per entry, hence requiring more memory and storage.</p>
-              
-            </div>
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../DesigningTwitterSearch/" class="btn btn-neutral float-right" title="Designing Twitter Search">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../DesigningTypeaheadSuggestion/" class="btn btn-neutral" title="Designing Typeahead Suggestion"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
-  
 
-  <hr/>
 
-  <div role="contentinfo">
-    <!-- Copyright etc -->
-    
-  </div>
+</section>
+</div> <!-- end of search-noresults -->
+<div class="search-results">
+<div class="has-results">
 
-  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-</footer>
-      
-        </div>
-      </div>
+<h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+<ul class="search-results-list"></ul>
 
-    </section>
+</div> <!-- end of has-results -->
+<div class="no-results">
 
-  </div>
+<h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
 
-  <div class="rst-versions" role="note" aria-label="versions">
-  <span class="rst-current-version" data-toggle="rst-current-version">
-    
-    
-      <span><a href="../DesigningTypeaheadSuggestion/" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../DesigningTwitterSearch/" style="color: #fcfcfc">Next &raquo;</a></span>
-    
-  </span>
-</div>
-    <script>var base_url = '..';</script>
-    <script src="../js/theme_extra.js" defer></script>
-    <script src="../js/theme.js" defer></script>
-      <script src="../search/main.js" defer></script>
-    <script defer>
-        window.onload = function () {
-            SphinxRtdTheme.Navigation.enable(true);
-        };
-    </script>
+</div> <!-- end of no-results -->
+</div> <!-- end of search-results -->
+</div> <!-- end of book-search-results -->
 
+</div> <!-- end of page-inner -->
+</div> <!-- end of page-wrapper -->
+
+</div> <!-- end of body-inner -->
+
+</div> <!-- end of book-body -->
+<script src="../js/main.js"></script>
+<script src="../search/main.js"></script>
+<script src="../js/gitbook.min.js"></script>
+<script src="../js/theme.min.js"></script>
 </body>
 </html>
