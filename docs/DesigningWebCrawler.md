@@ -36,18 +36,18 @@ Other applications for web crawlers include:
     <br><br>
     <h2>Hints to solve the problem</h2>
 
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#high-level-design" target="_blank">3. Consider high level design. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#detailed-component-design" target="_blank">4. How do you create a component level design? </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#data-partitioning" target="_blank">5. What about data replication and partitioning?</a>
     <br>
     <br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningWebCrawler/#crawler-traps" target="_blank">6.  Consider crawler traps </a>
     <br>
 <br><br>
 </body>

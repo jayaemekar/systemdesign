@@ -30,18 +30,18 @@ Proximity servers are used to find nearby attractions such as venues, events, an
     <br><br>
     <h2>Hints to solve the problem</h2>
 
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#scale-estimation" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Consider System APIs. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#system-apis" target="_blank">3. Consider System APIs. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#database-design" target="_blank">4. How do you create a database system? </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#database-schema" target="_blank">4. How do you create a database system? </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#data-partitioning" target="_blank">5. What about data replication and partitioning?</a>
     <br>
     <br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningYelporNearbyFriends/#cache" target="_blank">6.  Consider Cache and Load Balancing </a>
     <br>
 <br><br>
 </body>
