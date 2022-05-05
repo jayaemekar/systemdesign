@@ -20,11 +20,11 @@ Design a URL shortening service like TinyURL. This service will provide short al
 
     <h1>Hints to solve the problem</h1>
 
-    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Think about functional Non functional Requirements. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#requirements-and-goals-of-the-system" target="_blank">1. Think about functional Non functional Requirements. </a>
     <br>
-    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#capacity-estimation-and-constraints" target="_blank">2. Capacity Estimation and Constraints like traffic, bandwidth and stroage estimates. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#capacity-estimation-and-constraints">2. Capacity Estimation and Constraints like traffic, bandwidth and stroage estimates. </a>
     <br>
-    <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#system-apis" target="_blank">3. Think about System API's. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningURLShorteningService/#system-apis" target="_blank">3. Think about System API's. </a>
     <br>
     <a href="http://127.0.0.1:8000/DesigningURLShorteningService/#database-design" target="_blank">4. What about database system design </a>
     <br>

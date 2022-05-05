@@ -2,7 +2,19 @@
 
 URL : https://jayaemekar.github.io/systemdesign/ 
 
-The process of defining the architecture, interfaces, and data for a system to meet specified criteria is referred to as system design.
+## Motivation
+
+- Learn how to design large-scale systems.
+- Prep for the system design interview.
+
+## Learn how to design large-scale systems
+Learning how to design scalable systems will help you become a better engineer.
+
+System design is a broad topic. There is a vast amount of resources scattered throughout the web on system design principles.
+
+This repo is an organized collection of resources to help you learn how to build systems at scale.
+
+**The process of defining the architecture, interfaces, and data for a system to meet specified criteria is referred to as system design.**
 
 When constructing a huge system, there are a few considerations to keep in mind:
 

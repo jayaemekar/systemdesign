@@ -36,11 +36,11 @@ If you haven't used pastebin.com before, you should try making a new 'Paste' the
 
     <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#requirements-and-goals-of-the-system" target="_blank">1. Consider functional and non-functional requirements. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#capacity-estimation-and-constraints" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#some-design-considerations" target="_blank">2. Estimation of capacity and constraints, such as traffic, bandwidth, and storage. </a>
     <br><br>
     <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#system-apis" target="_blank">3. Consider System APIs. </a>
     <br><br>
-    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#database-design" target="_blank">4. How do you create a database system? </a>
+    <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#component-design" target="_blank">4. How do you create a database system? </a>
     <br><br>
     <a href="https://jayaemekar.github.io/systemdesign/DesigningPastebin/#data-partitioning-and-replication" target="_blank">5. What about data replication and partitioning?</a>
     <br>
@@ -239,14 +239,14 @@ We can divide our datastore layer into two:
 </p>
 
 
-### 9. Purging or DB Cleanup
+### Purging or DB Cleanup
 Please see Designing a URL Shortening service.
 
-### 10. Data Partitioning and Replication
+### Data Partitioning and Replication
 Please see Designing a URL Shortening service.
 
-### 11. Cache and Load Balancer
+### Cache and Load Balancer
 Please see Designing a URL Shortening service.
 
-### 12. Security and Permissions
+### Security and Permissions
 Please see Designing a URL Shortening service.
