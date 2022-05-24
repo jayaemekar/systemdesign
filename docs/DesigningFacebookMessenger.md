@@ -22,7 +22,7 @@ Facebook Messenger is a software application that allows users to send text-base
 	<meta name="description" content="X-Frame-Bypass: Web Component extending IFrame to bypass X-Frame-Options: deny/sameorigin">
 </head>
 <body>
-    <a href="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" target="_blank">Pratice on full Screen</a>
+    <a href="https://jayaemekar.github.io/praticedesign/" target="_blank">Pratice on full Screen</a>
     <br><br>
 	<iframe is="x-frame-bypass" src="https://ej2.syncfusion.com/showcase/angular/diagrambuilder/" width="725" height="500"></iframe>
 
